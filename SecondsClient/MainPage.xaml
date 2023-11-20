@@ -2,13 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SecondsClient.MainPage">
-    <Grid RowDefinitions="*,*,*,*,*,*">
-        <Label x:Name="ScoreLabel" Grid.Row="0" Text="ScoreLabel" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
-        <Label x:Name="ReserveLabel" Grid.Row="1" Text="ReserveLabel"   HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
-        <Label x:Name="TargetTimeLabel" Grid.Row="2" Text="TargetTimeLabel" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
-        <Label x:Name="ActualTimeLabel" Grid.Row="3" Text="ActualTimeLabel" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
-        <Button x:Name="StopButton" Grid.Row="4" Text="StopButton" ></Button>
-        <Label x:Name = "AdvertLabel" Grid.Row="5" Text="AdvertLabel" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+    <Grid RowDefinitions="*,*,*,*,*,*,*">
+        <Label x:Name="ScoreLabel" Grid.Row="0" Text="{Binding Score,StringFormat='Score:{0}'}"></Label>
+        <Label x:Name="ReserveLabel" Grid.Row="1" Text="{Binding Reserve,StringFormat='Reserve:{0} seconds'}"></Label>
+        <Label x:Name="TargetTimeLabel" Grid.Row="2" Text="{Binding TargetTime,StringFormat='Target:{0:,0;0;--} seconds'}" ></Label>
+        <Label x:Name="ActualTimeLabel" Grid.Row="3" Text="{Binding ActualTime,StringFormat='Result:{0} seconds'}" ></Label>
+        <Button x:Name="StopButton" Grid.Row="4" Text="Stop"  Command="{Binding StopCommand}" IsEnabled="{Binding StopIsEnabled}" ></Button>
+        <Button x:Name="PlayButton" Grid.Row="5" Text="Play"  Command="{Binding PlayCommand}" IsEnabled="{Binding PlayIsEnabled}" ></Button>
+        <Label x:Name = "AdvertLabel" Grid.Row="6" Text="AdvertLabel"></Label>
     </Grid>
 
 </ContentPage>

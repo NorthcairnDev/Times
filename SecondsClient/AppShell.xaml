@@ -8,7 +8,7 @@
     Title="SecondsClient">
 
     <ShellContent
-        Title="Home"
+        Title="Seconds"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
