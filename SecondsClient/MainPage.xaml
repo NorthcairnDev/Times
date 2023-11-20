@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SecondsClient.MainPage">
+    <Grid RowDefinitions="*,*,*,*,*,*">
+        <Label x:Name="ScoreLabel" Grid.Row="0" Text="ScoreLabel" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+        <Label x:Name="ReserveLabel" Grid.Row="1" Text="ReserveLabel"   HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+        <Label x:Name="TargetTimeLabel" Grid.Row="2" Text="TargetTimeLabel" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+        <Label x:Name="ActualTimeLabel" Grid.Row="3" Text="ActualTimeLabel" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+        <Button x:Name="StopButton" Grid.Row="4" Text="StopButton" ></Button>
+        <Label x:Name = "AdvertLabel" Grid.Row="5" Text="AdvertLabel" HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"></Label>
+    </Grid>
+
+</ContentPage>
