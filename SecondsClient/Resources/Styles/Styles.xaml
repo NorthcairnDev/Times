@@ -47,6 +47,7 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+        <Setter Property="Margin" Value="20" />
     </Style>
 
     <Style TargetType="CheckBox">
@@ -179,6 +180,7 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+        <Setter Property="Margin" Value="20" />
     </Style>
 
     <Style TargetType="Span">

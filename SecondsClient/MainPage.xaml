@@ -2,14 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SecondsClient.MainPage">
-    <Grid RowDefinitions="*,*,*,*,*,*,*">
+    <Grid RowDefinitions="*,*,*,*,*,*,*,*">
         <Label x:Name="ScoreLabel" Grid.Row="0" Text="{Binding Score,StringFormat='Score:{0}'}"></Label>
-        <Label x:Name="ReserveLabel" Grid.Row="1" Text="{Binding Reserve,StringFormat='Reserve:{0} seconds'}"></Label>
-        <Label x:Name="TargetTimeLabel" Grid.Row="2" Text="{Binding TargetTime,StringFormat='Target:{0:,0;0;--} seconds'}" ></Label>
-        <Label x:Name="ActualTimeLabel" Grid.Row="3" Text="{Binding ActualTime,StringFormat='Result:{0} seconds'}" ></Label>
-        <Button x:Name="StopButton" Grid.Row="4" Text="Stop"  Command="{Binding StopCommand}" IsEnabled="{Binding StopIsEnabled}" ></Button>
-        <Button x:Name="PlayButton" Grid.Row="5" Text="Play"  Command="{Binding PlayCommand}" IsEnabled="{Binding PlayIsEnabled}" ></Button>
-        <Label x:Name = "AdvertLabel" Grid.Row="6" Text="AdvertLabel"></Label>
+        <!--<Label x:Name="ReserveLabel" Grid.Row="1" Text="{Binding Reserve,StringFormat='{0} secs'}"></Label>-->
+        <ProgressBar x:Name="ReserveProgress" Grid.Row="2" Progress="{Binding ReserveProgress}" ScaleY="5" Margin="20" IsVisible="{Binding ReserveIsVisible}"/>
+
+        <Label x:Name="TargetLabel" Grid.Row="3" Text="{Binding TargetTime}" FontSize="48"  IsVisible="{Binding TargetIsVisible}"></Label>
+
+        <Button x:Name="PlayButton" Grid.Row="3" Grid.RowSpan="1"  Text="{Binding PlayText}" 
+             Command="{Binding PlayCommand}" 
+             IsEnabled="{Binding PlayIsEnabled}" 
+             Opacity="{Binding PlayIsEnabled}">
+        </Button>
+
+        <ActivityIndicator x:Name="PauseIndicator" Grid.Row="3"  IsRunning="True" IsVisible="{Binding PauseIsVisible}"></ActivityIndicator>
+
+        <!--<Label x:Name="AcuraccyLabel" Grid.Row="4" Text="{Binding Accuracy,StringFormat='{0} seconds'}" ></Label>-->
+        <Button x:Name="StopButton" Grid.Row="5" 
+                Text="{Binding StopText}"  
+                Command="{Binding StopCommand}" 
+                IsEnabled="{Binding StopIsEnabled}"
+                IsVisible="{Binding StopIsVisible}"
+                BorderWidth="2"
+                BorderColor="Black"
+                BackgroundColor="White" 
+                TextColor="Black">
+        </Button>
+
+      
+        <Label x:Name = "AdvertLabel" Grid.Row="7" Text="AdvertLabel"></Label>
     </Grid>
 
 </ContentPage>
