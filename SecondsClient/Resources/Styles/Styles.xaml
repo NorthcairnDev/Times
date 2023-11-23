@@ -350,7 +350,7 @@
         <Setter Property="OnColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="ThumbColor" Value="{StaticResource White}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
-            <VisualStateGroupList>
+          <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
@@ -373,6 +373,8 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+        <!--<Setter Property="HorizontalOptions" Value="LayoutOptions.Center" />
+        <Setter Property="VerticalOptions" Value="LayoutOptions.Center" />-->
     </Style>
 
     <Style TargetType="TimePicker">
