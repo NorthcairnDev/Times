@@ -1,15 +1,9 @@
-﻿using Google.Android.Material.Color.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecondsClient.Models
+﻿namespace SecondsClient.Models
 {
     class Game
     {
-        public int HighScore {
+        public int HighScore
+        {
             get => Preferences.Default.Get<int>("HighScore", 0);
             set => Preferences.Default.Set<int>("HighScore", HighScore);
         }
@@ -19,50 +13,46 @@ namespace SecondsClient.Models
             get; set;
         }
 
-        public DateTime StartTime
-        {
-            get; set;
-        }
-
-        public DateTime EndTime
-        {
-            get; set;
-        }
-
-
-        public int TargetSeconds
-        {
-            get; set;
-        }
-
-        public double Accuracy
-        {
-            get => ((EndTime - StartTime).TotalSeconds) - TargetSeconds;
-        }
-
-
-
         public double Reserve
         {
             get; set;
         }
 
-        public Game() 
-        { Score = 0; }
-
-
         public readonly double InitalReserve = 5;
 
-        public void ResetGame() 
+        public List<Round> Rounds
+        {
+            get;
+        }
+
+        public Round? Round
+        {
+            get;
+            set;
+        }
+
+
+
+        public Game()
+        {
+            Rounds = [];
+            Round = new Round();
+            ResetGame();
+        }
+
+        public void ResetGame()
         {
             Reserve = 5;
             Score = 0;
-            NewTargetSeconds();
+            Rounds.Clear();
+            Reserve = InitalReserve;
         }
-        public void Stopped() 
+        public void RoundOver()
         {
-            EndTime = DateTime.UtcNow;
-            Reserve -= Math.Abs(Accuracy);
+                       
+            Round.EndTime = DateTime.UtcNow;
+            Rounds.Add(Round);
+            Reserve -= Math.Abs(Round.Accuracy.Value.TotalSeconds);
 
             if (Reserve < 0)
             {
@@ -74,18 +64,12 @@ namespace SecondsClient.Models
 
         }
 
-        private bool IsGameOver()
-        {
-            return Reserve - Math.Abs(Accuracy) < 0;
-
-        }
 
         private void GameOver()
         {
             HighScoreUpdate();
-                       
-        }
 
+        }
 
         private void HighScoreUpdate()
         {
@@ -93,9 +77,10 @@ namespace SecondsClient.Models
         }
 
 
-    public void NewTargetSeconds()
+        public void NewRound()
         {
-            TargetSeconds = new Random().Next(1, 6);
+            Round = new Round();
+            
         }
     }
 }
