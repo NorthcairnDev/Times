@@ -1,11 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
+using SecondsClient.Models;
 using System.Text;
-using System.Threading.Tasks;
 
 
 namespace SecondsClient.ViewModels
@@ -13,10 +9,10 @@ namespace SecondsClient.ViewModels
     partial class MainViewModel : ObservableObject
     {
         [ObservableProperty]
-        private int _ScoreLabelText;
+        private string? _ScoreLabelText;
         
         [ObservableProperty]
-        private int _highScoreLabelText;
+        private string? _highScoreLabelText;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UnitsLabelText))]
@@ -24,7 +20,7 @@ namespace SecondsClient.ViewModels
 
 
         [ObservableProperty]
-        private decimal _reserveProgressProgressBar;
+        private double _reserveProgressProgressBar;
         [ObservableProperty]
         private bool _reserveProgressBarIsVisible;
 
@@ -38,7 +34,7 @@ namespace SecondsClient.ViewModels
         private bool _pauseActivityIndicatorIsVisible;
 
         [ObservableProperty]
-        private int _targetSecondsLabelText;
+        private string? _targetSecondsLabelText;
         [ObservableProperty]
         private bool _targetSecondsLabelIsVisible;
 
@@ -61,65 +57,65 @@ namespace SecondsClient.ViewModels
         private string? _stopButtonText;
 
 
-        private decimal _reserve = 5;
-        private decimal _accuracy = 0;
-        private DateTime _startTime;
-        private DateTime _endTime;
-        private Decimal _closenessTarget;
+        private Game _game; 
 
         public string UnitsLabelText => EasyModeSwitchIsToggled ? "Mississippis": "Seconds";
 
         public MainViewModel()
         {
-            SetInitialState();
+            _game = new Game();
+            SetInitialViewState();
            
         }
 
-        private void SetInitialState()
+             
+        private void SetInitialViewState()
         {
-           ScoreLabelText = 0;
-           HighScoreLabelText = Preferences.Default.Get<int>("HighScore", 0);
-           ReserveProgressProgressBar = 1;
-           ReserveProgressBarIsVisible = false;         
-           FinalScoreLabelText = String.Empty;  
-           FinalScoreLabelIsVisible = false;
-           PauseActivityIndicatorIsVisible = false;
-           TargetSecondsLabelText = 0;
-           TargetSecondsLabelIsVisible = false;
-           UnitsLabelIsVisible = false;
-           PlayButtonIsEnabled = true;
-           PlayButtonIsVisible = true;
-           PlayButtonText = "Play";
-           StopButtonIsEnabled = false;
-           StopButtonIsVisible = false;
-           StopButtonText = String.Empty;
+            ScoreLabelText = _game.Score.ToString();
+            HighScoreLabelText = _game.HighScore.ToString();
+            ReserveProgressProgressBar = 1;
+            ReserveProgressBarIsVisible = false;         
+            FinalScoreLabelText = String.Empty;  
+            FinalScoreLabelIsVisible = false;
+            PauseActivityIndicatorIsVisible = false;
+            TargetSecondsLabelText = String.Empty;
+            TargetSecondsLabelIsVisible = false;
+            UnitsLabelIsVisible = false;
+            PlayButtonIsEnabled = true;
+            PlayButtonIsVisible = true;
+            PlayButtonText = "Play";
+            StopButtonIsEnabled = false;
+            StopButtonIsVisible = false;
+            StopButtonText = String.Empty;
         }
 
 
-        private void SetPlayInitalState()
+
+        [RelayCommand]
+        private async Task Play()
+        {
+            _game.ResetGame();
+            SetPlayInitalViewState();
+            await Task.Delay(1500);
+
+            _game.StartTime = DateTime.UtcNow;
+            SetPlayPlayingState();
+
+        }
+        private void SetPlayInitalViewState()
         {
             PlayButtonIsEnabled = false;
             PlayButtonIsVisible = false;
             FinalScoreLabelIsVisible = false;
-            ReserveProgressProgressBar = 1;
+            TargetSecondsLabelIsVisible = false;
+            ReserveProgressProgressBar = _game.Reserve/_game.InitalReserve;
             ReserveProgressBarIsVisible = true;
             StopButtonIsEnabled = true;
             UnitsLabelIsVisible = false;
-            ScoreLabelText = 0;
-            TargetSecondsLabelText = 0;
-            HighScoreLabelText = Preferences.Default.Get<int>("HighScore", 0);
-            _reserve = 5;
-            _accuracy = 0;
-           
-        }
-
-        private  async Task SetPlayGetReadyState()
-        {
+            ScoreLabelText = _game.Score.ToString();
+            HighScoreLabelText = _game.HighScore.ToString();
             PauseActivityIndicatorIsVisible = true;
-            await Task.Delay(1500);
-
         }
-
         private void SetPlayPlayingState()
         {
             TargetSecondsLabelIsVisible = true;
@@ -127,38 +123,20 @@ namespace SecondsClient.ViewModels
             UnitsLabelIsVisible = true;
             StopButtonText = "Stop";
             StopButtonIsVisible = true;
-            _startTime = DateTime.UtcNow;
-            TargetSecondsLabelText = new Random().Next(1, 6);
-
+            TargetSecondsLabelText = _game.TargetSeconds.ToString();
         }
 
-   
-
-
-        [RelayCommand]
-        private async Task Play()
-        {
-           SetPlayInitalState();
-           await SetPlayGetReadyState();
-            SetPlayPlayingState();
-
-
-        }
+  
 
         [RelayCommand]
         private async Task Stop()
         {
-         
-            _endTime = DateTime.UtcNow;
+            _game.Stopped();
+                                    
 
-
-            _accuracy = ((decimal)(_endTime - _startTime).TotalSeconds) - TargetSecondsLabelText;
-            _closenessTarget = Math.Abs(TargetSecondsLabelText - Math.Round((decimal)(_endTime - _startTime).TotalSeconds, 2));
-            
-
-            if   ((_reserve - _closenessTarget) < 0)
+            if (_game.Reserve<0)
             {
-                _reserve = 0;
+                HighScoreLabelText = _game.HighScore.ToString();
                 ReserveProgressProgressBar = 0;
                 StopButtonIsEnabled = false;
                 StopButtonIsVisible = false;
@@ -167,62 +145,53 @@ namespace SecondsClient.ViewModels
                 PlayButtonIsEnabled = true;
                 TargetSecondsLabelIsVisible = false;
                 UnitsLabelIsVisible = false;
-
-                if  (Preferences.Default.Get<int>("HighScore", 0) < ScoreLabelText)
-                {
-                    Preferences.Default.Set<int>("HighScore", ScoreLabelText);
-                    HighScoreLabelText = ScoreLabelText;
-                }
-
-                FinalScoreLabelIsVisible =true;
-                FinalScoreLabelText =  "Game Over \n Score is " + ScoreLabelText;
+                FinalScoreLabelIsVisible = true;
+                FinalScoreLabelText = "Game Over \n Score is " + ScoreLabelText;
 
                 StringBuilder stringBuilder = new();
-
                 stringBuilder.Append("Play Again?");
-               
-
                 PlayButtonText = stringBuilder.ToString();
+                return;
+            }
 
+             
+            ReserveProgressProgressBar = _game.Reserve / _game.InitalReserve;
+            ScoreLabelText = _game.Score.ToString();
+
+            StopButtonIsEnabled = false;
+
+            if (_game.Accuracy >= 0)
+            {
+                StopButtonText = Math.Round(_game.Accuracy, 2).ToString() + " over";
             }
             else
             {
-                 
-
-                _reserve -= _closenessTarget;
-                ReserveProgressProgressBar = _reserve / 5;
-                ScoreLabelText++;
-
-                TargetSecondsLabelText = 0;
-                StopButtonIsEnabled = false;
-                
-                if (_accuracy >= 0 )
-                {
-                    StopButtonText = Math.Round(_accuracy, 2).ToString() + " over";                                    
-                }
-                else
-                { 
-                    StopButtonText = Math.Abs(Math.Round(_accuracy, 2)).ToString() + " under"; 
-                }
+                StopButtonText = Math.Abs(Math.Round(_game.Accuracy, 2)).ToString() + " under";
+            }
 
 
-                TargetSecondsLabelIsVisible = false;
-                UnitsLabelIsVisible = false;
-                PauseActivityIndicatorIsVisible = true;
-                await Task.Delay(1500);
-                PauseActivityIndicatorIsVisible = false;
-                UnitsLabelIsVisible = true;
-                TargetSecondsLabelIsVisible = true;
-                StopButtonText = "Stop";
-                StopButtonIsEnabled = true;
-                TargetSecondsLabelText = new Random().Next(1, 5);
-                _startTime = DateTime.UtcNow;
+            TargetSecondsLabelIsVisible = false;
+            UnitsLabelIsVisible = false;
+            PauseActivityIndicatorIsVisible = true;
+            await Task.Delay(1500);
+            PauseActivityIndicatorIsVisible = false;
+            UnitsLabelIsVisible = true;
+            TargetSecondsLabelIsVisible = true;
+            StopButtonText = "Stop";
+            StopButtonIsEnabled = true;
+            _game.NewTargetSeconds();
+            TargetSecondsLabelText = _game.TargetSeconds.ToString();
+            _game.StartTime = DateTime.UtcNow;
 
-            };
-
-   
         }
+
+        private bool IsGameOver()
+        {
+            return _game.Reserve - Math.Abs(_game.Accuracy) < 0;
+        }
+
+    }
 
 
     }
-}
+
