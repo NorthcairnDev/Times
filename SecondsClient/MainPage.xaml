@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="SecondsClient.MainPage">
     <Grid RowDefinitions="1.2*,*,*,*,*,*">
         <Grid Grid.Row="0"  RowDefinitions="*,*" ColumnDefinitions="*,*,*">
@@ -39,10 +40,19 @@
                IsVisible="{Binding FinalScoreLabelIsVisible}"/>
 
         <ProgressBar x:Name="ReserveProgressBar" Grid.Row="1" 
-                     Progress="{Binding ReserveProgressProgressBar}" 
-                     ScaleY="5" 
-                     Margin="20" 
-                     IsVisible="{Binding ReserveProgressBarIsVisible}"/>
+                    ScaleY="5" 
+                    Margin="20" 
+                    IsVisible="{Binding ReserveProgressBarIsVisible}">
+            
+            <ProgressBar.Behaviors>
+                <toolkit:ProgressBarAnimationBehavior
+                    x:Name="ProgressBarAnimationBehavior"
+                    Progress="{Binding ReserveProgressProgressBar}" 
+                    Length="250"
+                    />
+            </ProgressBar.Behaviors>
+
+        </ProgressBar>
 
         <Label x:Name="TargetSecondsLabel" Grid.Row="2" 
                Text="{Binding RoundTargetInSecondsLabelText}" 
@@ -80,7 +90,7 @@
                Text="{Binding ReportLabelText}"
                IsVisible="{Binding ReportLabelVisible}" 
                VerticalTextAlignment="Start"
-               IsEnabled="False" />
+                />
         </ScrollView>
 
 

@@ -42,9 +42,9 @@ namespace SecondsClient.Models
             {
                 switch (Math.Abs(Accuracy.Value.TotalMilliseconds))
                 {
-                    case < 100
-                    : return LevelsOfAccuracy.VeryClose;
                     case < 250
+                    : return LevelsOfAccuracy.VeryClose;
+                    case < 500
                     : return LevelsOfAccuracy.Close;
                     default:
                         return LevelsOfAccuracy.Distant;
