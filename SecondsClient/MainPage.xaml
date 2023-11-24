@@ -87,7 +87,7 @@
 
         <ScrollView  Grid.Row="3" Grid.RowSpan="1">
             <Label x:Name="ReportLabel"
-               Text="{Binding ReportLabelText}"
+               FormattedText="{Binding ReportLabelFormattedText}"
                IsVisible="{Binding ReportLabelVisible}" 
                VerticalTextAlignment="Start"
                 />

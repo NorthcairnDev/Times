@@ -59,7 +59,7 @@ namespace SecondsClient.ViewModels
         [ObservableProperty]
         private string? _stopButtonText;
         [ObservableProperty]
-        private string? _reportLabelText;
+        private FormattedString? _reportLabelFormattedText;
         [ObservableProperty]
         private bool _reportLabelVisible;
 
@@ -95,7 +95,7 @@ namespace SecondsClient.ViewModels
             StopButtonIsEnabled = false;
             StopButtonIsVisible = false;
             StopButtonText = String.Empty;
-            ReportLabelText = String.Empty;
+            ReportLabelFormattedText = String.Empty;
             ReportLabelVisible = false;
         }
 
@@ -127,7 +127,7 @@ namespace SecondsClient.ViewModels
             PauseActivityIndicatorColor = Colors.Blue;
             PauseActivityIndicatorIsVisible = true;
             ReportLabelVisible = false;
-            ReportLabelText = String.Empty;
+            ReportLabelFormattedText = String.Empty;
         }
         private void SetPlayPlayingState()
         {
@@ -159,24 +159,65 @@ namespace SecondsClient.ViewModels
                 RoundTargetInSecondsLabelIsVisible = false;
                 UnitsLabelIsVisible = false;
                 FinalScoreLabelIsVisible = true;
-                FinalScoreLabelText = "Game Over \n Score is " + ScoreLabelText;
+                FinalScoreLabelText = "Game Over";
 
                 StringBuilder stringBuilder = new();
                 stringBuilder.Append("Play Again?");
                 PlayButtonText = stringBuilder.ToString();
 
-                ReportLabelText = String.Empty;
+                ReportLabelFormattedText = String.Empty;
                 
                 var report =new StringBuilder();
+                var formattedReport = new FormattedString();
 
                 foreach (Round round in _game.Rounds)
                 {
-
-
+                    report.Append((_game.Rounds.IndexOf(round)+1).ToString());
+                    report.Append(" -> ");
+                    report.Append(round.TargetInSeconds.Value.TotalSeconds.ToString());
+                    report.Append(" -> ");
                     var reportaccuracy = (decimal)round.Accuracy.Value.TotalSeconds;
-                    report.AppendLine(Math.Round(reportaccuracy, 2).ToString());
+                    report.Append(Math.Round(reportaccuracy, 2).ToString());
+                    report.AppendLine();
+
+                    switch (round.AccuracyLevel)
+                    {
+                        case Round.LevelsOfAccuracy.VeryClose
+                :
+                            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Green });
+
+                            break;
+                        case Round.LevelsOfAccuracy.Close
+                :
+                            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Green });
+
+                            break;
+                        default
+                :
+                            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Red });
+
+                            break;
+                           
+
+                    }
+
+                    report.Clear();
+
+
+                    //FormattedString formattedString = new FormattedString();
+                    //formattedString.Spans.Add(new Span { Text = "Red bold, ", TextColor = Colors.Red, FontAttributes = FontAttributes.Bold });
+
+                    //Span span = new Span { Text = "default, " };
+                    //span.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(async () => await DisplayAlert("Tapped", "This is a tapped Span.", "OK")) });
+                    //formattedString.Spans.Add(span);
+                    //formattedString.Spans.Add(new Span { Text = "italic small.", FontAttributes = FontAttributes.Italic, FontSize = 14 });
+
+                    //Label label = new Label { FormattedText = formattedString };
+
+
+
                 }
-                ReportLabelText = report.ToString();
+                ReportLabelFormattedText = formattedReport;
                 ReportLabelVisible = true;
 
                 return;
