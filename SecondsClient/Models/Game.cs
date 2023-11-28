@@ -5,7 +5,7 @@
         public int HighScore
         {
             get => Preferences.Default.Get<int>("HighScore", 0);
-            set => Preferences.Default.Set<int>("HighScore", HighScore);
+            set => Preferences.Default.Set<int>("HighScore", value);
         }
 
         public int Score

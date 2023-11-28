@@ -46,13 +46,27 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\icons8circledplay96a.png" />
+	  <MauiImage Remove="Resources\Images\icons8stopsquared96a.png" />
+	  <MauiImage Remove="Resources\Images\icons8_number_32_a.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\icons8circledplay96a.png" />
+	  <None Remove="Resources\Images\icons8stopsquared96a.png" />
+	  <None Remove="Resources\Images\icons8_number_32_a.png" />
+	  <None Remove="Resources\Images\pausebutton.svg" />
+	  <None Remove="Resources\Images\playbutton.svg" />
+	  <None Remove="Resources\Images\stopbutton.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

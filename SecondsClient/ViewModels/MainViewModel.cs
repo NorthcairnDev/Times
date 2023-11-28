@@ -45,6 +45,13 @@ namespace SecondsClient.ViewModels
         private bool _unitsLabelIsVisible;
 
         [ObservableProperty]
+        private string _accuracyLabelText;
+
+        [ObservableProperty]
+        private bool _accuracyLabelIsVisible;
+
+
+        [ObservableProperty]
         private bool _playButtonIsEnabled;
         [ObservableProperty]
         private bool _playButtonIsVisible = true;
@@ -58,6 +65,8 @@ namespace SecondsClient.ViewModels
         private bool _stopButtonIsVisible;
         [ObservableProperty]
         private string? _stopButtonText;
+        [ObservableProperty]
+        private string? _stopButtonImageSource;
         [ObservableProperty]
         private FormattedString? _reportLabelFormattedText;
         [ObservableProperty]
@@ -91,7 +100,7 @@ namespace SecondsClient.ViewModels
             UnitsLabelIsVisible = false;
             PlayButtonIsEnabled = true;
             PlayButtonIsVisible = true;
-            PlayButtonText = "Play";
+            PlayButtonText = string.Empty;
             StopButtonIsEnabled = false;
             StopButtonIsVisible = false;
             StopButtonText = String.Empty;
@@ -122,7 +131,8 @@ namespace SecondsClient.ViewModels
             ReserveProgressBarIsVisible = true;
             StopButtonIsEnabled = true;
             UnitsLabelIsVisible = false;
-            ScoreLabelText = _game.Score.ToString();
+            AccuracyLabelIsVisible = false;
+            StopButtonImageSource = "pausebutton.svg";
             HighScoreLabelText = _game.HighScore.ToString();
             PauseActivityIndicatorColor = Colors.Blue;
             PauseActivityIndicatorIsVisible = true;
@@ -133,8 +143,9 @@ namespace SecondsClient.ViewModels
         {
             RoundTargetInSecondsLabelIsVisible = true;
             PauseActivityIndicatorIsVisible = false;
+            AccuracyLabelIsVisible = false;
             UnitsLabelIsVisible = true;
-            StopButtonText = "Stop";
+            StopButtonImageSource = "stopbutton.svg";
             StopButtonIsVisible = true;
             RoundTargetInSecondsLabelText = _game.Round.TargetInSeconds.Value.Seconds.ToString();
 
@@ -158,67 +169,68 @@ namespace SecondsClient.ViewModels
                 PlayButtonIsEnabled = true;
                 RoundTargetInSecondsLabelIsVisible = false;
                 UnitsLabelIsVisible = false;
+                AccuracyLabelIsVisible = false;
                 FinalScoreLabelIsVisible = true;
                 FinalScoreLabelText = "Game Over";
 
-                StringBuilder stringBuilder = new();
-                stringBuilder.Append("Play Again?");
-                PlayButtonText = stringBuilder.ToString();
+                //StringBuilder stringBuilder = new();
+                //stringBuilder.Append("Play Again?");
+                PlayButtonText = String.Empty;
 
-                ReportLabelFormattedText = String.Empty;
+                //ReportLabelFormattedText = String.Empty;
                 
-                var report =new StringBuilder();
-                var formattedReport = new FormattedString();
+                //var report =new StringBuilder();
+                //var formattedReport = new FormattedString();
 
-                foreach (Round round in _game.Rounds)
-                {
-                    report.Append((_game.Rounds.IndexOf(round)+1).ToString());
-                    report.Append(" -> ");
-                    report.Append(round.TargetInSeconds.Value.TotalSeconds.ToString());
-                    report.Append(" -> ");
-                    var reportaccuracy = (decimal)round.Accuracy.Value.TotalSeconds;
-                    report.Append(Math.Round(reportaccuracy, 2).ToString());
-                    report.AppendLine();
+                //foreach (Round round in _game.Rounds)
+                //{
+                //    report.Append((_game.Rounds.IndexOf(round)+1).ToString());
+                //    report.Append(" -> ");
+                //    report.Append(round.TargetInSeconds.Value.TotalSeconds.ToString());
+                //    report.Append(" -> ");
+                //    var reportaccuracy = (decimal)round.Accuracy.Value.TotalSeconds;
+                //    report.Append(Math.Round(reportaccuracy, 2).ToString());
+                //    report.AppendLine();
 
-                    switch (round.AccuracyLevel)
-                    {
-                        case Round.LevelsOfAccuracy.VeryClose
-                :
-                            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Green });
+                //    switch (round.AccuracyLevel)
+                //    {
+                //        case Round.LevelsOfAccuracy.VeryClose
+                //:
+                //            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Green });
 
-                            break;
-                        case Round.LevelsOfAccuracy.Close
-                :
-                            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Green });
+                //            break;
+                //        case Round.LevelsOfAccuracy.Close
+                //:
+                //            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Green });
 
-                            break;
-                        default
-                :
-                            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Red });
+                //            break;
+                //        default
+                //:
+                //            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Red });
 
-                            break;
+                //            break;
                            
 
-                    }
+                //    }
 
-                    report.Clear();
-
-
-                    //FormattedString formattedString = new FormattedString();
-                    //formattedString.Spans.Add(new Span { Text = "Red bold, ", TextColor = Colors.Red, FontAttributes = FontAttributes.Bold });
-
-                    //Span span = new Span { Text = "default, " };
-                    //span.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(async () => await DisplayAlert("Tapped", "This is a tapped Span.", "OK")) });
-                    //formattedString.Spans.Add(span);
-                    //formattedString.Spans.Add(new Span { Text = "italic small.", FontAttributes = FontAttributes.Italic, FontSize = 14 });
-
-                    //Label label = new Label { FormattedText = formattedString };
+                //    report.Clear();
 
 
+                //    //FormattedString formattedString = new FormattedString();
+                //    //formattedString.Spans.Add(new Span { Text = "Red bold, ", TextColor = Colors.Red, FontAttributes = FontAttributes.Bold });
 
-                }
-                ReportLabelFormattedText = formattedReport;
-                ReportLabelVisible = true;
+                //    //Span span = new Span { Text = "default, " };
+                //    //span.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(async () => await DisplayAlert("Tapped", "This is a tapped Span.", "OK")) });
+                //    //formattedString.Spans.Add(span);
+                //    //formattedString.Spans.Add(new Span { Text = "italic small.", FontAttributes = FontAttributes.Italic, FontSize = 14 });
+
+                //    //Label label = new Label { FormattedText = formattedString };
+
+
+
+                //}
+                //ReportLabelFormattedText = formattedReport;
+                //ReportLabelVisible = true;
 
                 return;
             }
@@ -235,23 +247,26 @@ namespace SecondsClient.ViewModels
 
             if(accuracy >= 0)
             {
-                StopButtonText = Math.Round(accuracy, 2).ToString() + " over";
+                AccuracyLabelText = Math.Round(accuracy, 2).ToString() + " over";
             }
             else
             {
-                StopButtonText = Math.Abs(Math.Round(accuracy, 2)).ToString() + " under";
+                AccuracyLabelText = Math.Abs(Math.Round(accuracy, 2)).ToString() + " under";
             }
 
 
             RoundTargetInSecondsLabelIsVisible = false;
             UnitsLabelIsVisible = false;
+            AccuracyLabelIsVisible = true;
             PauseActivityIndicatorIsVisible = true;
+            StopButtonImageSource = "pausebutton.svg";
             PauseActivityIndicatorColor = AccuracyColor();
             await Task.Delay(1500);
             PauseActivityIndicatorIsVisible = false;
             UnitsLabelIsVisible = true;
+            AccuracyLabelIsVisible = false;
             RoundTargetInSecondsLabelIsVisible = true;
-            StopButtonText = "Stop";
+            StopButtonImageSource = "stopbutton.svg"; ;
             StopButtonIsEnabled = true;
             _game.NewRound();
             RoundTargetInSecondsLabelText = _game.Round.TargetInSeconds.Value.Seconds.ToString();

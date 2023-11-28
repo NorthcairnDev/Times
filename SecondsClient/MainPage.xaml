@@ -4,24 +4,36 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:controls="clr-namespace:Plugin.MauiMTAdmob.Controls;assembly=Plugin.MauiMTAdmob"
              x:Class="SecondsClient.MainPage">
-    <Grid RowDefinitions="1.2*,*,*,*,*,65">
-        <Grid Grid.Row="0"  RowDefinitions="*,*" ColumnDefinitions="*,*,*">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="ScoreGridRow" Height="60"/>
+            <RowDefinition x:Name="ProgressBarRow" Height="100"/>
+            <RowDefinition x:Name="RoundTargetSecondsRow" Height="*"/>
+            <RowDefinition x:Name="UnitsAndRoundResultRow" Height="200"/>
+            <RowDefinition x:Name="StopButtonRow" Height="150"/>
+            <RowDefinition x:Name="AdRow" Height="65"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0"  RowDefinitions="30,30" ColumnDefinitions="*,*,*">
             <Label x:Name="EasyModeTitleLabel" Grid.Row="0" Grid.Column="0"
                    Text="Easy Mode" 
-                   FontSize="14" 
-                   Padding="0" 
+                   FontSize="18" 
+                   Padding="0"
+                   Margin="0"
                    VerticalTextAlignment="Start" />
 
             <Label x:Name="ScoreTitleLabel" Grid.Row="0" Grid.Column="1" 
                    Text="Score"  
-                   FontSize="14" 
+                   FontSize="18" 
                    Padding="0" 
+                   Margin="0"
                    VerticalTextAlignment="Start"/>
 
             <Label x:Name="HighScoreTitleLabel" Grid.Row="0" Grid.Column="2"
                    Text="High"
-                   FontSize="14" 
+                   FontSize="18" 
                    Padding="0" 
+                   Margin="0"
                    VerticalTextAlignment="Start"/>
 
             <Switch x:Name="EasyModeSwitch" Grid.Row="1" Grid.Column="0" 
@@ -29,10 +41,16 @@
                     HorizontalOptions="Center" />
 
             <Label x:Name="ScoreLabel" Grid.Row="1" Grid.Column="1"  
-                   Text="{Binding ScoreLabelText}"/>
+                   Text="{Binding ScoreLabelText}"
+                   FontSize="18" 
+                   Padding="0" 
+                   Margin="0"/>
 
             <Label x:Name="HighScoreLabel" Grid.Row="1" Grid.Column="2"
-                   Text="{Binding HighScoreLabelText}"/>
+                   Text="{Binding HighScoreLabelText}"
+                   FontSize="18" 
+                   Padding="0" 
+                   Margin="0"/>
         </Grid>
 
         <Label x:Name="FinalScoreLabel" Grid.Row="1" 
@@ -43,6 +61,7 @@
         <ProgressBar x:Name="ReserveProgressBar" Grid.Row="1" 
                     ScaleY="5" 
                     Margin="20" 
+                    ProgressColor="Green"
                     IsVisible="{Binding ReserveProgressBarIsVisible}">
             
             <ProgressBar.Behaviors>
@@ -55,16 +74,21 @@
 
         </ProgressBar>
 
+
         <Label x:Name="TargetSecondsLabel" Grid.Row="2" 
                Text="{Binding RoundTargetInSecondsLabelText}" 
-               FontSize="48"  
-               IsVisible="{Binding RoundTargetInSecondsLabelIsVisible}"/>
+               FontSize="120"  
+               IsVisible="{Binding RoundTargetInSecondsLabelIsVisible}"
+               VerticalTextAlignment="Start"/>
 
-        <Button x:Name="PlayButton" Grid.Row="2" Grid.RowSpan="1"  
-             Text="{Binding PlayButtonText}"
+
+        <ImageButton x:Name="PlayButton" Grid.Row="2" Grid.RowSpan="1" MaximumHeightRequest="125"  MaximumWidthRequest="125"
+             BackgroundColor="White" 
+             Source="playbutton.svg"
              Command="{Binding PlayCommand}" 
              IsEnabled="{Binding PlayButtonIsEnabled}"
-             IsVisible="{Binding PlayButtonIsVisible}"/>
+             IsVisible="{Binding PlayButtonIsVisible}"
+                     />
 
         <ActivityIndicator x:Name="PauseActivityIndicator" Grid.Row="2"  
                            IsRunning="True"
@@ -76,15 +100,18 @@
                IsVisible="{Binding UnitsLabelIsVisible}" 
                VerticalTextAlignment="Start"/>
 
-        <Button x:Name="StopButton" Grid.Row="4" 
-                Text="{Binding StopButtonText}"  
+        <Label x:Name="AccuracyLabel" Grid.Row="3"
+               Text="{Binding AccuracyLabelText}"
+               IsVisible="{Binding AccuracyLabelIsVisible}" 
+               VerticalTextAlignment="Start"/>
+
+        <ImageButton x:Name="StopButton" Grid.Row="4" MaximumHeightRequest="125"
+                Source="{Binding StopButtonImageSource}"
                 Command="{Binding StopCommand}" 
                 IsEnabled="{Binding StopButtonIsEnabled}"
                 IsVisible="{Binding StopButtonIsVisible}"
-                BorderWidth="2"
-                BorderColor="Black"
-                BackgroundColor="White" 
-                TextColor="Black"/>
+                BackgroundColor="White" />
+
 
         <ScrollView  Grid.Row="3" Grid.RowSpan="1">
             <Label x:Name="ReportLabel"
