@@ -9,7 +9,12 @@ namespace SecondsClient
             InitializeComponent();
 
             BindingContext = new MainViewModel();
+
+
+
         }
+
+       
     }
 
 }

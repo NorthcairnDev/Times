@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
+using static SecondsClient.MainPage;
+using Plugin.MauiMTAdmob;
 
 namespace SecondsClient
 {
@@ -9,15 +12,14 @@ namespace SecondsClient
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiMTAdmob()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                })
+                .UseMauiCommunityToolkit();
 
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
 
             return builder.Build();
         }
