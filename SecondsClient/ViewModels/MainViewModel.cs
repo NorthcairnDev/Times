@@ -9,7 +9,7 @@ namespace SecondsClient.ViewModels
     partial class MainViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string? _ScoreLabelText;
+        private string? _scoreLabelText;
         
         [ObservableProperty]
         private string? _highScoreLabelText;
@@ -34,18 +34,24 @@ namespace SecondsClient.ViewModels
         private bool _pauseActivityIndicatorIsVisible;
 
         [ObservableProperty]
-        private Color _pauseActivityIndicatorColor;
+        private Color? _pauseActivityIndicatorColor;
+
+        //[ObservableProperty]
+        //private string? _roundTargetInSecondsLabelText;
+        //[ObservableProperty]
+        //private bool _roundTargetInSecondsLabelIsVisible;
 
         [ObservableProperty]
-        private string? _roundTargetInSecondsLabelText;
+        private string? _targetInSecondsImageSource;
         [ObservableProperty]
-        private bool _roundTargetInSecondsLabelIsVisible;
+        private bool _targetInSecondsImageIsVisible;
+
 
         [ObservableProperty]
         private bool _unitsLabelIsVisible;
 
         [ObservableProperty]
-        private string _accuracyLabelText;
+        private string? _accuracyLabelText;
 
         [ObservableProperty]
         private bool _accuracyLabelIsVisible;
@@ -74,207 +80,201 @@ namespace SecondsClient.ViewModels
 
 
 
-        private Game _game; 
-
+        private Game? _game;
+   
         public string UnitsLabelText => EasyModeSwitchIsToggled ? "Mississippis": "Seconds";
+
+        private enum GameState
+        {
+            AppStarted,
+            RoundStarting,
+            RoundActive,
+            RoundEnded,
+            GameOver,
+        }
 
         public MainViewModel()
         {
-            _game = new Game();
-            SetInitialViewState();
-           
-        }
 
-             
-        private void SetInitialViewState()
-        {
-            ScoreLabelText = _game.Score.ToString();
-            HighScoreLabelText = _game.HighScore.ToString();
-            ReserveProgressProgressBar = 1;
-            ReserveProgressBarIsVisible = false;         
-            FinalScoreLabelText = String.Empty;  
-            FinalScoreLabelIsVisible = false;
-            PauseActivityIndicatorIsVisible = false;
-            RoundTargetInSecondsLabelText = String.Empty;
-            RoundTargetInSecondsLabelIsVisible = false;
-            UnitsLabelIsVisible = false;
-            PlayButtonIsEnabled = true;
-            PlayButtonIsVisible = true;
-            PlayButtonText = string.Empty;
-            StopButtonIsEnabled = false;
-            StopButtonIsVisible = false;
-            StopButtonText = String.Empty;
-            ReportLabelFormattedText = String.Empty;
-            ReportLabelVisible = false;
-        }
+#if DEBUG
+            AppModel.HighScore = 0;
+#endif
+            TransitionTo(GameState.AppStarted);
 
+
+        }
 
 
         [RelayCommand]
-        private async Task Play()
+        private async Task StartGame() 
         {
-            _game.ResetGame();
-            SetPlayInitalViewState();
+            _game = new Game();
+            await StartRoundAsync();
+
+        }
+
+        private async Task StartRoundAsync()
+        {
+            TransitionTo(GameState.RoundStarting);
             await Task.Delay(1500);
-
             _game.NewRound();
-            SetPlayPlayingState();
-
+            TransitionTo(GameState.RoundActive);
         }
-        private void SetPlayInitalViewState()
-        {
-            PlayButtonIsEnabled = false;
-            PlayButtonIsVisible = false;
-            FinalScoreLabelIsVisible = false;
-            RoundTargetInSecondsLabelIsVisible = false;
-            ReserveProgressProgressBar = _game.Reserve/_game.InitalReserve;
-            ReserveProgressBarIsVisible = true;
-            StopButtonIsEnabled = true;
-            UnitsLabelIsVisible = false;
-            AccuracyLabelIsVisible = false;
-            StopButtonImageSource = "pausebutton.svg";
-            HighScoreLabelText = _game.HighScore.ToString();
-            PauseActivityIndicatorColor = Colors.Blue;
-            PauseActivityIndicatorIsVisible = true;
-            ReportLabelVisible = false;
-            ReportLabelFormattedText = String.Empty;
-        }
-        private void SetPlayPlayingState()
-        {
-            RoundTargetInSecondsLabelIsVisible = true;
-            PauseActivityIndicatorIsVisible = false;
-            AccuracyLabelIsVisible = false;
-            UnitsLabelIsVisible = true;
-            StopButtonImageSource = "stopbutton.svg";
-            StopButtonIsVisible = true;
-            RoundTargetInSecondsLabelText = _game.Round.TargetInSeconds.Value.Seconds.ToString();
-
-        }  
 
         [RelayCommand]
         private async Task Stop()
         {
             _game.RoundOver();
                                     
-
-            if (_game.Reserve<0)
+            if (_game.GameOver)
             {
-                HighScoreLabelText = _game.HighScore.ToString();
-                ReserveProgressProgressBar = 0;
-                StopButtonIsEnabled = false;
-                StopButtonIsVisible = false;
-                ReserveProgressBarIsVisible = false;
-               
-                PlayButtonIsVisible = true;
-                PlayButtonIsEnabled = true;
-                RoundTargetInSecondsLabelIsVisible = false;
-                UnitsLabelIsVisible = false;
-                AccuracyLabelIsVisible = false;
-                FinalScoreLabelIsVisible = true;
-                FinalScoreLabelText = "Game Over";
-
-                //StringBuilder stringBuilder = new();
-                //stringBuilder.Append("Play Again?");
-                PlayButtonText = String.Empty;
-
-                //ReportLabelFormattedText = String.Empty;
-                
-                //var report =new StringBuilder();
-                //var formattedReport = new FormattedString();
-
-                //foreach (Round round in _game.Rounds)
-                //{
-                //    report.Append((_game.Rounds.IndexOf(round)+1).ToString());
-                //    report.Append(" -> ");
-                //    report.Append(round.TargetInSeconds.Value.TotalSeconds.ToString());
-                //    report.Append(" -> ");
-                //    var reportaccuracy = (decimal)round.Accuracy.Value.TotalSeconds;
-                //    report.Append(Math.Round(reportaccuracy, 2).ToString());
-                //    report.AppendLine();
-
-                //    switch (round.AccuracyLevel)
-                //    {
-                //        case Round.LevelsOfAccuracy.VeryClose
-                //:
-                //            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Green });
-
-                //            break;
-                //        case Round.LevelsOfAccuracy.Close
-                //:
-                //            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Green });
-
-                //            break;
-                //        default
-                //:
-                //            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Red });
-
-                //            break;
-                           
-
-                //    }
-
-                //    report.Clear();
-
-
-                //    //FormattedString formattedString = new FormattedString();
-                //    //formattedString.Spans.Add(new Span { Text = "Red bold, ", TextColor = Colors.Red, FontAttributes = FontAttributes.Bold });
-
-                //    //Span span = new Span { Text = "default, " };
-                //    //span.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(async () => await DisplayAlert("Tapped", "This is a tapped Span.", "OK")) });
-                //    //formattedString.Spans.Add(span);
-                //    //formattedString.Spans.Add(new Span { Text = "italic small.", FontAttributes = FontAttributes.Italic, FontSize = 14 });
-
-                //    //Label label = new Label { FormattedText = formattedString };
-
-
-
-                //}
-                //ReportLabelFormattedText = formattedReport;
-                //ReportLabelVisible = true;
-
+            
+                if (_game.Score > AppModel.HighScore) AppModel.HighScore = _game.Score;
+                HighScoreLabelText = AppModel.HighScore.ToString();
+                TransitionTo(GameState.GameOver);
                 return;
             }
 
-             
-            ReserveProgressProgressBar = _game.Reserve / _game.InitalReserve;
-            ScoreLabelText = _game.Score.ToString();
+            TransitionTo(GameState.RoundEnded);
 
-            StopButtonIsEnabled = false;
-
-            var accuracy = (decimal)_game.Round.Accuracy.Value.TotalSeconds;
-
-
-
-            if(accuracy >= 0)
-            {
-                AccuracyLabelText = Math.Round(accuracy, 2).ToString() + " over";
-            }
-            else
-            {
-                AccuracyLabelText = Math.Abs(Math.Round(accuracy, 2)).ToString() + " under";
-            }
-
-
-            RoundTargetInSecondsLabelIsVisible = false;
-            UnitsLabelIsVisible = false;
-            AccuracyLabelIsVisible = true;
-            PauseActivityIndicatorIsVisible = true;
-            StopButtonImageSource = "pausebutton.svg";
-            PauseActivityIndicatorColor = AccuracyColor();
-            await Task.Delay(1500);
-            PauseActivityIndicatorIsVisible = false;
-            UnitsLabelIsVisible = true;
-            AccuracyLabelIsVisible = false;
-            RoundTargetInSecondsLabelIsVisible = true;
-            StopButtonImageSource = "stopbutton.svg"; ;
-            StopButtonIsEnabled = true;
-            _game.NewRound();
-            RoundTargetInSecondsLabelText = _game.Round.TargetInSeconds.Value.Seconds.ToString();
+            await StartRoundAsync();
 
 
         }
 
-   
+
+        private void TransitionTo(GameState gameState)
+        {
+
+            //private string? _ScoreLabelText;
+            //private string? _highScoreLabelText;
+            //[NotifyPropertyChangedFor(nameof(UnitsLabelText))]
+            //private bool _easyModeSwitchIsToggled;
+            //private double _reserveProgressProgressBar;
+            //private bool _reserveProgressBarIsVisible;
+            //private string? _finalScoreLabelText;
+            //private bool _finalScoreLabelIsVisible;
+            //private bool _pauseActivityIndicatorIsVisible;
+            //private Color? _pauseActivityIndicatorColor;
+            //private string? _roundTargetInSecondsLabelText;
+            //private bool _roundTargetInSecondsLabelIsVisible;
+            //private bool _unitsLabelIsVisible;
+            //private string? _accuracyLabelText;
+            //private bool _accuracyLabelIsVisible;
+            //private bool _playButtonIsEnabled;
+            //private bool _playButtonIsVisible = true;
+            //private string? _playButtonText;
+            //private bool _stopButtonIsEnabled;
+            //private bool _stopButtonIsVisible;
+            //private string? _stopButtonText;
+            //private string? _stopButtonImageSource;
+            //private FormattedString? _reportLabelFormattedText;
+            //private bool _reportLabelVisible;
+
+
+
+            switch (gameState)
+            {
+                case GameState.AppStarted:
+                    ScoreLabelText = "0";
+                    HighScoreLabelText = AppModel.HighScore.ToString();
+                    ReserveProgressProgressBar = 0;
+                    ReserveProgressBarIsVisible = false;
+                    FinalScoreLabelText = String.Empty;
+                    FinalScoreLabelIsVisible = false;
+                    PauseActivityIndicatorIsVisible = false;
+                    TargetInSecondsImageSource = String.Empty;
+                    TargetInSecondsImageIsVisible = false;
+                    UnitsLabelIsVisible = false;
+                    PlayButtonIsEnabled = true;
+                    PlayButtonIsVisible = true;
+                    PlayButtonText = string.Empty;
+                    StopButtonIsEnabled = false;
+                    StopButtonIsVisible = false;
+                    StopButtonText = String.Empty;
+                    ReportLabelFormattedText = String.Empty;
+                    ReportLabelVisible = false;
+                    break;
+ 
+                case GameState.RoundStarting:
+                    ScoreLabelText = _game.Score.ToString();
+                    PlayButtonIsEnabled = false;
+                    PlayButtonIsVisible = false;
+                    FinalScoreLabelIsVisible = false;
+                    TargetInSecondsImageIsVisible = false;
+                    ReserveProgressProgressBar =_game.Reserve / Game.InitalReserve;
+                    ReserveProgressBarIsVisible = true;
+                    StopButtonIsEnabled = true;
+                    UnitsLabelIsVisible = false;
+                    AccuracyLabelIsVisible = _game.Rounds.Count > 0 ? true : false;
+                    StopButtonImageSource = "pausebutton.svg";
+                    HighScoreLabelText = AppModel.HighScore.ToString();
+                    PauseActivityIndicatorColor = _game.Rounds.Count > 0 ? AccuracyColor() :Colors.Blue;
+                    PauseActivityIndicatorIsVisible = true;
+                    ReportLabelVisible = false;
+                    ReportLabelFormattedText = String.Empty;
+                    break;
+                case GameState.RoundActive:
+                    ScoreLabelText = _game.Score.ToString();
+                    TargetInSecondsImageIsVisible = true;
+                    PauseActivityIndicatorIsVisible = false;
+                    AccuracyLabelIsVisible = false;
+                    UnitsLabelIsVisible = true;
+                    StopButtonImageSource = "stopbutton.svg";
+                    StopButtonIsVisible = true;
+                    TargetInSecondsImageSource = TargetSecondsImage();
+     //               RoundTargetInSecondsLabelText = _game.Round.TargetInSeconds.Value.Seconds.ToString();
+                    break;
+                case GameState.RoundEnded:
+                    ScoreLabelText = _game.Score.ToString();
+                    ReserveProgressProgressBar = _game.Reserve / Game.InitalReserve;
+                    ScoreLabelText = _game.Score.ToString();
+
+                    StopButtonIsEnabled = false;
+
+                    var accuracy = (decimal)_game.Round.Accuracy.Value.TotalSeconds;
+
+
+
+                    if (accuracy >= 0)
+                    {
+                        AccuracyLabelText = Math.Round(accuracy, 2).ToString() + " over";
+                    }
+                    else
+                    {
+                        AccuracyLabelText = Math.Abs(Math.Round(accuracy, 2)).ToString() + " under";
+                    }
+
+
+                    TargetInSecondsImageIsVisible = false;
+                    UnitsLabelIsVisible = false;
+                    AccuracyLabelIsVisible = true;
+                    PauseActivityIndicatorIsVisible = true;
+                    StopButtonImageSource = "pausebutton.svg";
+                    PauseActivityIndicatorColor = AccuracyColor();
+
+                    break;
+                case GameState.GameOver:
+
+                    ReserveProgressProgressBar = 0;
+                    StopButtonIsEnabled = false;
+                    StopButtonIsVisible = false;
+                    ReserveProgressBarIsVisible = false;
+                    PlayButtonIsVisible = true;
+                    PlayButtonIsEnabled = true;
+                    TargetInSecondsImageIsVisible = false;
+                    UnitsLabelIsVisible = false;
+                    AccuracyLabelIsVisible = false;
+                    FinalScoreLabelIsVisible = true;
+                    FinalScoreLabelText = "Game Over";
+                    PlayButtonText = String.Empty;
+                    break;
+                default:
+                    break;
+            }
+
+
+        }
 
         private Color AccuracyColor() 
         {
@@ -292,8 +292,84 @@ namespace SecondsClient.ViewModels
 
         }
 
+
+        private string TargetSecondsImage()
+        {
+
+            switch (_game.Round.TargetInSeconds.Value.Seconds)
+            {
+                case 1 : return "rubikone.svg";
+                case 2 : return "rubiktwo.svg";
+                case 3 : return "rubikthree.svg";
+                case 4 : return "rubikfour.svg";
+                case 5 : return "rubikfive.svg";
+                default: return string.Empty;
+            }
+
+
+        }
+
+        //StringBuilder stringBuilder = new();
+        //stringBuilder.Append("Play Again?");
+
+
+        //ReportLabelFormattedText = String.Empty;
+
+        //var report =new StringBuilder();
+        //var formattedReport = new FormattedString();
+
+        //foreach (Round round in _game.Rounds)
+        //{
+        //    report.Append((_game.Rounds.IndexOf(round)+1).ToString());
+        //    report.Append(" -> ");
+        //    report.Append(round.TargetInSeconds.Value.TotalSeconds.ToString());
+        //    report.Append(" -> ");
+        //    var reportaccuracy = (decimal)round.Accuracy.Value.TotalSeconds;
+        //    report.Append(Math.Round(reportaccuracy, 2).ToString());
+        //    report.AppendLine();
+
+        //    switch (round.AccuracyLevel)
+        //    {
+        //        case Round.LevelsOfAccuracy.VeryClose
+        //:
+        //            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Green });
+
+        //            break;
+        //        case Round.LevelsOfAccuracy.Close
+        //:
+        //            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Green });
+
+        //            break;
+        //        default
+        //:
+        //            formattedReport.Spans.Add(new Span { Text = report.ToString(), TextColor = Colors.Red });
+
+        //            break;
+
+
+        //    }
+
+        //    report.Clear();
+
+
+        //    //FormattedString formattedString = new FormattedString();
+        //    //formattedString.Spans.Add(new Span { Text = "Red bold, ", TextColor = Colors.Red, FontAttributes = FontAttributes.Bold });
+
+        //    //Span span = new Span { Text = "default, " };
+        //    //span.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(async () => await DisplayAlert("Tapped", "This is a tapped Span.", "OK")) });
+        //    //formattedString.Spans.Add(span);
+        //    //formattedString.Spans.Add(new Span { Text = "italic small.", FontAttributes = FontAttributes.Italic, FontSize = 14 });
+
+        //    //Label label = new Label { FormattedText = formattedString };
+
+
+
+        //}
+        //ReportLabelFormattedText = formattedReport;
+        //ReportLabelVisible = true;
+
     }
 
 
-    }
+}
 

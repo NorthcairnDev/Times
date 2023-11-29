@@ -10,11 +10,6 @@ namespace SecondsClient
 
             BindingContext = new MainViewModel();
 
-
-
         }
-
-       
     }
-
 }

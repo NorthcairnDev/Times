@@ -64,8 +64,14 @@
 	  <None Remove="Resources\Images\icons8circledplay96a.png" />
 	  <None Remove="Resources\Images\icons8stopsquared96a.png" />
 	  <None Remove="Resources\Images\icons8_number_32_a.png" />
+	  <None Remove="Resources\Images\numberone.svg" />
 	  <None Remove="Resources\Images\pausebutton.svg" />
 	  <None Remove="Resources\Images\playbutton.svg" />
+	  <None Remove="Resources\Images\rubikfive.svg" />
+	  <None Remove="Resources\Images\rubikfour.svg" />
+	  <None Remove="Resources\Images\rubikone.svg" />
+	  <None Remove="Resources\Images\rubikthree.svg" />
+	  <None Remove="Resources\Images\rubiktwo.svg" />
 	  <None Remove="Resources\Images\stopbutton.svg" />
 	</ItemGroup>
 

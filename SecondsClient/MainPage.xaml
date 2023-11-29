@@ -74,18 +74,23 @@
 
         </ProgressBar>
 
-
-        <Label x:Name="TargetSecondsLabel" Grid.Row="2" 
+            <!--<Label x:Name="TargetSecondsLabel" Grid.Row="2" 
                Text="{Binding RoundTargetInSecondsLabelText}" 
                FontSize="120"  
                IsVisible="{Binding RoundTargetInSecondsLabelIsVisible}"
-               VerticalTextAlignment="Start"/>
+               VerticalTextAlignment="Start"/>-->
+
+        <Image x:Name="TargetSecondsImage" Grid.Row="2"
+                Source="{Binding TargetInSecondsImageSource}"
+               IsVisible="{Binding TargetInSecondsImageIsVisible}"
+               />
+
 
 
         <ImageButton x:Name="PlayButton" Grid.Row="2" Grid.RowSpan="1" MaximumHeightRequest="125"  MaximumWidthRequest="125"
              BackgroundColor="White" 
              Source="playbutton.svg"
-             Command="{Binding PlayCommand}" 
+             Command="{Binding StartGameCommand}" 
              IsEnabled="{Binding PlayButtonIsEnabled}"
              IsVisible="{Binding PlayButtonIsVisible}"
                      />
@@ -124,9 +129,6 @@
 
     <controls:MTAdView x:Name="myAds" AdsId="ca-app-pub-3940256099942544/6300978111" Grid.Row="5"/>
 
-    <!--<admob:BannerAd AdUnitId="ca-app-pub-3940256099942544/6300978111" Grid.Row="5"/>-->
-
-        <!--<Label x:Name = "AdvertLabel" Grid.Row="5" Text="Advert"/>-->
     </Grid>
 
 </ContentPage>

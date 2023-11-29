@@ -1,25 +1,24 @@
-﻿namespace SecondsClient.Models
+﻿using System.ComponentModel;
+
+namespace SecondsClient.Models
 {
     class Game
     {
-        public int HighScore
-        {
-            get => Preferences.Default.Get<int>("HighScore", 0);
-            set => Preferences.Default.Set<int>("HighScore", value);
-        }
+        public const double InitalReserve = 5;
+        private const int InitalScore = 0;
+
 
         public int Score
         {
             get; set;
-        }
+        } = InitalScore;
 
         public double Reserve
         {
             get; set;
-        }
+        } = InitalReserve;
 
-        public readonly double InitalReserve = 5;
-
+      
         public List<Round> Rounds
         {
             get;
@@ -31,22 +30,21 @@
             set;
         }
 
+        public bool GameOver
+        {
+            get;
+            set;
+        } = false;
+
+
 
 
         public Game()
         {
             Rounds = [];
             Round = new Round();
-            ResetGame();
         }
 
-        public void ResetGame()
-        {
-            Reserve = 5;
-            Score = 0;
-            Rounds.Clear();
-            Reserve = InitalReserve;
-        }
         public void RoundOver()
         {
                        
@@ -56,7 +54,7 @@
 
             if (Reserve < 0)
             {
-                GameOver();
+                GameOver = true;
                 return;
             }
 
@@ -64,17 +62,6 @@
 
         }
 
-
-        private void GameOver()
-        {
-            HighScoreUpdate();
-
-        }
-
-        private void HighScoreUpdate()
-        {
-            if (Score > HighScore) HighScore = Score;
-        }
 
 
         public void NewRound()
