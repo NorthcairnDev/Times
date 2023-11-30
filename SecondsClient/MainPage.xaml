@@ -4,64 +4,76 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:controls="clr-namespace:Plugin.MauiMTAdmob.Controls;assembly=Plugin.MauiMTAdmob"
              x:Class="SecondsClient.MainPage">
-    <Grid>
+
+    <Grid Background="Black">
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="ScoreGridRow" Height="60"/>
-            <RowDefinition x:Name="ProgressBarRow" Height="100"/>
-            <RowDefinition x:Name="RoundTargetSecondsRow" Height="*"/>
-            <RowDefinition x:Name="UnitsAndRoundResultRow" Height="200"/>
+            <RowDefinition x:Name="ScoreGridRow" Height="73"/>
+            <RowDefinition x:Name="ProgressBarRow" Height="90"/>
+            <RowDefinition x:Name="TargetSecondsRow" Height="*"/>
+            <!--<RowDefinition x:Name="UnitsAndRoundResultRow" Height="200"/>-->
             <RowDefinition x:Name="StopButtonRow" Height="150"/>
             <RowDefinition x:Name="AdRow" Height="65"/>
         </Grid.RowDefinitions>
         
-        <Grid Grid.Row="0"  RowDefinitions="30,30" ColumnDefinitions="*,*,*">
+        <Grid Grid.Row="0"  RowDefinitions="45,28" ColumnDefinitions="*,*,*">
             <Label x:Name="EasyModeTitleLabel" Grid.Row="0" Grid.Column="0"
                    Text="Easy Mode" 
-                   FontSize="18" 
-                   Padding="0"
+                    FontSize="18" 
+                   Padding="10"
                    Margin="0"
-                   VerticalTextAlignment="Start" />
+                   VerticalTextAlignment="Start"
+                   FontFamily="Rubik-Regular.ttf"/>
 
             <Label x:Name="ScoreTitleLabel" Grid.Row="0" Grid.Column="1" 
                    Text="Score"  
                    FontSize="18" 
-                   Padding="0" 
+                   Padding="10" 
                    Margin="0"
-                   VerticalTextAlignment="Start"/>
+                   VerticalTextAlignment="Start"
+                   FontFamily="Rubik-Regular.ttf"/>
 
             <Label x:Name="HighScoreTitleLabel" Grid.Row="0" Grid.Column="2"
                    Text="High"
                    FontSize="18" 
-                   Padding="0" 
+                   Padding="10"
                    Margin="0"
-                   VerticalTextAlignment="Start"/>
+                   VerticalTextAlignment="Start"
+                   FontFamily="Rubik-Regular.ttf"/>
 
             <Switch x:Name="EasyModeSwitch" Grid.Row="1" Grid.Column="0" 
                     IsToggled = "{Binding EasyModeSwitchIsToggled}" 
-                    HorizontalOptions="Center" />
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    ScaleX="1.1"
+                    ScaleY="1.1"
+                    BackgroundColor="Black"/>
 
             <Label x:Name="ScoreLabel" Grid.Row="1" Grid.Column="1"  
                    Text="{Binding ScoreLabelText}"
-                   FontSize="18" 
+                   FontSize="24" 
                    Padding="0" 
-                   Margin="0"/>
+                   Margin="0"
+                   FontFamily="RubikMonoOne-Regular.ttf"
+                   VerticalOptions="Center"/>
 
             <Label x:Name="HighScoreLabel" Grid.Row="1" Grid.Column="2"
                    Text="{Binding HighScoreLabelText}"
-                   FontSize="18" 
+                   FontSize="24" 
                    Padding="0" 
-                   Margin="0"/>
+                   Margin="0"
+                   FontFamily="RubikMonoOne-Regular.ttf"
+                   VerticalOptions="Center"/>
         </Grid>
 
-        <Label x:Name="FinalScoreLabel" Grid.Row="1" 
+        <!--<Label x:Name="FinalScoreLabel" Grid.Row="1" 
                Text="{Binding FinalScoreLabelText}" 
                FontSize="20"  
-               IsVisible="{Binding FinalScoreLabelIsVisible}"/>
+               IsVisible="{Binding FinalScoreLabelIsVisible}"/>-->
 
         <ProgressBar x:Name="ReserveProgressBar" Grid.Row="1" 
-                    ScaleY="5" 
+                    ScaleY="8" 
                     Margin="20" 
-                    ProgressColor="Green"
+                    ProgressColor="#05C405"
                     IsVisible="{Binding ReserveProgressBarIsVisible}">
             
             <ProgressBar.Behaviors>
@@ -80,27 +92,43 @@
                IsVisible="{Binding RoundTargetInSecondsLabelIsVisible}"
                VerticalTextAlignment="Start"/>-->
 
-        <Image x:Name="TargetSecondsImage" Grid.Row="2"
+        <Grid Grid.Row="2"  ColumnDefinitions="20,*,20">
+
+
+            <Image x:Name="TargetSecondsImage"  Grid.Column="1"
                 Source="{Binding TargetInSecondsImageSource}"
-               IsVisible="{Binding TargetInSecondsImageIsVisible}"
-               />
-
-
-
-        <ImageButton x:Name="PlayButton" Grid.Row="2" Grid.RowSpan="1" MaximumHeightRequest="125"  MaximumWidthRequest="125"
-             BackgroundColor="White" 
+               IsVisible="{Binding TargetInSecondsImageIsVisible}">
+                <Image.Behaviors>
+                    <toolkit:IconTintColorBehavior TintColor="Fuchsia" />
+                </Image.Behaviors>
+            </Image>
+            
+            <ImageButton x:Name="PlayButton" Grid.Column="1"  MaximumHeightRequest="125"  MaximumWidthRequest="125"
+             BackgroundColor="Black" 
              Source="playbutton.svg"
              Command="{Binding StartGameCommand}" 
              IsEnabled="{Binding PlayButtonIsEnabled}"
              IsVisible="{Binding PlayButtonIsVisible}"
                      />
 
-        <ActivityIndicator x:Name="PauseActivityIndicator" Grid.Row="2"  
+            <ActivityIndicator x:Name="PauseActivityIndicator" Grid.Column="1"  
                            IsRunning="True"
                            IsVisible="{Binding PauseActivityIndicatorIsVisible}"
                            Color="{Binding PauseActivityIndicatorColor}"/>
 
-        <Label x:Name="UnitsLabel" Grid.Row="3"
+            <Label x:Name="AccuracyLabel" Grid.Column="1" 
+        Text="{Binding AccuracyLabelText}"
+        IsVisible="{Binding AccuracyLabelIsVisible}" 
+        FontFamily="RubikMonoOne-Regular.ttf"
+        FontSize="32"
+        TextColor="{Binding PauseActivityIndicatorColor}"
+        VerticalTextAlignment="Center" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center"/>
+
+
+        </Grid>
+
+
+        <!--<Label x:Name="UnitsLabel" Grid.Row="3"
                Text="{Binding UnitsLabelText}"
                IsVisible="{Binding UnitsLabelIsVisible}" 
                VerticalTextAlignment="Start"/>
@@ -108,26 +136,26 @@
         <Label x:Name="AccuracyLabel" Grid.Row="3"
                Text="{Binding AccuracyLabelText}"
                IsVisible="{Binding AccuracyLabelIsVisible}" 
-               VerticalTextAlignment="Start"/>
+               VerticalTextAlignment="Start"/>-->
 
-        <ImageButton x:Name="StopButton" Grid.Row="4" MaximumHeightRequest="125"
+        <ImageButton x:Name="StopButton" Grid.Row="3" MaximumHeightRequest="125"
                 Source="{Binding StopButtonImageSource}"
                 Command="{Binding StopCommand}" 
                 IsEnabled="{Binding StopButtonIsEnabled}"
                 IsVisible="{Binding StopButtonIsVisible}"
-                BackgroundColor="White" />
+                BackgroundColor="Black" />
 
 
-        <ScrollView  Grid.Row="3" Grid.RowSpan="1">
+        <!--<ScrollView  Grid.Row="3" Grid.RowSpan="1">
             <Label x:Name="ReportLabel"
                FormattedText="{Binding ReportLabelFormattedText}"
                IsVisible="{Binding ReportLabelVisible}" 
                VerticalTextAlignment="Start"
                 />
-        </ScrollView>
+        </ScrollView>-->
 
 
-    <controls:MTAdView x:Name="myAds" AdsId="ca-app-pub-3940256099942544/6300978111" Grid.Row="5"/>
+    <controls:MTAdView x:Name="myAds" AdsId="ca-app-pub-3940256099942544/6300978111" Grid.Row="4"/>
 
     </Grid>
 

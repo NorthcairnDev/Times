@@ -109,6 +109,7 @@ namespace SecondsClient.ViewModels
         private async Task StartGame() 
         {
             _game = new Game();
+            AccuracyLabelText = "Get" +"\n" + "Ready!";
             await StartRoundAsync();
 
         }
@@ -206,10 +207,10 @@ namespace SecondsClient.ViewModels
                     ReserveProgressBarIsVisible = true;
                     StopButtonIsEnabled = true;
                     UnitsLabelIsVisible = false;
-                    AccuracyLabelIsVisible = _game.Rounds.Count > 0 ? true : false;
+                    AccuracyLabelIsVisible = true;
                     StopButtonImageSource = "pausebutton.svg";
                     HighScoreLabelText = AppModel.HighScore.ToString();
-                    PauseActivityIndicatorColor = _game.Rounds.Count > 0 ? AccuracyColor() :Colors.Blue;
+                    PauseActivityIndicatorColor = _game.Rounds.Count > 0 ? AccuracyColor() :Colors.White;
                     PauseActivityIndicatorIsVisible = true;
                     ReportLabelVisible = false;
                     ReportLabelFormattedText = String.Empty;
@@ -238,11 +239,11 @@ namespace SecondsClient.ViewModels
 
                     if (accuracy >= 0)
                     {
-                        AccuracyLabelText = Math.Round(accuracy, 2).ToString() + " over";
+                        AccuracyLabelText = "+" + Math.Round(accuracy, 2).ToString();
                     }
                     else
                     {
-                        AccuracyLabelText = Math.Abs(Math.Round(accuracy, 2)).ToString() + " under";
+                        AccuracyLabelText = "-" + Math.Abs(Math.Round(accuracy, 2)).ToString();
                     }
 
 
@@ -282,11 +283,11 @@ namespace SecondsClient.ViewModels
             switch (_game.Round.AccuracyLevel)
             {
                 case Round.LevelsOfAccuracy.VeryClose
-                : return Colors.Green;
+                : return Color.FromArgb("05C405");
                 case Round.LevelsOfAccuracy.Close
-                : return Colors.Orange;
+                : return Color.FromArgb("FF9900");
                 default
-                : return Colors.Red;
+                : return Color.FromArgb("FE0000");
             }
 
 
@@ -296,13 +297,27 @@ namespace SecondsClient.ViewModels
         private string TargetSecondsImage()
         {
 
+            if (!EasyModeSwitchIsToggled)
+            {
+
+                switch (_game.Round.TargetInSeconds.Value.Seconds)
+                {
+                    case 1: return "onesecond.svg";
+                    case 2: return "twosecond.svg";
+                    case 3: return "threesecond.svg";
+                    case 4: return "foursecond.svg";
+                    case 5: return "fivesecond.svg";
+                    default: return string.Empty;
+                }
+            }
+
             switch (_game.Round.TargetInSeconds.Value.Seconds)
             {
-                case 1 : return "rubikone.svg";
-                case 2 : return "rubiktwo.svg";
-                case 3 : return "rubikthree.svg";
-                case 4 : return "rubikfour.svg";
-                case 5 : return "rubikfive.svg";
+                case 1: return "onemississippi.svg";
+                case 2: return "twomississippi.svg";
+                case 3: return "threemississippi.svg";
+                case 4: return "fourmississippi.svg";
+                case 5: return "fivemississippi.svg";
                 default: return string.Empty;
             }
 
