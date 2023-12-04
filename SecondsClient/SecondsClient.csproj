@@ -55,6 +55,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiFont Remove="Resources\Fonts\Rubik_Mono_One.zip" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiImage Remove="Resources\Images\icons8circledplay96a.png" />
 	  <MauiImage Remove="Resources\Images\icons8stopsquared96a.png" />
 	  <MauiImage Remove="Resources\Images\icons8_number_32_a.png" />
@@ -73,15 +77,21 @@
 	  <None Remove="Resources\Fonts\RubikMonoOne-Regular.ttf" />
 	  <None Remove="Resources\Fonts\Rubik_Mono_One.zip" />
 	  <None Remove="Resources\Images\fivemississippi.svg" />
+	  <None Remove="Resources\Images\fivemississippifuschia.svg" />
 	  <None Remove="Resources\Images\fivesecond.svg" />
+	  <None Remove="Resources\Images\fivesecondfuschia.svg" />
 	  <None Remove="Resources\Images\fourmississippi.svg" />
+	  <None Remove="Resources\Images\fourmississippifuschia.svg" />
 	  <None Remove="Resources\Images\foursecond.svg" />
+	  <None Remove="Resources\Images\foursecondfuschia.svg" />
 	  <None Remove="Resources\Images\icons8circledplay96a.png" />
 	  <None Remove="Resources\Images\icons8stopsquared96a.png" />
 	  <None Remove="Resources\Images\icons8_number_32_a.png" />
 	  <None Remove="Resources\Images\numberone.svg" />
 	  <None Remove="Resources\Images\onemississippi.svg" />
+	  <None Remove="Resources\Images\onemississippifuschia.svg" />
 	  <None Remove="Resources\Images\onesecond.svg" />
+	  <None Remove="Resources\Images\onesecondfuschia.svg" />
 	  <None Remove="Resources\Images\pausebutton.svg" />
 	  <None Remove="Resources\Images\playbutton.svg" />
 	  <None Remove="Resources\Images\rubikfive.svg" />
@@ -93,9 +103,13 @@
 	  <None Remove="Resources\Images\swhiteone.svg" />
 	  <None Remove="Resources\Images\swhiteone2.svg" />
 	  <None Remove="Resources\Images\threemississippi.svg" />
+	  <None Remove="Resources\Images\threemississippifuschia.svg" />
 	  <None Remove="Resources\Images\threesecond.svg" />
+	  <None Remove="Resources\Images\threesecondfuschia.svg" />
 	  <None Remove="Resources\Images\twomississippi.svg" />
+	  <None Remove="Resources\Images\twomississippifuschia.svg" />
 	  <None Remove="Resources\Images\twosecond.svg" />
+	  <None Remove="Resources\Images\twosecondfuschia.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

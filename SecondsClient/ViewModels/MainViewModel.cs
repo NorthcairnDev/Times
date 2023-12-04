@@ -106,24 +106,25 @@ namespace SecondsClient.ViewModels
 
 
         [RelayCommand]
-        private async Task StartGame() 
+        private async Task StartGameAsync() 
         {
             _game = new Game();
             AccuracyLabelText = "Get" +"\n" + "Ready!";
-            await StartRoundAsync();
-
-        }
-
-        private async Task StartRoundAsync()
-        {
             TransitionTo(GameState.RoundStarting);
+
             await Task.Delay(1500);
+            StartRound();
+         }
+
+        private void StartRound()
+        {
+           
             _game.NewRound();
             TransitionTo(GameState.RoundActive);
         }
 
         [RelayCommand]
-        private async Task Stop()
+        private async Task StopAsync()
         {
             _game.RoundOver();
                                     
@@ -138,8 +139,10 @@ namespace SecondsClient.ViewModels
 
             TransitionTo(GameState.RoundEnded);
 
-            await StartRoundAsync();
+            TransitionTo(GameState.RoundStarting);
 
+            await Task.Delay(1500);
+            StartRound();
 
         }
 
@@ -180,7 +183,7 @@ namespace SecondsClient.ViewModels
                     ScoreLabelText = "0";
                     HighScoreLabelText = AppModel.HighScore.ToString();
                     ReserveProgressProgressBar = 0;
-                    ReserveProgressBarIsVisible = false;
+                    ReserveProgressBarIsVisible = true;
                     FinalScoreLabelText = String.Empty;
                     FinalScoreLabelIsVisible = false;
                     PauseActivityIndicatorIsVisible = false;
@@ -302,22 +305,22 @@ namespace SecondsClient.ViewModels
 
                 switch (_game.Round.TargetInSeconds.Value.Seconds)
                 {
-                    case 1: return "onesecond.svg";
-                    case 2: return "twosecond.svg";
-                    case 3: return "threesecond.svg";
-                    case 4: return "foursecond.svg";
-                    case 5: return "fivesecond.svg";
+                    case 1: return "onesecondfuschia.svg";
+                    case 2: return "twosecondfuschia.svg";
+                    case 3: return "threesecondfuschia.svg";
+                    case 4: return "foursecondfuschia.svg";
+                    case 5: return "fivesecondfuschia.svg";
                     default: return string.Empty;
                 }
             }
 
             switch (_game.Round.TargetInSeconds.Value.Seconds)
             {
-                case 1: return "onemississippi.svg";
-                case 2: return "twomississippi.svg";
-                case 3: return "threemississippi.svg";
-                case 4: return "fourmississippi.svg";
-                case 5: return "fivemississippi.svg";
+                case 1: return "onemississippifuschia.svg";
+                case 2: return "twomississippifuschia.svg";
+                case 3: return "threemississippifuschia.svg";
+                case 4: return "fourmississippifuschia.svg";
+                case 5: return "fivemississippifuschia.svg";
                 default: return string.Empty;
             }
 

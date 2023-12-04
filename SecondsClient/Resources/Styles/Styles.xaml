@@ -166,7 +166,6 @@
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="24" />
-        <Setter Property="HorizontalTextAlignment" Value="Center" />
         <Setter Property="VerticalTextAlignment" Value="Center" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
