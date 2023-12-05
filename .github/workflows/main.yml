@@ -23,6 +23,6 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: dotnet build Seconds/SecondsClient.csproj -c Release -f net8.0-android --no-restore
+      run: dotnet build Seconds/Seconds/SecondsClient.csproj -c Release -f net8.0-android --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
