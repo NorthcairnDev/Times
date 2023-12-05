@@ -34,7 +34,9 @@
                    Margin="0"
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
-                   FontFamily="Rubik-Regular.ttf"/>
+                   FontFamily="Rubik-Regular.ttf"
+                                   
+                   />
 
             <Label x:Name="HighScoreTitleLabel" Grid.Row="0" Grid.Column="2"
                    FontSize="18"
@@ -62,7 +64,9 @@
                     HorizontalTextAlignment="Center"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
-                   FontFamily="RubikMonoOne-Regular.ttf"/>
+                   FontFamily="RubikMonoOne-Regular.ttf"
+                    BackgroundColor="{Binding ScoreLabelBackgroundColor}"
+                    TextColor="{Binding ScoreLabelTextColor}"/>
 
             <Label x:Name="HighScoreLabel" Grid.Row="1" Grid.Column="2"
                    Text="{Binding HighScoreLabelText}"
@@ -73,7 +77,9 @@
                     HorizontalTextAlignment="Center"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
-                   FontFamily="RubikMonoOne-Regular.ttf"/>
+                   FontFamily="RubikMonoOne-Regular.ttf"
+                    BackgroundColor="{Binding HighScoreLabelBackgroundColor}"
+                    TextColor="{Binding HighScoreLabelTextColor}"/>
 
         </Grid>
 
@@ -96,6 +102,14 @@
 
         <Grid Grid.Row="2"  ColumnDefinitions="20,*,20">
 
+            <Label x:Name="StartLabel"  Grid.Column="1"
+           FormattedText="{Binding StartLabelFormattedText}"
+           IsVisible="{Binding StartLabelIsVisible}" 
+           VerticalTextAlignment="Center"
+           HorizontalTextAlignment="Center"
+           BackgroundColor="Black"/>
+
+
 
             <Image x:Name="TargetSecondsImage"  Grid.Column="1"
                 Source="{Binding TargetInSecondsImageSource}"
@@ -103,13 +117,7 @@
             </Image>
             
             
-            <ImageButton x:Name="PlayButton" Grid.Column="1"  MaximumHeightRequest="125"  MaximumWidthRequest="125"
-             BackgroundColor="Black" 
-             Source="playbutton.svg"
-             Command="{Binding StartGameCommand}" 
-             IsEnabled="{Binding PlayButtonIsEnabled}"
-             IsVisible="{Binding PlayButtonIsVisible}"
-                     />
+
 
             <ActivityIndicator x:Name="PauseActivityIndicator" Grid.Column="1"  
                            IsRunning="True"
@@ -117,26 +125,32 @@
                            Color="{Binding PauseActivityIndicatorColor}"/>
 
             <Label x:Name="AccuracyLabel" Grid.Column="1" 
-        Text="{Binding AccuracyLabelText}"
-        IsVisible="{Binding AccuracyLabelIsVisible}" 
-        FontFamily="RubikMonoOne-Regular.ttf"
-        FontSize="28"
-        TextColor="{Binding PauseActivityIndicatorColor}"
-        VerticalTextAlignment="Center" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center"/>
+                Text="{Binding AccuracyLabelText}"
+                IsVisible="{Binding AccuracyLabelIsVisible}" 
+                FontFamily="RubikMonoOne-Regular.ttf"
+                FontSize="28"
+                TextColor="{Binding PauseActivityIndicatorColor}"
+                VerticalTextAlignment="Center" HorizontalTextAlignment="Center" VerticalOptions="Center" HorizontalOptions="Center"/>
+
+            <Label x:Name="GameOverLabel"  Grid.Column="1"
+            FormattedText="{Binding GameOverLabelFormattedText}"
+            IsVisible="{Binding GameOverLabelIsVisible}" 
+            VerticalTextAlignment="Center"
+            HorizontalTextAlignment="Center"
+            BackgroundColor="Black"
+             />
 
 
         </Grid>
 
+        <ImageButton x:Name="PlayButton" Grid.Row="3" MaximumHeightRequest="125"  MaximumWidthRequest="125"
+             BackgroundColor="Black" 
+             Source="playbutton.svg"
+             Command="{Binding StartGameCommand}" 
+             IsEnabled="{Binding PlayButtonIsEnabled}"
+             IsVisible="{Binding PlayButtonIsVisible}"
+                     />
 
-        <!--<Label x:Name="UnitsLabel" Grid.Row="3"
-               Text="{Binding UnitsLabelText}"
-               IsVisible="{Binding UnitsLabelIsVisible}" 
-               VerticalTextAlignment="Start"/>
-
-        <Label x:Name="AccuracyLabel" Grid.Row="3"
-               Text="{Binding AccuracyLabelText}"
-               IsVisible="{Binding AccuracyLabelIsVisible}" 
-               VerticalTextAlignment="Start"/>-->
 
         <ImageButton x:Name="StopButton" Grid.Row="3" MaximumHeightRequest="125"
                 Source="{Binding StopButtonImageSource}"
@@ -146,13 +160,7 @@
                 BackgroundColor="Black" />
 
 
-        <!--<ScrollView  Grid.Row="3" Grid.RowSpan="1">
-            <Label x:Name="ReportLabel"
-               FormattedText="{Binding ReportLabelFormattedText}"
-               IsVisible="{Binding ReportLabelVisible}" 
-               VerticalTextAlignment="Start"
-                />
-        </ScrollView>-->
+
 
 
     <controls:MTAdView x:Name="myAds" AdsId="ca-app-pub-3940256099942544/6300978111" Grid.Row="4"/>

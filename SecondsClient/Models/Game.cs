@@ -36,7 +36,11 @@ namespace SecondsClient.Models
             set;
         } = false;
 
-
+        public bool NewHighScore
+        {
+            get;
+            set;
+        } = false;
 
 
         public Game()
