@@ -112,7 +112,7 @@ namespace SecondsClient.ViewModels
 
 
         }
-
+        //
 
         [RelayCommand]
         private async Task StartGameAsync() 
