@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, NorthcairnBuildLaptop]
+    runs-on: [self-hosted, BUILD1-SecondsClient]
 
     steps:
     - uses: actions/checkout@v3
