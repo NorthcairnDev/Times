@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, BUILD1-SecondsClient]
+    runs-on: [self-hosted, BUILD1]
 
     steps:
     - uses: actions/checkout@v3
