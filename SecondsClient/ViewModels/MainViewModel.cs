@@ -112,7 +112,7 @@ namespace SecondsClient.ViewModels
 
 
         }
-        //
+
 
         [RelayCommand]
         private async Task StartGameAsync() 
@@ -233,7 +233,7 @@ namespace SecondsClient.ViewModels
                     StopButtonImageSource = "stopbutton.svg";
                     StopButtonIsVisible = true;
                     TargetInSecondsImageSource = TargetSecondsImage();
-     //               RoundTargetInSecondsLabelText = _game.Round.TargetInSeconds.Value.Seconds.ToString();
+ 
                     break;
                 case GameState.RoundEnded:
                     ScoreLabelText = _game.Score.ToString();
@@ -254,11 +254,11 @@ namespace SecondsClient.ViewModels
 
                     if (accuracy >= 0)
                     {
-                        AccuracyLabelText = "+" + Math.Round(accuracy, 2).ToString();
+                        AccuracyLabelText = Math.Round(accuracy, 2).ToString() + Environment.NewLine + "Over";
                     }
                     else
                     {
-                        AccuracyLabelText = "-" + Math.Abs(Math.Round(accuracy, 2)).ToString();
+                        AccuracyLabelText = Math.Abs(Math.Round(accuracy, 2)).ToString() + Environment.NewLine + "Under";
                     }
 
 
