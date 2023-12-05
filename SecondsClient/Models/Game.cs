@@ -24,7 +24,7 @@ namespace SecondsClient.Models
             get;
         }
 
-        public Round? Round
+        public Round Round
         {
             get;
             set;
@@ -54,7 +54,7 @@ namespace SecondsClient.Models
                        
             Round.EndTime = DateTime.UtcNow;
             Rounds.Add(Round);
-            Reserve -= Math.Abs(Round.Accuracy.Value.TotalSeconds);
+            Reserve -= Math.Abs(Round.Accuracy.TotalSeconds);
 
             if (Reserve < 0)
             {

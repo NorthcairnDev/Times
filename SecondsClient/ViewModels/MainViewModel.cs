@@ -9,7 +9,7 @@ namespace SecondsClient.ViewModels
     partial class MainViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string? _scoreLabelText;
+        private string? _scoreLabelText = String.Empty;
 
         [ObservableProperty]
         private Color? _scoreLabelBackgroundColor;
@@ -18,7 +18,7 @@ namespace SecondsClient.ViewModels
         private Color? _scoreLabelTextColor;
     
         [ObservableProperty]
-        private string? _highScoreLabelText;
+        private string _highScoreLabelText = String.Empty;
 
         [ObservableProperty]
         private Color? _highScoreLabelBackgroundColor;
@@ -29,17 +29,16 @@ namespace SecondsClient.ViewModels
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(UnitsLabelText))]
-        private bool _easyModeSwitchIsToggled;
+        private bool _easyModeSwitchIsToggled = false;
 
 
         [ObservableProperty]
-        private double _reserveProgressProgressBar;
-        [ObservableProperty]
-        private bool _reserveProgressBarIsVisible;
-
+        private double _reserveProgressProgressBar  = 0;
+ 
 
         [ObservableProperty]
         private bool _startLabelIsVisible;
+
         [ObservableProperty]
         private FormattedString? _startLabelFormattedText;
    
@@ -48,12 +47,12 @@ namespace SecondsClient.ViewModels
         private bool _pauseActivityIndicatorIsVisible;
 
         [ObservableProperty]
-        private Color? _pauseActivityIndicatorColor;
+        private Color _pauseActivityIndicatorColor = Colors.White;
 
         [ObservableProperty]
         private string? _targetInSecondsImageSource;
         [ObservableProperty]
-        private bool _targetInSecondsImageIsVisible;
+        private bool _targetInSecondsImageIsVisible = false;
 
 
         [ObservableProperty]
@@ -84,12 +83,9 @@ namespace SecondsClient.ViewModels
         private string? _stopButtonText;
         [ObservableProperty]
         private string? _stopButtonImageSource;
-        [ObservableProperty]
+        
 
-
-
-
-        private Game? _game;
+        private Game _game = new();
    
         public string UnitsLabelText => EasyModeSwitchIsToggled ? "Mississippis": "Seconds";
 
@@ -179,7 +175,6 @@ namespace SecondsClient.ViewModels
                     HighScoreLabelTextColor = Colors.White;
                     HighScoreLabelText = AppModel.HighScore.ToString();
                     ReserveProgressProgressBar = 0;
-                    ReserveProgressBarIsVisible = true;
                     StartLabelIsVisible = true;
                     StartLabelFormattedText = AppStartFormattedText();
                     PauseActivityIndicatorIsVisible = false;
@@ -205,7 +200,6 @@ namespace SecondsClient.ViewModels
                     PlayButtonIsVisible = false;
                     TargetInSecondsImageIsVisible = false;
                     ReserveProgressProgressBar =_game.Reserve / Game.InitalReserve;
-                    ReserveProgressBarIsVisible = true;
                     StartLabelIsVisible = false;
                     StartLabelFormattedText = String.Empty;
                     StopButtonIsEnabled = true;
@@ -248,7 +242,7 @@ namespace SecondsClient.ViewModels
 
                     StopButtonIsEnabled = false;
 
-                    var accuracy = (decimal)_game.Round.Accuracy.Value.TotalSeconds;
+                    var accuracy = (decimal)_game.Round.Accuracy.TotalSeconds;
 
 
 
@@ -283,7 +277,6 @@ namespace SecondsClient.ViewModels
                     StartLabelFormattedText = String.Empty;
                     StopButtonIsEnabled = false;
                     StopButtonIsVisible = false;
-                    ReserveProgressBarIsVisible = false;
                     PlayButtonIsVisible = true;
                     PlayButtonIsEnabled = true;
                     TargetInSecondsImageIsVisible = false;
@@ -303,17 +296,12 @@ namespace SecondsClient.ViewModels
         private Color AccuracyColor() 
         {
 
-            switch (_game.Round.AccuracyLevel)
+            return _game.Round.AccuracyLevel switch
             {
-                case Round.LevelsOfAccuracy.VeryClose
-                : return Color.FromArgb("05C405");
-                case Round.LevelsOfAccuracy.Close
-                : return Color.FromArgb("FF9900");
-                default
-                : return Color.FromArgb("FE0000");
-            }
-
-
+                Round.LevelsOfAccuracy.VeryClose => Color.FromArgb("05C405"),
+                Round.LevelsOfAccuracy.Close => Color.FromArgb("FF9900"),
+                _ => Color.FromArgb("FE0000"),
+            };
         }
 
 
@@ -323,34 +311,32 @@ namespace SecondsClient.ViewModels
             if (!EasyModeSwitchIsToggled)
             {
 
-                switch (_game.Round.TargetInSeconds.Value.Seconds)
+                return (object)_game.Round.TargetInSeconds.Seconds switch
                 {
-                    case 1: return "onesecondfuschia.svg";
-                    case 2: return "twosecondfuschia.svg";
-                    case 3: return "threesecondfuschia.svg";
-                    case 4: return "foursecondfuschia.svg";
-                    case 5: return "fivesecondfuschia.svg";
-                    default: return string.Empty;
-                }
+                    1 => "onesecondfuschia.svg",
+                    2 => "twosecondfuschia.svg",
+                    3 => "threesecondfuschia.svg",
+                    4 => "foursecondfuschia.svg",
+                    5 => "fivesecondfuschia.svg",
+                    _ => string.Empty,
+                };
             }
 
-            switch (_game.Round.TargetInSeconds.Value.Seconds)
+            return (object)_game.Round.TargetInSeconds.Seconds switch
             {
-                case 1: return "onemississippifuschia.svg";
-                case 2: return "twomississippifuschia.svg";
-                case 3: return "threemississippifuschia.svg";
-                case 4: return "fourmississippifuschia.svg";
-                case 5: return "fivemississippifuschia.svg";
-                default: return string.Empty;
-            }
-
-
+                1 => "onemississippifuschia.svg",
+                2 => "twomississippifuschia.svg",
+                3 => "threemississippifuschia.svg",
+                4 => "fourmississippifuschia.svg",
+                5 => "fivemississippifuschia.svg",
+                _ => string.Empty,
+            };
         }
 
 
-        private FormattedString GameOverFormattedText()
+        private static FormattedString GameOverFormattedText()
         {
-            FormattedString gameOverText = new FormattedString();
+            FormattedString gameOverText = new ();
 
             gameOverText.Spans.Add(new Span { Text = "Game", TextColor = Colors.White, FontFamily= "RubikMonoOne-Regular", FontSize=48});
             gameOverText.Spans.Add(new Span { Text = Environment.NewLine });
@@ -361,9 +347,9 @@ namespace SecondsClient.ViewModels
 
         }
 
-        private FormattedString AppStartFormattedText()
+        private static FormattedString AppStartFormattedText()
         {
-            FormattedString startText = new FormattedString();
+            FormattedString startText = new ();
 
             startText.Spans.Add(new Span { Text = "Count", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 32 });
             startText.Spans.Add(new Span { Text = Environment.NewLine });

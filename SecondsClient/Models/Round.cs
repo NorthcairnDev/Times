@@ -16,22 +16,22 @@ namespace SecondsClient.Models
         }
 
 
-        public DateTime? StartTime
+        public DateTime StartTime
         {
             get; set;
         }
 
-        public DateTime? EndTime
+        public DateTime EndTime
         {
             get; set;
         }
 
-        public TimeSpan? TargetInSeconds
+        public TimeSpan TargetInSeconds
         {
             get; set;
         }
 
-        public TimeSpan? Accuracy
+        public TimeSpan Accuracy
         {
             get => EndTime - StartTime - TargetInSeconds;
         }
@@ -40,16 +40,12 @@ namespace SecondsClient.Models
         {
             get
             {
-                switch (Math.Abs(Accuracy.Value.TotalMilliseconds))
+                return (object)Math.Abs(Accuracy.TotalMilliseconds) switch
                 {
-                    case < 250
-                    : return LevelsOfAccuracy.VeryClose;
-                    case < 500
-                    : return LevelsOfAccuracy.Close;
-                    default:
-                        return LevelsOfAccuracy.Distant;
-        
-                }
+                    < 250 => LevelsOfAccuracy.VeryClose,
+                    < 500 => LevelsOfAccuracy.Close,
+                    _ => LevelsOfAccuracy.Distant,
+                };
             }
         }
 
