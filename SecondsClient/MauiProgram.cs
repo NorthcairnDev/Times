@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui;
-using static SecondsClient.MainPage;
+﻿using CommunityToolkit.Maui;
 using Plugin.MauiMTAdmob;
 
 namespace SecondsClient
@@ -10,6 +8,7 @@ namespace SecondsClient
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            
             builder
                 .UseMauiApp<App>()
                 .UseMauiMTAdmob()
