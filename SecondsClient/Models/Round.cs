@@ -40,7 +40,7 @@ namespace SecondsClient.Models
         {
             get
             {
-                return (object)Math.Abs(Accuracy.TotalMilliseconds) switch
+                return Math.Abs(Accuracy.TotalMilliseconds) switch
                 {
                     < 250 => LevelsOfAccuracy.VeryClose,
                     < 500 => LevelsOfAccuracy.Close,

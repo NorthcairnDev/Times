@@ -50,9 +50,9 @@ namespace SecondsClient.ViewModels
         private Color _pauseActivityIndicatorColor = Colors.White;
 
         [ObservableProperty]
-        private string? _targetInSecondsImageSource;
+        private string? _targetSecondsImageSource;
         [ObservableProperty]
-        private bool _targetInSecondsImageIsVisible = false;
+        private bool _targetSecondsImageIsVisible = false;
 
 
         [ObservableProperty]
@@ -178,8 +178,8 @@ namespace SecondsClient.ViewModels
                     StartLabelIsVisible = true;
                     StartLabelFormattedText = AppStartFormattedText();
                     PauseActivityIndicatorIsVisible = false;
-                    TargetInSecondsImageSource = String.Empty;
-                    TargetInSecondsImageIsVisible = false;
+                    TargetSecondsImageSource = String.Empty;
+                    TargetSecondsImageIsVisible = false;
                     UnitsLabelIsVisible = false;
                     PlayButtonIsEnabled = true;
                     PlayButtonIsVisible = true;
@@ -198,7 +198,7 @@ namespace SecondsClient.ViewModels
                     HighScoreLabelTextColor = Colors.White;
                     PlayButtonIsEnabled = false;
                     PlayButtonIsVisible = false;
-                    TargetInSecondsImageIsVisible = false;
+                    TargetSecondsImageIsVisible = false;
                     ReserveProgressProgressBar =_game.Reserve / Game.InitalReserve;
                     StartLabelIsVisible = false;
                     StartLabelFormattedText = String.Empty;
@@ -218,7 +218,7 @@ namespace SecondsClient.ViewModels
                     HighScoreLabelBackgroundColor = Colors.Black;
                     HighScoreLabelTextColor = Colors.White;
                     ScoreLabelTextColor = Colors.White;
-                    TargetInSecondsImageIsVisible = true;
+                    TargetSecondsImageIsVisible = true;
                     StartLabelIsVisible = false;
                     StartLabelFormattedText = String.Empty;
                     PauseActivityIndicatorIsVisible = false;
@@ -226,7 +226,7 @@ namespace SecondsClient.ViewModels
                     UnitsLabelIsVisible = true;
                     StopButtonImageSource = "stopbutton.svg";
                     StopButtonIsVisible = true;
-                    TargetInSecondsImageSource = TargetSecondsImage();
+                    TargetSecondsImageSource = TargetSecondsImage();
  
                     break;
                 case GameState.RoundEnded:
@@ -256,7 +256,7 @@ namespace SecondsClient.ViewModels
                     }
 
 
-                    TargetInSecondsImageIsVisible = false;
+                    TargetSecondsImageIsVisible = false;
                     UnitsLabelIsVisible = false;
                     AccuracyLabelIsVisible = true;
                     PauseActivityIndicatorIsVisible = true;
@@ -279,7 +279,7 @@ namespace SecondsClient.ViewModels
                     StopButtonIsVisible = false;
                     PlayButtonIsVisible = true;
                     PlayButtonIsEnabled = true;
-                    TargetInSecondsImageIsVisible = false;
+                    TargetSecondsImageIsVisible = false;
                     UnitsLabelIsVisible = false;
                     AccuracyLabelIsVisible = false;
                     GameOverLabelFormattedText = GameOverFormattedText();
