@@ -39,6 +39,8 @@ namespace SecondsClient.ViewModels
         [ObservableProperty]
         private string _getReadyLabelText = string.Empty;
         [ObservableProperty]
+        private int _getReadyLabelFontSize = 28;
+        [ObservableProperty]
         private bool _getReadyLabelIsVisible = false;
 
         //Pause Between Rounds Indicator
@@ -176,9 +178,11 @@ namespace SecondsClient.ViewModels
 
         private async Task GameStartSequence()
         {
+            GetReadyLabelFontSize = 28;
             GetReadyLabelText = "Get" + Environment.NewLine + "Ready";
             TransitionTo(GameState.GameStarting);
             await Task.Delay(TimeSpan.FromSeconds(0.75));
+            GetReadyLabelFontSize = 48;
             GetReadyLabelText = "GO!";
             await Task.Delay(TimeSpan.FromSeconds(0.75));
             GetReadyLabelIsVisible = false;

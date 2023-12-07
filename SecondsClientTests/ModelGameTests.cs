@@ -4,7 +4,7 @@ using NSubstitute;
 
 namespace SecondsClientTests
 {
-    public class TestsModelGame
+    public class ModelGameTests
     {
 
         //Arrange, Act,Assert
