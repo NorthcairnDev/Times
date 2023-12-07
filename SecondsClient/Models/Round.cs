@@ -1,4 +1,6 @@
-﻿namespace SecondsClient.Models
+﻿using System.Diagnostics;
+
+namespace SecondsClient.Models
 {
     public class Round : IRound
     {
@@ -9,21 +11,10 @@
             Distant
         }
 
-
         private const int _minTargetSeconds = 1;
         private const int _maxTargetSeconds = 5;
-
-
-        public DateTime StartTime
-        {
-            get; set;
-        } = DateTime.UtcNow;
-
-        public DateTime EndTime
-        {
-            get; set;
-        } 
-
+       
+  
         public TimeSpan TargetInSeconds
         {
             get; set;
@@ -31,8 +22,11 @@
 
         public TimeSpan Accuracy
         {
-            get => EndTime - StartTime - TargetInSeconds;
+            get =>_stopwatch.Elapsed - TargetInSeconds;
         }
+
+        Stopwatch _stopwatch =  Stopwatch.StartNew();
+
 
         public LevelsOfAccuracy AccuracyLevel
         {
@@ -46,5 +40,19 @@
                 };
             }
         }
+
+        public void StartStopwatch()
+        {
+            _stopwatch.Start();
+
+        }
+
+        public void StopStopwatch()
+        {
+            _stopwatch.Stop();
+
+        }
+
+
     }
 }

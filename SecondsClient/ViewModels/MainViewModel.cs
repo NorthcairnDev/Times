@@ -128,6 +128,8 @@ namespace SecondsClient.ViewModels
         [RelayCommand]
         private async Task StopAsync()
         {
+
+            _game.Round.StopStopwatch();
             _game.RoundOver();
 
             //Game over ?
@@ -193,6 +195,7 @@ namespace SecondsClient.ViewModels
         {
             _game.NewRound();
             TransitionTo(GameState.RoundActive);
+            _game.Round.StartStopwatch();
         }
 
         private void GameOver()
@@ -251,7 +254,7 @@ namespace SecondsClient.ViewModels
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
                     decimal accuracyRoundedUnsigned = Math.Abs(accuracyRounded);
 
-                    switch (accuracyRoundedUnsigned)
+                    switch (accuracyRounded)
                     {
                         case > (decimal)0.00:
                             AccuracyLabelText = accuracyRoundedUnsigned.ToString() + Environment.NewLine + "Over";

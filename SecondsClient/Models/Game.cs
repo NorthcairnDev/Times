@@ -1,11 +1,13 @@
 ﻿
+using System.Diagnostics;
+
 namespace SecondsClient.Models
 {
     public class Game
     {
         public const double InitalReserve = 5;
         private const int InitalScore = 0;
-
+        
 
         public int Score
         {
@@ -35,17 +37,11 @@ namespace SecondsClient.Models
             set;
         } = false;
 
-
-        //public Game()
-        //{ 
-        
-        //}
-
-
+       
         public void RoundOver()
         {
                        
-            Round!.EndTime = DateTime.UtcNow;
+            //Round!.EndTime = DateTime.UtcNow;
             Reserve -= Math.Abs(Round.Accuracy.TotalSeconds);
 
             if (Reserve < 0)
@@ -60,5 +56,7 @@ namespace SecondsClient.Models
         {
             Round = new Round();
         }
+
+      
     }
 }
