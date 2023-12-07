@@ -2,12 +2,12 @@
 using CommunityToolkit.Mvvm.Input;
 using SecondsClient.Models;
 
-
-
 namespace SecondsClient.ViewModels
 {
     partial class MainViewModel : ObservableObject
     {
+        #region Observable Properties
+
         
         //Score Grid
         [ObservableProperty]
@@ -17,7 +17,7 @@ namespace SecondsClient.ViewModels
         [ObservableProperty]
         private Color _scoreLabelTextColor = Colors.White;
         [ObservableProperty]
-        private string _highScoreLabelText = AppModel.HighScore.ToString();
+        private string _highScoreLabelText = GameHistory.HighScore.ToString();
         [ObservableProperty]
         private Color _highScoreLabelBackgroundColor = Colors.Black;
         [ObservableProperty]
@@ -40,8 +40,6 @@ namespace SecondsClient.ViewModels
         private string _getReadyLabelText = string.Empty;
         [ObservableProperty]
         private bool _getReadyLabelIsVisible = false;
-
-
 
         //Pause Between Rounds Indicator
         [ObservableProperty]
@@ -83,113 +81,145 @@ namespace SecondsClient.ViewModels
         private bool _stopButtonIsVisible = false;
         [ObservableProperty]
         private string _stopButtonImageSource=string.Empty;
-        
+        #endregion Observable Properties
+
+        #region Fields
         //Model of the Game
         private Game _game = new();
-   
-     
 
+        #endregion
+
+        #region Enumerations
         private enum GameState
         {
             GameStarting,
             RoundActive,
             RoundEnded,
-            GameOver,
+            GameOver
         }
+
+        #endregion
+
+        #region Constructor
 
         public MainViewModel()
         {
-
 #if DEBUG
-            AppModel.HighScore = 0;
+            GameHistory.HighScore = 0;
 #endif
- 
         }
 
+        #endregion
 
+        #region RelayCommands
         [RelayCommand]
-        private async Task StartGameAsync() 
+        private async Task StartGameAsync()
         {
-            _game = new ();
+            _game = new();
 
-            
-            //Get Ready
-            GetReadyLabelText = "Get" + "\n" + "Ready";
-            TransitionTo(GameState.GameStarting);       
-            await Task.Delay(TimeSpan.FromSeconds(0.75));
-            GetReadyLabelText = "GO!";
-            await Task.Delay(TimeSpan.FromSeconds(0.75));
-            GetReadyLabelIsVisible = false;
-
+            await GameStartSequence();
 
             StartRound();
-         }
-
-        private void StartRound()
-        {
-           
-            _game.NewRound();
-            TransitionTo(GameState.RoundActive);
         }
+
 
         [RelayCommand]
         private async Task StopAsync()
         {
             _game.RoundOver();
-                                    
-            if (_game.GameOver)
+
+            //Game over ?
+            if (_game.IsGameOver)
             {
-
-                if (_game.Score > AppModel.HighScore)
-                {
-                    AppModel.HighScore = _game.Score;
-                    _game.NewHighScore = true;
-                };
-
-                TransitionTo(GameState.GameOver);
+                GameOver();
                 return;
             }
 
+            //Game continuning for another round
             TransitionTo(GameState.RoundEnded);
-
             await Task.Delay(TimeSpan.FromSeconds(1.5));
             StartRound();
+            return;
 
         }
 
 
+        #endregion
+
+        #region Private Static Methods
+        private static FormattedString GameOverFormattedText()
+        {
+            FormattedString gameOverText = new();
+
+            gameOverText.Spans.Add(new Span { Text = "Game", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 48 });
+            gameOverText.Spans.Add(new Span { Text = Environment.NewLine });
+            gameOverText.Spans.Add(new Span { Text = "Over", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 48 });
+
+            return gameOverText;
+        }
+
+        private static FormattedString StartPageFormattedText()
+        {
+            FormattedString startText = new();
+
+            startText.Spans.Add(new Span { Text = "Count", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 32 });
+            startText.Spans.Add(new Span { Text = Environment.NewLine });
+            startText.Spans.Add(new Span { Text = "the", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 32 });
+            startText.Spans.Add(new Span { Text = Environment.NewLine });
+            startText.Spans.Add(new Span { Text = "seconds", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 32 });
+
+            return startText;
+        }
+        #endregion
+
+        #region Private Instance Methods
+
+        private async Task GameStartSequence()
+        {
+            GetReadyLabelText = "Get" + Environment.NewLine + "Ready";
+            TransitionTo(GameState.GameStarting);
+            await Task.Delay(TimeSpan.FromSeconds(0.75));
+            GetReadyLabelText = "GO!";
+            await Task.Delay(TimeSpan.FromSeconds(0.75));
+            GetReadyLabelIsVisible = false;
+        }
+
+
+        private void StartRound()
+        {
+            _game.NewRound();
+            TransitionTo(GameState.RoundActive);
+        }
+
+        private void GameOver()
+        {
+            if (_game.Score > GameHistory.HighScore)
+            {
+                GameHistory.HighScore = _game.Score;
+                _game.NewHighScore = true;
+            }
+
+            TransitionTo(GameState.GameOver);
+        }
+
         private void TransitionTo(GameState gameState)
         {
- 
-           // ScoreLabelText = _game.Score.ToString();
-
-     
-            
-
-
             switch (gameState)
             {
                 case GameState.GameStarting:
 
                     ScoreLabelTextColor = Colors.White;
                     ScoreLabelBackgroundColor = Colors.Black;
-
                     HighScoreLabelTextColor = Colors.White;
                     HighScoreLabelBackgroundColor = Colors.Black;
-
                     ReserveProgressProgressBar = _game.Reserve / Game.InitalReserve;
-
                     StartPageLabelIsVisible = false;
                     GameOverLabelIsVisible = false;
-
                     PauseActivityIndicatorColor = Colors.White;
                     PauseActivityIndicatorIsVisible = true;
-                    
                     GetReadyLabelIsVisible = true;
-
                     PlayButtonIsVisible = false;
                     PlayButtonIsEnabled = false;
-
                     break;
 
                 case GameState.RoundActive:
@@ -203,33 +233,33 @@ namespace SecondsClient.ViewModels
                     StopButtonIsVisible = true;
                     StopButtonIsEnabled = true;
 
- 
+
                     break;
                 case GameState.RoundEnded:
 
                     TargetSecondsImageIsVisible = false;
-
-
                     ReserveProgressProgressBar = _game.Reserve / Game.InitalReserve;
-
                     ScoreLabelText = _game.Score.ToString();
 
-                    decimal accuracy = Math.Round((decimal)_game.Round.Accuracy.TotalSeconds, 2);
 
-                    switch (accuracy)
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                    decimal accuracyRounded = Math.Round((decimal)_game.Round.Accuracy.TotalSeconds, 2);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                    decimal accuracyRoundedUnsigned = Math.Abs(accuracyRounded);
+
+                    switch (accuracyRoundedUnsigned)
                     {
                         case > (decimal)0.00:
-                            AccuracyLabelText = accuracy.ToString() + Environment.NewLine + "Over";
+                            AccuracyLabelText = accuracyRoundedUnsigned.ToString() + Environment.NewLine + "Over";
                             break;
-                        case <  (decimal)0.00:
-                            AccuracyLabelText = accuracy.ToString() + Environment.NewLine + "Under";
+                        case < (decimal)0.00:
+                            AccuracyLabelText = accuracyRoundedUnsigned.ToString() + Environment.NewLine + "Under";
                             break;
 
                         case (decimal)0.00:
-                            AccuracyLabelText = accuracy.ToString() + Environment.NewLine + "Perfect";
+                            AccuracyLabelText = accuracyRoundedUnsigned.ToString() + Environment.NewLine + "Perfect";
                             break;
                     }
-
 
                     AccuracyLabelTextColor = AccuracyColor();
                     AccuracyLabelIsVisible = true;
@@ -238,11 +268,9 @@ namespace SecondsClient.ViewModels
                     PauseActivityIndicatorIsVisible = true;
                     StopButtonIsEnabled = false;
                     StopButtonImageSource = "pausebutton.svg";
- 
-
                     break;
                 case GameState.GameOver:
-                    HighScoreLabelText = HighScoreLabelText = AppModel.HighScore.ToString();
+                    HighScoreLabelText = HighScoreLabelText = GameHistory.HighScore.ToString();
                     HighScoreLabelBackgroundColor = _game.NewHighScore ? Color.FromArgb("05C405") : Colors.Black;
                     HighScoreLabelTextColor = _game.NewHighScore ? Colors.Black : Colors.White;
                     ScoreLabelBackgroundColor = Color.FromArgb("FF9900");
@@ -254,25 +282,23 @@ namespace SecondsClient.ViewModels
                     PlayButtonIsEnabled = true;
                     TargetSecondsImageIsVisible = false;
                     GameOverLabelIsVisible = true;
-
-
                     break;
                 default:
                     break;
             }
-
-
         }
 
-        private Color AccuracyColor() 
+        private Color AccuracyColor()
         {
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             return _game.Round.AccuracyLevel switch
             {
                 Round.LevelsOfAccuracy.VeryClose => Color.FromArgb("05C405"),
                 Round.LevelsOfAccuracy.Close => Color.FromArgb("FF9900"),
                 _ => Color.FromArgb("FE0000"),
             };
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
 
 
@@ -282,6 +308,7 @@ namespace SecondsClient.ViewModels
             if (!EasyModeSwitchIsToggled)
             {
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 return _game.Round.TargetInSeconds.Seconds switch
                 {
                     1 => "onesecondfuschia.svg",
@@ -291,8 +318,10 @@ namespace SecondsClient.ViewModels
                     5 => "fivesecondfuschia.svg",
                     _ => string.Empty,
                 };
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             return _game.Round.TargetInSeconds.Seconds switch
             {
                 1 => "onemississippifuschia.svg",
@@ -302,42 +331,12 @@ namespace SecondsClient.ViewModels
                 5 => "fivemississippifuschia.svg",
                 _ => string.Empty,
             };
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
 
-
-        private static FormattedString GameOverFormattedText()
-        {
-            FormattedString gameOverText = new ();
-
-            gameOverText.Spans.Add(new Span { Text = "Game", TextColor = Colors.White, FontFamily= "RubikMonoOne-Regular", FontSize=48});
-            gameOverText.Spans.Add(new Span { Text = Environment.NewLine });
-            gameOverText.Spans.Add(new Span { Text = "Over", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 48 });
-            
-
-            return gameOverText;
-
-        }
-
-        private static FormattedString StartPageFormattedText()
-        {
-            FormattedString startText = new ();
-
-            startText.Spans.Add(new Span { Text = "Count", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 32 });
-            startText.Spans.Add(new Span { Text = Environment.NewLine });
-            startText.Spans.Add(new Span { Text = "the", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 32 });
-            startText.Spans.Add(new Span { Text = Environment.NewLine });
-            startText.Spans.Add(new Span { Text = "seconds", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 32 });
-
-
-            return startText;
-
-        }
-
-
-
+        #endregion
 
     }
-
 
 }
 

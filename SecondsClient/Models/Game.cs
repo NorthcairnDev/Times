@@ -1,8 +1,7 @@
-﻿using System.ComponentModel;
-
+﻿
 namespace SecondsClient.Models
 {
-    class Game
+    public class Game
     {
         public const double InitalReserve = 5;
         private const int InitalScore = 0;
@@ -18,19 +17,13 @@ namespace SecondsClient.Models
             get; set;
         } = InitalReserve;
 
-      
-        public List<Round> Rounds
-        {
-            get;
-        }
-
-        public Round Round
+        public IRound? Round
         {
             get;
             set;
         }
 
-        public bool GameOver
+        public bool IsGameOver
         {
             get;
             set;
@@ -43,35 +36,29 @@ namespace SecondsClient.Models
         } = false;
 
 
-        public Game()
-        {
-            Rounds = [];
-            Round = new Round();
-        }
+        //public Game()
+        //{ 
+        
+        //}
+
 
         public void RoundOver()
         {
                        
-            Round.EndTime = DateTime.UtcNow;
-            Rounds.Add(Round);
+            Round!.EndTime = DateTime.UtcNow;
             Reserve -= Math.Abs(Round.Accuracy.TotalSeconds);
 
             if (Reserve < 0)
             {
-                GameOver = true;
+                IsGameOver = true;
                 return;
             }
-
             Score++;
-
         }
-
-
 
         public void NewRound()
         {
             Round = new Round();
-            
         }
     }
 }

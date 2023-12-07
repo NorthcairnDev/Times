@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SecondsClient.Models
+﻿namespace SecondsClient.Models
 {
-    internal class Round
+    public class Round : IRound
     {
         public enum LevelsOfAccuracy
         {
@@ -14,6 +8,10 @@ namespace SecondsClient.Models
             Close,
             Distant
         }
+
+
+        private const int _minTargetSeconds = 1;
+        private const int _maxTargetSeconds = 5;
 
 
         public DateTime StartTime
@@ -24,12 +22,12 @@ namespace SecondsClient.Models
         public DateTime EndTime
         {
             get; set;
-        }
+        } = DateTime.UtcNow;
 
         public TimeSpan TargetInSeconds
         {
             get; set;
-        }
+        } = TimeSpan.FromSeconds(new Random().Next(_minTargetSeconds, _maxTargetSeconds + 1));
 
         public TimeSpan Accuracy
         {
@@ -47,16 +45,6 @@ namespace SecondsClient.Models
                     _ => LevelsOfAccuracy.Distant,
                 };
             }
-        }
-
-        
-        private readonly int _minTargetSeconds = 1;
-        private readonly int _maxTargetSeconds = 5;
-
-        public Round()
-        {
-            TargetInSeconds = TimeSpan.FromSeconds(new Random().Next(_minTargetSeconds, _maxTargetSeconds + 1));
-            StartTime = DateTime.UtcNow;
         }
     }
 }
