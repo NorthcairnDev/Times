@@ -1,6 +1,5 @@
 ﻿
-using Microsoft.Maui.Layouts;
-using NSubstitute;
+
 
 namespace SecondsClientTests
 {

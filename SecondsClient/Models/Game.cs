@@ -8,7 +8,6 @@ namespace SecondsClient.Models
         public const double InitalReserve = 5;
         private const int InitalScore = 0;
         
-
         public int Score
         {
             get; set;

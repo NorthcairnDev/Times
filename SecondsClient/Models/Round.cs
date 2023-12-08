@@ -25,7 +25,7 @@ namespace SecondsClient.Models
             get =>_stopwatch.Elapsed - TargetInSeconds;
         }
 
-        Stopwatch _stopwatch =  Stopwatch.StartNew();
+        Stopwatch _stopwatch =  new();
 
 
         public LevelsOfAccuracy AccuracyLevel
