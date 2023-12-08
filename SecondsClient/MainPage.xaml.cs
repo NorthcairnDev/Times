@@ -1,4 +1,5 @@
-﻿using SecondsClient.ViewModels;
+﻿using SecondsClient.Models;
+using SecondsClient.ViewModels;
 
 namespace SecondsClient
 {
@@ -8,7 +9,9 @@ namespace SecondsClient
         {
             InitializeComponent();
 
-            BindingContext = new MainViewModel();
+            GameHistory gameHistory = new();
+
+            BindingContext = new MainViewModel(gameHistory);
 
         }
     }

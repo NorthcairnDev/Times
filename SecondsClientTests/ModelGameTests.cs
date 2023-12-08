@@ -1,6 +1,5 @@
 ﻿
 
-
 namespace SecondsClientTests
 {
     public class ModelGameTests

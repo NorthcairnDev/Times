@@ -4,7 +4,7 @@ using SecondsClient.Models;
 
 namespace SecondsClient.ViewModels
 {
-    partial class MainViewModel : ObservableObject
+    public partial class MainViewModel : ObservableObject
     {
         #region Observable Properties
 
@@ -17,7 +17,7 @@ namespace SecondsClient.ViewModels
         [ObservableProperty]
         private Color _scoreLabelTextColor = Colors.White;
         [ObservableProperty]
-        private string _highScoreLabelText = GameHistory.HighScore.ToString();
+        private string _highScoreLabelText; //set in constructor;
         [ObservableProperty]
         private Color _highScoreLabelBackgroundColor = Colors.Black;
         [ObservableProperty]
@@ -88,6 +88,7 @@ namespace SecondsClient.ViewModels
         #region Fields
         //Model of the Game
         private Game _game = new();
+        private IGameHistory _gameHistory;
 
         #endregion
 
@@ -104,11 +105,16 @@ namespace SecondsClient.ViewModels
 
         #region Constructor
 
-        public MainViewModel()
+        public MainViewModel(IGameHistory gameHistory)
         {
+            _gameHistory = gameHistory;
+
 #if DEBUG
-            GameHistory.HighScore = 0;
+            _gameHistory.HighScore = 0;
 #endif
+
+            this._highScoreLabelText = _gameHistory.HighScore.ToString();
+
         }
 
         #endregion
@@ -200,9 +206,9 @@ namespace SecondsClient.ViewModels
 
         private void GameOver()
         {
-            if (_game.Score > GameHistory.HighScore)
+            if (_game.Score > _gameHistory.HighScore)
             {
-                GameHistory.HighScore = _game.Score;
+                _gameHistory.HighScore = _game.Score;
                 _game.NewHighScore = true;
             }
 
@@ -277,7 +283,7 @@ namespace SecondsClient.ViewModels
                     StopButtonImageSource = "pausebutton.svg";
                     break;
                 case GameState.GameOver:
-                    HighScoreLabelText = HighScoreLabelText = GameHistory.HighScore.ToString();
+                    HighScoreLabelText = HighScoreLabelText = _gameHistory.HighScore.ToString();
                     HighScoreLabelBackgroundColor = _game.NewHighScore ? Color.FromArgb("05C405") : Colors.Black;
                     HighScoreLabelTextColor = _game.NewHighScore ? Colors.Black : Colors.White;
                     ScoreLabelBackgroundColor = Color.FromArgb("FF9900");

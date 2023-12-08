@@ -1,9 +1,9 @@
 ﻿
 namespace SecondsClient.Models
 {
-    class GameHistory
+    public class GameHistory : IGameHistory
     {
-        public static int HighScore
+        public int HighScore
         {
             get => Preferences.Default.Get<int>("HighScore", 0);
             set => Preferences.Default.Set<int>("HighScore", value);
