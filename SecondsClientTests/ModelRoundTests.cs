@@ -72,11 +72,11 @@ namespace SecondsClient.Tests.Unit
 
         [Theory]
         [InlineData(0, Round.LevelsOfAccuracy.Distant)]
-        [InlineData(501, Round.LevelsOfAccuracy.Close)]
-        [InlineData(751, Round.LevelsOfAccuracy.VeryClose)]
-        [InlineData(1225, Round.LevelsOfAccuracy.VeryClose)]
-        [InlineData(1300, Round.LevelsOfAccuracy.Close)]
-        [InlineData(1500, Round.LevelsOfAccuracy.Distant)]
+        [InlineData(625, Round.LevelsOfAccuracy.Close)]
+        [InlineData(875, Round.LevelsOfAccuracy.VeryClose)]
+        [InlineData(1125, Round.LevelsOfAccuracy.VeryClose)]
+        [InlineData(1375, Round.LevelsOfAccuracy.Close)]
+        [InlineData(1600, Round.LevelsOfAccuracy.Distant)]
         public async void AccuracyLevel_AllDelays_AllLevelsAlignToDelays (int msDelay, Round.LevelsOfAccuracy expectedLevelOfAccuracy)
         {
 
