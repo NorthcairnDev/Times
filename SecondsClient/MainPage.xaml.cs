@@ -11,7 +11,9 @@ namespace SecondsClient
 
             GameHistory gameHistory = new();
 
-            BindingContext = new MainViewModel(gameHistory);
+            MainViewModelDelays delays = new() { GetReadyVisisbleDurationMs=750, GoVisisbleDurationMs  =  750, PauseBetweenRoundsDurationMs=1500};
+
+            BindingContext = new MainViewModel(gameHistory, delays);
 
         }
     }

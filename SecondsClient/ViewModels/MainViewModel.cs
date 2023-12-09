@@ -89,6 +89,7 @@ namespace SecondsClient.ViewModels
         //Model of the Game
         private Game _game = new();
         private IGameHistory _gameHistory;
+        private MainViewModelDelays _delays;
 
         #endregion
 
@@ -105,9 +106,10 @@ namespace SecondsClient.ViewModels
 
         #region Constructor
 
-        public MainViewModel(IGameHistory gameHistory)
+        public MainViewModel(IGameHistory gameHistory, MainViewModelDelays delays)
         {
             _gameHistory = gameHistory;
+            _delays = delays;
 
 #if DEBUG
             _gameHistory.HighScore = 0;
@@ -147,7 +149,7 @@ namespace SecondsClient.ViewModels
 
             //Game continuning for another round
             TransitionTo(GameState.RoundEnded);
-            await Task.Delay(TimeSpan.FromSeconds(1.5));
+            await Task.Delay(_delays.PauseBetweenRoundsDurationMs);
             StartRound();
             return;
 
@@ -189,10 +191,10 @@ namespace SecondsClient.ViewModels
             GetReadyLabelFontSize = 28;
             GetReadyLabelText = "Get" + Environment.NewLine + "Ready";
             TransitionTo(GameState.GameStarting);
-            await Task.Delay(TimeSpan.FromSeconds(0.75));
+            await Task.Delay(_delays.GetReadyVisisbleDurationMs);
             GetReadyLabelFontSize = 48;
             GetReadyLabelText = "GO!";
-            await Task.Delay(TimeSpan.FromSeconds(0.75));
+            await Task.Delay(_delays.GoVisisbleDurationMs);
             GetReadyLabelIsVisible = false;
         }
 

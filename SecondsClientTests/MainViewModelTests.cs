@@ -18,7 +18,10 @@ namespace SecondsClient.Tests.Unit
         {
             _gameHistory = Substitute.For<IGameHistory>();
             _gameHistory.HighScore.Returns(0);
-            this._vm = new(_gameHistory);
+
+            MainViewModelDelays standardDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
+
+            this._vm = new(_gameHistory, standardDelays);
 
         }
 
@@ -160,6 +163,50 @@ namespace SecondsClient.Tests.Unit
         {
             _vm.StopButtonImageSource.Should().Be(string.Empty);
         }
+        [Fact]
+        async void StartGameCommand_GetReadyLabelText_GetReady()
+        {
+
+
+            MainViewModelDelays standardDelays = new() { GetReadyVisisbleDurationMs = 100, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
+
+            this._vm = new(_gameHistory, standardDelays);
+
+            
+            _vm.StartGameCommand.ExecuteAsync(null);
+
+            await Task.Delay(50);
+
+            _vm.GetReadyLabelText.ToString().Should().Be("Get" + Environment.NewLine + "Ready");
+            _vm.GetReadyLabelIsVisible.Should().Be(true);
+        }
+
+        [Fact]
+        async void StartGameCommand_GetReadyLabelText_Go()
+        {
+
+            MainViewModelDelays standardDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 100, PauseBetweenRoundsDurationMs = 100 };
+
+            this._vm = new(_gameHistory, standardDelays);
+
+            _vm.StartGameCommand.ExecuteAsync(null);
+
+            await Task.Delay(50);
+
+            _vm.GetReadyLabelText.ToString().Should().Be("GO!");
+            _vm.GetReadyLabelIsVisible.Should().Be(true);
+        }
+
+        [Fact]
+        async void StartGameCommand_GetReadyLabelVisisble_False()
+        {
+
+            await  _vm.StartGameCommand.ExecuteAsync(null);
+
+            _vm.GetReadyLabelIsVisible.Should().Be(false);
+        }
 
     }
+
 }
+
