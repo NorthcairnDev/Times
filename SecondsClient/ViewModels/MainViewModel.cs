@@ -13,9 +13,9 @@ namespace SecondsClient.ViewModels
         [ObservableProperty]
         private string _scoreLabelText = "0";
         [ObservableProperty]
-        private Color _scoreLabelBackgroundColor = Colors.Black;
-        [ObservableProperty]
         private Color _scoreLabelTextColor = Colors.White;
+        [ObservableProperty]
+        private Color _scoreLabelBackgroundColor = Colors.Black;
         [ObservableProperty]
         private string _highScoreLabelText; //set in constructor;
         [ObservableProperty]
@@ -65,7 +65,7 @@ namespace SecondsClient.ViewModels
 
         //Game Over Page
         [ObservableProperty]
-        private FormattedString? _gameOverLabelFormattedText = MainViewModel.GameOverFormattedText();
+        private FormattedString? _gameOverLabelFormattedText= MainViewModel.GameOverFormattedText();
         [ObservableProperty]
         private bool _gameOverLabelIsVisible = false;
 
@@ -115,8 +115,8 @@ namespace SecondsClient.ViewModels
             _gameHistory.HighScore = 0;
 #endif
 
-            this._highScoreLabelText = _gameHistory.HighScore.ToString();
-
+            _highScoreLabelText = _gameHistory.HighScore.ToString();
+          
         }
 
         #endregion
@@ -223,18 +223,30 @@ namespace SecondsClient.ViewModels
             {
                 case GameState.GameStarting:
 
+                    ScoreLabelText = "0";
                     ScoreLabelTextColor = Colors.White;
                     ScoreLabelBackgroundColor = Colors.Black;
                     HighScoreLabelTextColor = Colors.White;
+                    HighScoreLabelText = _gameHistory.HighScore.ToString();
+                    HighScoreLabelTextColor = Colors.White;
                     HighScoreLabelBackgroundColor = Colors.Black;
-                    ReserveProgressProgressBar = _game.Reserve / Game.InitalReserve;
+                    ReserveProgressProgressBar = 1;
                     StartPageLabelIsVisible = false;
-                    GameOverLabelIsVisible = false;
+                    GetReadyLabelIsVisible = true;
                     PauseActivityIndicatorColor = Colors.White;
                     PauseActivityIndicatorIsVisible = true;
-                    GetReadyLabelIsVisible = true;
-                    PlayButtonIsVisible = false;
+                    TargetSecondsImageSource = string.Empty;
+                    TargetSecondsImageIsVisible = false;
+                    AccuracyLabelText = string.Empty;
+                    AccuracyLabelTextColor = Colors.White;
+                    AccuracyLabelIsVisible = false;
+                    GameOverLabelIsVisible = false;
                     PlayButtonIsEnabled = false;
+                    PlayButtonIsVisible = false;
+                    StopButtonIsEnabled = false;
+                    StopButtonIsVisible = true;
+                    StopButtonImageSource = "pausebutton.svg";
+
                     break;
 
                 case GameState.RoundActive:
