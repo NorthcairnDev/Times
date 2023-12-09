@@ -19,9 +19,10 @@ namespace SecondsClient.ViewModels
         [ObservableProperty]
         private string _highScoreLabelText; //set in constructor;
         [ObservableProperty]
-        private Color _highScoreLabelBackgroundColor = Colors.Black;
-        [ObservableProperty]
         private Color _highScoreLabelTextColor = Colors.White;
+        [ObservableProperty]
+        private Color _highScoreLabelBackgroundColor = Colors.Black;
+ 
         [ObservableProperty]
         private bool _easyModeSwitchIsToggled = false;
 
@@ -199,7 +200,7 @@ namespace SecondsClient.ViewModels
         }
 
 
-        private void StartRound()
+        public void StartRound() //public for testing
         {
             _game.NewRound();
             TransitionTo(GameState.RoundActive);
@@ -226,7 +227,6 @@ namespace SecondsClient.ViewModels
                     ScoreLabelText = "0";
                     ScoreLabelTextColor = Colors.White;
                     ScoreLabelBackgroundColor = Colors.Black;
-                    HighScoreLabelTextColor = Colors.White;
                     HighScoreLabelText = _gameHistory.HighScore.ToString();
                     HighScoreLabelTextColor = Colors.White;
                     HighScoreLabelBackgroundColor = Colors.Black;
@@ -250,28 +250,52 @@ namespace SecondsClient.ViewModels
                     break;
 
                 case GameState.RoundActive:
+                    ScoreLabelText = _game.Score.ToString();
+                    ScoreLabelTextColor = Colors.White;
+                    ScoreLabelBackgroundColor = Colors.Black;
+                    HighScoreLabelText = _gameHistory.HighScore.ToString();
+                    HighScoreLabelTextColor = Colors.White;
+                    HighScoreLabelBackgroundColor = Colors.Black;
+                    ReserveProgressProgressBar = _game.Reserve / Game.InitalReserve;
+                    StartPageLabelIsVisible = false;
+                    GetReadyLabelText = string.Empty;
+                    GetReadyLabelFontSize = 28;
+                    GetReadyLabelIsVisible = false;
+                    PauseActivityIndicatorColor = Colors.White;
                     PauseActivityIndicatorIsVisible = false;
-                    AccuracyLabelIsVisible = false;
-
-                    TargetSecondsImageIsVisible = true;
                     TargetSecondsImageSource = TargetSecondsImage();
-
-                    StopButtonImageSource = "stopbutton.svg";
-                    StopButtonIsVisible = true;
+                    TargetSecondsImageIsVisible = true;
+                    AccuracyLabelText = string.Empty;
+                    AccuracyLabelTextColor = Colors.White;
+                    AccuracyLabelIsVisible = false;
+                    GameOverLabelIsVisible = false;
+                    PlayButtonIsEnabled = false;
+                    PlayButtonIsVisible = false;
                     StopButtonIsEnabled = true;
-
+                    StopButtonIsVisible = true;
+                    StopButtonImageSource = "stopbutton.svg";
 
                     break;
+
                 case GameState.RoundEnded:
 
-                    TargetSecondsImageIsVisible = false;
-                    ReserveProgressProgressBar = _game.Reserve / Game.InitalReserve;
                     ScoreLabelText = _game.Score.ToString();
+                    ScoreLabelTextColor = Colors.White;
+                    ScoreLabelBackgroundColor = Colors.Black;
+                    HighScoreLabelText = _gameHistory.HighScore.ToString();
+                    HighScoreLabelTextColor = Colors.White;
+                    HighScoreLabelBackgroundColor = Colors.Black;
+                    ReserveProgressProgressBar = _game.Reserve / Game.InitalReserve;
+                    StartPageLabelIsVisible = false;
+                    GetReadyLabelText = string.Empty;
+                    GetReadyLabelFontSize = 28;
+                    GetReadyLabelIsVisible = false;
+                    PauseActivityIndicatorColor = AccuracyColor();
+                    PauseActivityIndicatorIsVisible = true;
+                    TargetSecondsImageSource = string.Empty;
+                    TargetSecondsImageIsVisible = false;
 
-
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
                     decimal accuracyRounded = Math.Round((decimal)_game.Round.Accuracy.TotalSeconds, 2);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
                     decimal accuracyRoundedUnsigned = Math.Abs(accuracyRounded);
 
                     switch (accuracyRounded)
@@ -290,25 +314,40 @@ namespace SecondsClient.ViewModels
 
                     AccuracyLabelTextColor = AccuracyColor();
                     AccuracyLabelIsVisible = true;
-
-                    PauseActivityIndicatorColor = AccuracyColor();
-                    PauseActivityIndicatorIsVisible = true;
+                    GameOverLabelIsVisible = false;
+                    PlayButtonIsEnabled = false;
+                    PlayButtonIsVisible = false;
                     StopButtonIsEnabled = false;
+                    StopButtonIsVisible = true;
                     StopButtonImageSource = "pausebutton.svg";
                     break;
+
                 case GameState.GameOver:
-                    HighScoreLabelText = HighScoreLabelText = _gameHistory.HighScore.ToString();
-                    HighScoreLabelBackgroundColor = _game.NewHighScore ? Color.FromArgb("05C405") : Colors.Black;
-                    HighScoreLabelTextColor = _game.NewHighScore ? Colors.Black : Colors.White;
+                    ScoreLabelText = _game.Score.ToString();
+                    ScoreLabelTextColor = Colors.Black; 
                     ScoreLabelBackgroundColor = Color.FromArgb("FF9900");
-                    ScoreLabelTextColor = Colors.Black;
+                    HighScoreLabelText = _gameHistory.HighScore.ToString();
+                    HighScoreLabelTextColor = _game.NewHighScore ? Colors.Black : Colors.White;
+                    HighScoreLabelBackgroundColor = _game.NewHighScore ? Color.FromArgb("05C405") : Colors.Black;
                     ReserveProgressProgressBar = 0;
-                    StopButtonIsVisible = false;
-                    StopButtonIsEnabled = false;
-                    PlayButtonIsVisible = true;
-                    PlayButtonIsEnabled = true;
+                    StartPageLabelIsVisible = false;
+                    GetReadyLabelText = string.Empty;
+                    GetReadyLabelFontSize = 28;
+                    GetReadyLabelIsVisible = false;
+                    PauseActivityIndicatorColor = Colors.White;
+                    PauseActivityIndicatorIsVisible = false;
+                    TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
+                    AccuracyLabelText = string.Empty;
+                    AccuracyLabelTextColor = Colors.White;
+                    AccuracyLabelIsVisible = false;
                     GameOverLabelIsVisible = true;
+                    PlayButtonIsEnabled = true;
+                    PlayButtonIsVisible = true;
+                    StopButtonIsEnabled = false;
+                    StopButtonIsVisible = false;
+                    StopButtonImageSource = string.Empty;
+
                     break;
                 default:
                     break;

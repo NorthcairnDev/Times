@@ -173,10 +173,10 @@ namespace SecondsClient.Tests.Unit
         {
 
 
-            MainViewModelDelays standardDelays = new() { GetReadyVisisbleDurationMs = 100, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
+            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 100, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
 
-            this._vm = new(_gameHistory, standardDelays);
-            
+            this._vm = new(_gameHistory, altDelays);
+
             _vm.StartGameCommand.ExecuteAsync(null);
 
             await Task.Delay(50);
@@ -184,7 +184,6 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().Be("Get" + Environment.NewLine + "Ready");
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(true);
-
 
             _vm.ScoreLabelText.ToString().Should().Be("0");
             _vm.ScoreLabelTextColor.Should().Be(Colors.White);
@@ -215,28 +214,217 @@ namespace SecondsClient.Tests.Unit
         async void StartGameCommand_GetReadyLabelText_Go()
         {
 
-            MainViewModelDelays standardDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 100, PauseBetweenRoundsDurationMs = 100 };
+            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 100, PauseBetweenRoundsDurationMs = 100 };
 
-            this._vm = new(_gameHistory, standardDelays);
+            this._vm = new(_gameHistory, altDelays);
 
             _vm.StartGameCommand.ExecuteAsync(null);
 
             await Task.Delay(50);
 
             _vm.GetReadyLabelText.ToString().Should().Be("GO!");
+            _vm.GetReadyLabelFontSize.Should().Be(48);
             _vm.GetReadyLabelIsVisible.Should().Be(true);
+
+            _vm.ScoreLabelText.ToString().Should().Be("0");
+            _vm.ScoreLabelTextColor.Should().Be(Colors.White);
+            _vm.ScoreLabelBackgroundColor.Should().Be(Colors.Black);
+            _vm.HighScoreLabelTextColor.Should().Be(Colors.White);
+            _vm.HighScoreLabelText.Should().Be(_gameHistory.HighScore.ToString());
+            _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
+            _vm.ReserveProgressProgressBar.Should().Be(1);
+            _vm.StartPageLabelIsVisible.Should().Be(false);
+            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
+            _vm.PauseActivityIndicatorIsVisible.Should().Be(true);
+            _vm.TargetSecondsImageSource.Should().Be(string.Empty);
+            _vm.TargetSecondsImageIsVisible.Should().Be(false);
+            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
+            _vm.AccuracyLabelIsVisible.Should().Be(false);
+            _vm.GameOverLabelIsVisible.Should().Be(false);
+            _vm.PlayButtonIsEnabled.Should().Be(false);
+            _vm.PlayButtonIsVisible.Should().Be(false);
+            _vm.StopButtonIsEnabled.Should().Be(false);
+            _vm.StopButtonIsVisible.Should().Be(true);
+            _vm.StopButtonImageSource.Should().Be("pausebutton.svg");
         }
 
         [Fact]
-        async void StartGameCommand_GetReadyLabelVisisble_False()
+        async void StartRound_TargetSecondsNotEasyMode_Between1and5()
         {
 
-            await  _vm.StartGameCommand.ExecuteAsync(null);
+            _vm.EasyModeSwitchIsToggled = false;
 
+            _vm.StartRound();
+
+            _vm.TargetSecondsImageSource.Should().BeOneOf("onesecondfuschia.svg",
+                                                            "twosecondfuschia.svg",
+                                                            "threesecondfuschia.svg",
+                                                            "foursecondfuschia.svg",
+                                                            "fivesecondfuschia.svg");
+
+
+            _vm.TargetSecondsImageIsVisible.Should().Be(true);
+
+            _vm.ScoreLabelText.ToString().Should().Be("0");
+            _vm.ScoreLabelTextColor.Should().Be(Colors.White);
+            _vm.ScoreLabelBackgroundColor.Should().Be(Colors.Black);
+            _vm.HighScoreLabelTextColor.Should().Be(Colors.White);
+            _vm.HighScoreLabelText.Should().Be(_gameHistory.HighScore.ToString());
+            _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
+            _vm.ReserveProgressProgressBar.Should().Be(1);
+            _vm.StartPageLabelIsVisible.Should().Be(false);
+            _vm.GetReadyLabelText.ToString().Should().Be(string.Empty);
+            _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
+            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
+            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
+            _vm.AccuracyLabelIsVisible.Should().Be(false);
+            _vm.GameOverLabelIsVisible.Should().Be(false);
+            _vm.PlayButtonIsEnabled.Should().Be(false);
+            _vm.PlayButtonIsVisible.Should().Be(false);
+            _vm.StopButtonIsEnabled.Should().Be(true);
+            _vm.StopButtonIsVisible.Should().Be(true);
+            _vm.StopButtonImageSource.Should().Be("stopbutton.svg");
+
         }
 
+
+        [Fact]
+        async void StartRound_TargetSecondsEasyMode_Between1and5()
+        {
+            //arrange
+            _vm.EasyModeSwitchIsToggled = true;
+
+            //act
+            _vm.StartRound();
+            //assert
+            _vm.TargetSecondsImageSource.Should().BeOneOf("onemississippifuschia.svg",
+                                                                "twomississippifuschia.svg",
+                                                                "threemississippifuschia.svg",
+                                                                "fourmississippifuschia.svg",
+                                                                "fivemississippifuschia.svg");
+
+
+            _vm.TargetSecondsImageIsVisible.Should().Be(true);
+
+            _vm.ScoreLabelText.ToString().Should().Be("0");
+            _vm.ScoreLabelTextColor.Should().Be(Colors.White);
+            _vm.ScoreLabelBackgroundColor.Should().Be(Colors.Black);
+            _vm.HighScoreLabelTextColor.Should().Be(Colors.White);
+            _vm.HighScoreLabelText.Should().Be(_gameHistory.HighScore.ToString());
+            _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
+            _vm.ReserveProgressProgressBar.Should().Be(1);
+            _vm.StartPageLabelIsVisible.Should().Be(false);
+            _vm.GetReadyLabelText.ToString().Should().Be(string.Empty);
+            _vm.GetReadyLabelFontSize.Should().Be(28);
+            _vm.GetReadyLabelIsVisible.Should().Be(false);
+            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
+            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
+            _vm.AccuracyLabelIsVisible.Should().Be(false);
+            _vm.GameOverLabelIsVisible.Should().Be(false);
+            _vm.PlayButtonIsEnabled.Should().Be(false);
+            _vm.PlayButtonIsVisible.Should().Be(false);
+            _vm.StopButtonIsEnabled.Should().Be(true);
+            _vm.StopButtonIsVisible.Should().Be(true);
+            _vm.StopButtonImageSource.Should().Be("stopbutton.svg");
+
+        }
+
+        [Fact]
+        async void StopCommand_RoundOver_GameNotOver() 
+        {
+
+            //Arrange
+            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 1000 };
+            this._vm = new(_gameHistory, altDelays);
+
+            await _vm.StartGameCommand.ExecuteAsync(null);
+
+            //Act
+            _vm.StopCommand.ExecuteAsync(null);
+
+            //assert
+
+            _vm.ScoreLabelText.ToString().Should().Be("1");
+            _vm.ScoreLabelTextColor.Should().Be(Colors.White);
+            _vm.ScoreLabelBackgroundColor.Should().Be(Colors.Black);
+            _vm.HighScoreLabelTextColor.Should().Be(Colors.White);
+            _vm.HighScoreLabelText.Should().Be(_gameHistory.HighScore.ToString());
+            _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
+            _vm.ReserveProgressProgressBar.Should().BeInRange(0.001,1);
+            _vm.StartPageLabelIsVisible.Should().Be(false);
+            _vm.GetReadyLabelText.ToString().Should().Be(string.Empty);
+            _vm.GetReadyLabelFontSize.Should().Be(28);
+            _vm.GetReadyLabelIsVisible.Should().Be(false);
+            _vm.PauseActivityIndicatorColor.Should().Be(Color.FromArgb("FE0000"));
+            _vm.PauseActivityIndicatorIsVisible.Should().Be(true);
+            _vm.TargetSecondsImageSource.Should().Be(string.Empty);
+            _vm.TargetSecondsImageIsVisible.Should().Be(false);
+            _vm.AccuracyLabelText.Should().NotBeEmpty();
+            _vm.AccuracyLabelTextColor.Should().Be(Color.FromArgb("FE0000"));
+            _vm.AccuracyLabelIsVisible.Should().Be(true);
+            _vm.GameOverLabelIsVisible.Should().Be(false);
+            _vm.PlayButtonIsEnabled.Should().Be(false);
+            _vm.PlayButtonIsVisible.Should().Be(false);
+            _vm.StopButtonIsEnabled.Should().Be(false);
+            _vm.StopButtonIsVisible.Should().Be(true);
+            _vm.StopButtonImageSource.Should().Be("pausebutton.svg");
+
+        }
+
+        [Fact]
+        async void StopCommand_RoundOver_GameOver()
+        {
+
+            //Arrange
+            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 0 };
+            this._vm = new(_gameHistory, altDelays);
+
+            await _vm.StartGameCommand.ExecuteAsync(null);
+
+            await Task.Delay(10500);
+            //Act
+            _vm.StopCommand.ExecuteAsync(null);
+
+            //assert
+
+            _vm.ScoreLabelText.ToString().Should().Be("0");
+            _vm.ScoreLabelTextColor.Should().Be(Colors.Black);
+            _vm.ScoreLabelBackgroundColor.Should().Be(Color.FromArgb("FF9900"));
+            _vm.HighScoreLabelTextColor.Should().Be(Colors.White);
+            _vm.HighScoreLabelText.Should().Be(_gameHistory.HighScore.ToString());
+            _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
+            _vm.ReserveProgressProgressBar.Should().Be(0);
+            _vm.StartPageLabelIsVisible.Should().Be(false);
+            _vm.GetReadyLabelText.ToString().Should().BeEmpty();
+            _vm.GetReadyLabelFontSize.Should().Be(28);
+            _vm.GetReadyLabelIsVisible.Should().Be(false);
+            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
+            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.TargetSecondsImageSource.Should().BeEmpty();
+            _vm.TargetSecondsImageIsVisible.Should().Be(false);
+            _vm.AccuracyLabelText.Should().BeEmpty();
+            _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
+            _vm.AccuracyLabelIsVisible.Should().Be(false);
+            _vm.GameOverLabelIsVisible.Should().Be(true);
+            _vm.PlayButtonIsEnabled.Should().Be(true);
+            _vm.PlayButtonIsVisible.Should().Be(true);
+            _vm.StopButtonIsEnabled.Should().Be(false);
+            _vm.StopButtonIsVisible.Should().Be(false);
+            _vm.StopButtonImageSource.Should().BeEmpty();
+
+        }
+
+
+
     }
+
+
 
 }
 
