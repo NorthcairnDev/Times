@@ -172,6 +172,8 @@ namespace SecondsClient.Tests.Unit
         async void StartGameCommand_GetReadyLabelText_GetReady()
         {
 
+            _gameHistory = Substitute.For<IGameHistory>();
+            _gameHistory.HighScore.Returns(0);
 
             MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 100, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
 
@@ -378,7 +380,7 @@ namespace SecondsClient.Tests.Unit
         }
 
         [Fact]
-        async void StopCommand_RoundOver_GameOver()
+        async void StopCommand_RoundOver_GameOverNotNewHighScore()
         {
 
             //Arrange
@@ -399,6 +401,55 @@ namespace SecondsClient.Tests.Unit
             _vm.HighScoreLabelTextColor.Should().Be(Colors.White);
             _vm.HighScoreLabelText.Should().Be(_gameHistory.HighScore.ToString());
             _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
+            _vm.ReserveProgressProgressBar.Should().Be(0);
+            _vm.StartPageLabelIsVisible.Should().Be(false);
+            _vm.GetReadyLabelText.ToString().Should().BeEmpty();
+            _vm.GetReadyLabelFontSize.Should().Be(28);
+            _vm.GetReadyLabelIsVisible.Should().Be(false);
+            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
+            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.TargetSecondsImageSource.Should().BeEmpty();
+            _vm.TargetSecondsImageIsVisible.Should().Be(false);
+            _vm.AccuracyLabelText.Should().BeEmpty();
+            _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
+            _vm.AccuracyLabelIsVisible.Should().Be(false);
+            _vm.GameOverLabelIsVisible.Should().Be(true);
+            _vm.PlayButtonIsEnabled.Should().Be(true);
+            _vm.PlayButtonIsVisible.Should().Be(true);
+            _vm.StopButtonIsEnabled.Should().Be(false);
+            _vm.StopButtonIsVisible.Should().Be(false);
+            _vm.StopButtonImageSource.Should().BeEmpty();
+
+        }
+
+        [Fact]
+        async void StopCommand_RoundOver_GameOverNewHighScore()
+        {
+
+            //Arrange
+            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 0 };
+            this._vm = new(_gameHistory, altDelays);
+
+            await _vm.StartGameCommand.ExecuteAsync(null);
+
+            await Task.Delay(100);
+            _vm.StopCommand.ExecuteAsync(null);
+
+            await Task.Delay(10500); 
+            //Act
+
+            _vm.StopCommand.ExecuteAsync(null);
+
+
+
+            //assert
+
+            _vm.ScoreLabelText.ToString().Should().Be("1");
+            _vm.ScoreLabelTextColor.Should().Be(Colors.Black);
+            _vm.ScoreLabelBackgroundColor.Should().Be(Color.FromArgb("FF9900"));
+            _vm.HighScoreLabelTextColor.Should().Be(Colors.Black);
+            _vm.HighScoreLabelText.Should().Be(_gameHistory.HighScore.ToString());
+            _vm.HighScoreLabelBackgroundColor.Should().Be(Color.FromArgb("05C405"));
             _vm.ReserveProgressProgressBar.Should().Be(0);
             _vm.StartPageLabelIsVisible.Should().Be(false);
             _vm.GetReadyLabelText.ToString().Should().BeEmpty();
