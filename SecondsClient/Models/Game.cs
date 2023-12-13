@@ -1,6 +1,4 @@
 ﻿
-using System.Diagnostics;
-
 namespace SecondsClient.Models
 {
     public class Game
@@ -39,8 +37,6 @@ namespace SecondsClient.Models
        
         public void RoundOver()
         {
-                       
-            //Round!.EndTime = DateTime.UtcNow;
             Reserve -= Math.Abs(Round.Accuracy.TotalSeconds);
 
             if (Reserve < 0)

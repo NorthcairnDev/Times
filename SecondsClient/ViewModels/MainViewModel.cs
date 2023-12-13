@@ -175,14 +175,14 @@ namespace SecondsClient.ViewModels
         {
             FormattedString startText = new();
 
-            startText.Spans.Add(new Span { Text = "On", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 32 });
-            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 12 });
-            startText.Spans.Add(new Span { Text = "The", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 32 });
-            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 12 });
-            startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 32 });
+            startText.Spans.Add(new Span { Text = "On", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 38 });
+            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 14 });
+            startText.Spans.Add(new Span { Text = "The", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 38 });
+            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 14 });
+            startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 38 });
             startText.Spans.Add(new Span { Text = Environment.NewLine });
             startText.Spans.Add(new Span { Text = Environment.NewLine });
-            startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "Rubik-Regular", FontSize = 24, });
+            startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "Rubik-Regular", FontSize = 28, });
 
             //FontAttributes = FontAttributes.Italic
 
