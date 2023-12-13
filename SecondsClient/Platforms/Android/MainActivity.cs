@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Gms.Ads;
 using Android.OS;
 
 namespace SecondsClient
@@ -12,8 +11,6 @@ namespace SecondsClient
         protected override void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            MobileAds.Initialize(this);
         }
     }
 

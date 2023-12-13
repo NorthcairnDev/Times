@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-using Plugin.MauiMTAdmob;
 
 namespace SecondsClient
 {
@@ -11,8 +10,7 @@ namespace SecondsClient
             
             builder
                 .UseMauiApp<App>()
-                .UseMauiMTAdmob()
-                .ConfigureFonts(fonts =>
+                  .ConfigureFonts(fonts =>
                 {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");

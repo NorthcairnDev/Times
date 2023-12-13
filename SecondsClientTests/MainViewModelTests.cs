@@ -76,10 +76,11 @@ namespace SecondsClient.Tests.Unit
         [Fact]
         void Constructor_StartPageLabelFormattedText_CountTheSeconds()
         {
-            _vm.StartPageLabelFormattedText.ToString().Should().Be("Count" + Environment.NewLine + "the" + Environment.NewLine + "seconds");
+            _vm.StartPageLabelFormattedText.ToString().Should().Be("On The Dot" + Environment.NewLine + Environment.NewLine + "Feel the seconds");
         }
 
-        [Fact]
+
+[Fact]
         void Constructor_GetReadyLabelText_Empty()
         {
             _vm.GetReadyLabelText.Should().Be(string.Empty);

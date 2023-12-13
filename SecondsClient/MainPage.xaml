@@ -163,7 +163,8 @@
             IsVisible="{Binding StopButtonIsVisible}"
             BackgroundColor="Black" />
 
-        <controls:MTAdView x:Name="myAds" AdsId="ca-app-pub-3940256099942544/6300978111" Grid.Row="4"/>
+        <!--<controls:MTAdView x:Name="myAds" AdsId="ca-app-pub-3940256099942544/6300978111" Grid.Row="4"/>-->
+        
     </Grid>
 
 </ContentPage>
