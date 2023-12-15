@@ -2,23 +2,34 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:controls="clr-namespace:Plugin.MauiMTAdmob.Controls;assembly=Plugin.MauiMTAdmob"
              xmlns:local="clr-namespace:SecondsClient"
              x:Class="SecondsClient.MainPage">
 
     <Grid x:Name="MainGrid" Background="Black">
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="ScoreGridRow" Height="73"/>
+            <RowDefinition x:Name="TopMarginRow" Height="0.25*"/>
+            <RowDefinition x:Name="ScoreAndProgressGridRow" Height="2.5*"/>
+            <!--<RowDefinition x:Name="ProgressBarRow" Height="1.25*"/>-->
+            <RowDefinition x:Name="TargetSecondsRow" Height="8*"/>
+            <RowDefinition x:Name="StopButtonRow" Height="2.5*"/>
+            <RowDefinition x:Name="AdRow" Height="65"/>
+            <RowDefinition x:Name="BottomMarginRow" Height="0.25*"/>
+            <!--<RowDefinition x:Name="ScoreGridRow" Height="73"/>
             <RowDefinition x:Name="ProgressBarRow" Height="90"/>
             <RowDefinition x:Name="TargetSecondsRow" Height="*"/>
             <RowDefinition x:Name="StopButtonRow" Height="150"/>
-            <RowDefinition x:Name="AdRow" Height="65"/>
+            <RowDefinition x:Name="AdRow" Height="65"/>-->
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="LeftMarginCol" Width="1*"/>
+            <ColumnDefinition x:Name="CentreCol" Width="12*"/>
+            <ColumnDefinition x:Name="RightMarginCol" Width="1*"/>
+        </Grid.ColumnDefinitions>
 
-        <Grid x:Name="ScoreGrid" Grid.Row="0"  RowDefinitions="45,28" ColumnDefinitions="*,*,*">
+        <Grid x:Name="ScoreGrid" Grid.Row="1" Grid.Column="1"  RowDefinitions="*,*,*" ColumnDefinitions="*,*,*">
             <Label x:Name="EasyModeTitleLabel" Grid.Row="0" Grid.Column="0"
                    Text="Easy Mode" 
-                   FontSize="18" 
+                   FontSize="20" 
                    Padding="0"
                    Margin="0"
                    VerticalTextAlignment="Center"
@@ -27,7 +38,7 @@
 
             <Label x:Name="ScoreTitleLabel" Grid.Row="0" Grid.Column="1" 
                    Text="Score"
-                   FontSize="18"
+                   FontSize="20"
                    Padding="0"
                    Margin="0"
                    VerticalTextAlignment="Center"
@@ -35,7 +46,7 @@
                    FontFamily="Rubik-Regular.ttf"/>
 
             <Label x:Name="HighScoreTitleLabel" Grid.Row="0" Grid.Column="2"
-                   FontSize="18"
+                   FontSize="20"
                    Text="High"
                    Padding="0"
                    Margin="0"
@@ -43,18 +54,27 @@
                    HorizontalTextAlignment="Center"
                    FontFamily="Rubik-Regular.ttf"/>
 
-            <Switch x:Name="EasyModeSwitch" Grid.Row="1" Grid.Column="0" 
+            <!--<Switch x:Name="EasyModeSwitch" Grid.Row="1" Grid.Column="0" 
                     IsToggled = "{Binding EasyModeSwitchIsToggled}" 
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     ScaleX="1.1"
                     ScaleY="1.1"
                     BackgroundColor="Black"
+                    OnColor="White"/>-->
+
+
+            <Switch x:Name="EasyModeSwitch" Grid.Row="1" Grid.Column="0" 
+                    IsToggled = "{Binding EasyModeSwitchIsToggled}" 
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Scale="1.2"
+                    BackgroundColor="Black"
                     OnColor="White"/>
 
             <Label x:Name="ScoreLabel" Grid.Row="1" Grid.Column="1"  
                     Text="{Binding ScoreLabelText}"
-                    FontSize="24" 
+                    FontSize="28" 
                     Padding="0"
                     Margin="0"
                     VerticalTextAlignment="Center"
@@ -67,7 +87,7 @@
 
             <Label x:Name="HighScoreLabel" Grid.Row="1" Grid.Column="2"
                     Text="{Binding HighScoreLabelText}"
-                    FontSize="24" 
+                    FontSize="28" 
                     Padding="0" 
                     Margin="0"
                     VerticalTextAlignment="Center"
@@ -78,24 +98,27 @@
                     BackgroundColor="{Binding HighScoreLabelBackgroundColor}"
                     TextColor="{Binding HighScoreLabelTextColor}"/>
 
-        </Grid>
-
-        <ProgressBar x:Name="ReserveProgressBar" Grid.Row="1" 
+            <ProgressBar x:Name="ReserveProgressBar" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" 
             ScaleY="8" 
-            Margin="20" 
+           
+            VerticalOptions="End"                  
             ProgressColor="#05C405"
             IsVisible="true">
-            <ProgressBar.Behaviors>
-                <toolkit:ProgressBarAnimationBehavior
+                <ProgressBar.Behaviors>
+                    <toolkit:ProgressBarAnimationBehavior
                     x:Name="ProgressBarAnimationBehavior"
                     Progress="{Binding ReserveProgressProgressBar}" 
                     Length="250"/>
-            </ProgressBar.Behaviors>
-        </ProgressBar>
+                </ProgressBar.Behaviors>
+            </ProgressBar>
 
 
-        <Grid Grid.Row="2"  ColumnDefinitions="20,*,20">
-            <Label x:Name="StartPageLabel"  Grid.Column="1"
+        </Grid>
+
+
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Label x:Name="StartPageLabel" 
                 FormattedText="{Binding StartPageLabelFormattedText}"
                 IsVisible="{Binding StartPageLabelIsVisible}" 
                 VerticalTextAlignment="Center"
@@ -103,18 +126,19 @@
                 BackgroundColor="Black"
                 TextColor="White"/>
 
-            <Image x:Name="TargetSecondsImage"  Grid.Column="1"
+            <Image x:Name="TargetSecondsImage" 
+                Margin="15"
                 Source="{Binding TargetSecondsImageSource}"
                 IsVisible="{Binding TargetSecondsImageIsVisible}">
             </Image>
             
-            <ActivityIndicator x:Name="PauseActivityIndicator" Grid.Column="1"  
+            <ActivityIndicator x:Name="PauseActivityIndicator"   
                 IsRunning="True"
                 IsVisible="{Binding PauseActivityIndicatorIsVisible}"
                 Color="{Binding PauseActivityIndicatorColor}"/>
 
 
-            <Label x:Name="GetReadyLabel" Grid.Column="1" 
+            <Label x:Name="GetReadyLabel" 
                 Text="{Binding GetReadyLabelText}"
                 IsVisible="{Binding GetReadyLabelIsVisible}" 
                 FontFamily="RubikMonoOne-Regular.ttf"
@@ -125,7 +149,7 @@
                 VerticalOptions="Center"
                 HorizontalOptions="Center"/>
 
-            <Label x:Name="AccuracyLabel" Grid.Column="1" 
+            <Label x:Name="AccuracyLabel" 
                 Text="{Binding AccuracyLabelText}"
                 IsVisible="{Binding AccuracyLabelIsVisible}" 
                 FontFamily="RubikMonoOne-Regular.ttf"
@@ -136,7 +160,7 @@
                 VerticalOptions="Center"
                 HorizontalOptions="Center"/>
 
-            <Label x:Name="GameOverLabel"  Grid.Column="1"
+            <Label x:Name="GameOverLabel"  
                 FormattedText="{Binding GameOverLabelFormattedText}"
                 IsVisible="{Binding GameOverLabelIsVisible}" 
                 VerticalTextAlignment="Center"
@@ -146,7 +170,7 @@
 
         </Grid>
 
-        <ImageButton x:Name="PlayButton" Grid.Row="3" 
+        <!--<ImageButton x:Name="PlayButton" Grid.Row="3" 
             SemanticProperties.Description="Play button"
             MaximumHeightRequest="125"
             MaximumWidthRequest="125"
@@ -154,13 +178,32 @@
             Source="playbutton.svg"
             Command="{Binding StartGameCommand}" 
             IsEnabled="{Binding PlayButtonIsEnabled}"
+            IsVisible="{Binding PlayButtonIsVisible}"/>-->
+
+
+        <ImageButton x:Name="PlayButton" Grid.Row="3" Grid.Column="1"  
+            SemanticProperties.Description="Play button"
+            BackgroundColor="Black" 
+            Source="playbutton.svg"
+            Command="{Binding StartGameCommand}" 
+            IsEnabled="{Binding PlayButtonIsEnabled}"
             IsVisible="{Binding PlayButtonIsVisible}"/>
 
 
-        <ImageButton x:Name="StopButton" Grid.Row="3"
+        <!--<ImageButton x:Name="StopButton" Grid.Row="3"
             SemanticProperties.Description="Stop button" 
             MaximumHeightRequest="125"
             MaximumWidthRequest="125"
+            Source="{Binding StopButtonImageSource}"
+            Command="{Binding StopCommand}" 
+            IsEnabled="{Binding StopButtonIsEnabled}"
+            IsVisible="{Binding StopButtonIsVisible}"
+            BackgroundColor="Black" />-->
+
+
+        <ImageButton x:Name="StopButton" Grid.Row="3" Grid.Column="1"
+            SemanticProperties.Description="Stop button" 
+            
             Source="{Binding StopButtonImageSource}"
             Command="{Binding StopCommand}" 
             IsEnabled="{Binding StopButtonIsEnabled}"
