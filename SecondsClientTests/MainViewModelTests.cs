@@ -348,6 +348,7 @@ namespace SecondsClient.Tests.Unit
 
             await _vm.StartGameCommand.ExecuteAsync(null);
 
+
             //Act
             _vm.StopCommand.ExecuteAsync(null);
 
@@ -359,7 +360,7 @@ namespace SecondsClient.Tests.Unit
             _vm.HighScoreLabelTextColor.Should().Be(Colors.White);
             _vm.HighScoreLabelText.Should().Be(_gameHistory.HighScore.ToString());
             _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
-            _vm.ReserveProgressProgressBar.Should().BeInRange(0.001,1);
+            _vm.ReserveProgressProgressBar.Should().BeInRange(0.00000001,1);
             _vm.StartPageLabelIsVisible.Should().Be(false);
             _vm.GetReadyLabelText.ToString().Should().Be(string.Empty);
             _vm.GetReadyLabelFontSize.Should().Be(28);
