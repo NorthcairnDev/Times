@@ -100,7 +100,8 @@
                 IsVisible="{Binding StartPageLabelIsVisible}" 
                 VerticalTextAlignment="Center"
                 HorizontalTextAlignment="Center"
-                BackgroundColor="Black"/>
+                BackgroundColor="Black"
+                TextColor="White"/>
 
             <Image x:Name="TargetSecondsImage"  Grid.Column="1"
                 Source="{Binding TargetSecondsImageSource}"
@@ -140,11 +141,13 @@
                 IsVisible="{Binding GameOverLabelIsVisible}" 
                 VerticalTextAlignment="Center"
                 HorizontalTextAlignment="Center"
-                BackgroundColor="Black" />
+                BackgroundColor="Black"
+                TextColor="White"/>
 
         </Grid>
 
         <ImageButton x:Name="PlayButton" Grid.Row="3" 
+            SemanticProperties.Description="Play button"
             MaximumHeightRequest="125"
             MaximumWidthRequest="125"
             BackgroundColor="Black" 
@@ -155,6 +158,7 @@
 
 
         <ImageButton x:Name="StopButton" Grid.Row="3"
+            SemanticProperties.Description="Stop button" 
             MaximumHeightRequest="125"
             MaximumWidthRequest="125"
             Source="{Binding StopButtonImageSource}"
