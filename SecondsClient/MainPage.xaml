@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:SecondsClient"
-             x:Class="SecondsClient.MainPage">
+             x:Class="SecondsClient.MainPage"
+              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI">
 
     <Grid x:Name="MainGrid" Background="Black">
         <Grid.RowDefinitions>
@@ -132,12 +133,45 @@
                 IsVisible="{Binding TargetSecondsImageIsVisible}">
             </Image>
             
-            <ActivityIndicator x:Name="PauseActivityIndicator"   
+            <!--<ActivityIndicator x:Name="PauseActivityIndicator"   
                 IsRunning="True"
                 IsVisible="{Binding PauseActivityIndicatorIsVisible}"
-                Color="{Binding PauseActivityIndicatorColor}"/>
+                Color="{Binding PauseActivityIndicatorColor}"/>-->
 
 
+            <!--<Image  x:Name="PauseImage" 
+                   Source="activitycirclegreen" 
+                   IsVisible="{Binding PauseImageIsVisible}">
+                <Image.Behaviors>
+                    <toolkit:AnimationBehavior AnimateCommand="{Binding TriggerPauseImageAnimationCommand}">
+                        <toolkit:AnimationBehavior.AnimationType>
+                            <toolkit:FadeAnimation />
+                        </toolkit:AnimationBehavior.AnimationType>
+                    </toolkit:AnimationBehavior>
+                </Image.Behaviors>
+            </Image>-->
+
+
+            <Image  x:Name="PauseImage" 
+                    Source="{Binding PauseImageSource}"
+                    IsVisible="{Binding PauseImageIsVisible}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Aspect="AspectFit"
+                    ScaleX="0.5"
+                    ScaleY="0.495"
+                    Scale="2.5">
+            </Image>
+
+            <skia:SKLottieView
+                  Source="greenactivityanimation.json"
+                  RepeatCount="1"
+                  HeightRequest="300"
+                  WidthRequest="300"
+                  HorizontalOptions="Center" />
+
+            <!--HeightRequest="200"
+                  WidthRequest="200"-->
             <Label x:Name="GetReadyLabel" 
                 Text="{Binding GetReadyLabelText}"
                 IsVisible="{Binding GetReadyLabelIsVisible}" 
@@ -170,15 +204,7 @@
 
         </Grid>
 
-        <!--<ImageButton x:Name="PlayButton" Grid.Row="3" 
-            SemanticProperties.Description="Play button"
-            MaximumHeightRequest="125"
-            MaximumWidthRequest="125"
-            BackgroundColor="Black" 
-            Source="playbutton.svg"
-            Command="{Binding StartGameCommand}" 
-            IsEnabled="{Binding PlayButtonIsEnabled}"
-            IsVisible="{Binding PlayButtonIsVisible}"/>-->
+
 
 
         <ImageButton x:Name="PlayButton" Grid.Row="3" Grid.Column="1"  
@@ -188,17 +214,6 @@
             Command="{Binding StartGameCommand}" 
             IsEnabled="{Binding PlayButtonIsEnabled}"
             IsVisible="{Binding PlayButtonIsVisible}"/>
-
-
-        <!--<ImageButton x:Name="StopButton" Grid.Row="3"
-            SemanticProperties.Description="Stop button" 
-            MaximumHeightRequest="125"
-            MaximumWidthRequest="125"
-            Source="{Binding StopButtonImageSource}"
-            Command="{Binding StopCommand}" 
-            IsEnabled="{Binding StopButtonIsEnabled}"
-            IsVisible="{Binding StopButtonIsVisible}"
-            BackgroundColor="Black" />-->
 
 
         <ImageButton x:Name="StopButton" Grid.Row="3" Grid.Column="1"

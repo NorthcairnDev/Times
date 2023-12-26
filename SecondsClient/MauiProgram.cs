@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace SecondsClient
 {
@@ -10,6 +11,7 @@ namespace SecondsClient
             
             builder
                 .UseMauiApp<App>()
+                .UseSkiaSharp()
                   .ConfigureFonts(fonts =>
                 {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

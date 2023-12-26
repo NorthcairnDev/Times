@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SecondsClient.Models;
+using System.Windows.Input;
 
 namespace SecondsClient.ViewModels
 {
@@ -46,9 +47,12 @@ namespace SecondsClient.ViewModels
 
         //Pause Between Rounds Indicator
         [ObservableProperty]
-        private bool _pauseActivityIndicatorIsVisible = false;
+        private string _pauseImageSource = string.Empty;
         [ObservableProperty]
-        private Color _pauseActivityIndicatorColor = Colors.White;
+        private bool _pauseImageIsVisible = false;
+    
+
+
 
         //Target Seconds
         [ObservableProperty]
@@ -91,6 +95,7 @@ namespace SecondsClient.ViewModels
         private Game _game = new();
         private IGameHistory _gameHistory;
         private MainViewModelDelays _delays;
+        private Image _pauseImage;
 
         #endregion
 
@@ -107,10 +112,11 @@ namespace SecondsClient.ViewModels
 
         #region Constructor
 
-        public MainViewModel(IGameHistory gameHistory, MainViewModelDelays delays)
+        public MainViewModel(IGameHistory gameHistory, MainViewModelDelays delays,Image pauseImage)
         {
             _gameHistory = gameHistory;
             _delays = delays;
+            _pauseImage = pauseImage;
 
 #if DEBUG
             _gameHistory.HighScore = 0;
@@ -194,6 +200,18 @@ namespace SecondsClient.ViewModels
 
         private async Task GameStartSequence()
         {
+            PauseImageIsVisible = true;
+            PauseImageSource = "activitycirclewhite";
+            //_pauseImage.Aspect = Aspect.AspectFit;
+            //_pauseImage.Opacity = 1;
+            _pauseImage.Rotation = 0;
+         
+          
+            _pauseImage.RotateTo(360, 1500);
+            //_pauseImage.FadeTo(0, 1500);
+            //_pauseImage.ScaleTo(0.4, 1500);
+            
+
             GetReadyLabelFontSize = 28;
             GetReadyLabelText = "Get" + Environment.NewLine + "Ready";
             TransitionTo(GameState.GameStarting);
@@ -228,7 +246,7 @@ namespace SecondsClient.ViewModels
             switch (gameState)
             {
                 case GameState.GameStarting:
-
+                    
                     ScoreLabelText = "0";
                     ScoreLabelTextColor = Colors.White;
                     ScoreLabelBackgroundColor = Colors.Black;
@@ -238,8 +256,8 @@ namespace SecondsClient.ViewModels
                     ReserveProgressProgressBar = 1;
                     StartPageLabelIsVisible = false;
                     GetReadyLabelIsVisible = true;
-                    PauseActivityIndicatorColor = Colors.White;
-                    PauseActivityIndicatorIsVisible = true;
+                    //PauseImageSource = "activitycirclewhite";
+                    //PauseImageIsVisible = true;
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
                     AccuracyLabelText = string.Empty;
@@ -255,6 +273,9 @@ namespace SecondsClient.ViewModels
                     break;
 
                 case GameState.RoundActive:
+                    //_pauseImage.Scale = 2;
+                    //_pauseImage.Opacity = 1;
+                    //_pauseImage.Rotation = 0;
                     ScoreLabelText = _game.Score.ToString();
                     ScoreLabelTextColor = Colors.White;
                     ScoreLabelBackgroundColor = Colors.Black;
@@ -266,8 +287,8 @@ namespace SecondsClient.ViewModels
                     GetReadyLabelText = string.Empty;
                     GetReadyLabelFontSize = 28;
                     GetReadyLabelIsVisible = false;
-                    PauseActivityIndicatorColor = Colors.White;
-                    PauseActivityIndicatorIsVisible = false;
+                    //PauseImageSource = "activitycirclegreen";
+                    PauseImageIsVisible = false;
                     TargetSecondsImageSource = TargetSecondsImage();
                     TargetSecondsImageIsVisible = true;
                     AccuracyLabelText = string.Empty;
@@ -284,6 +305,8 @@ namespace SecondsClient.ViewModels
 
                 case GameState.RoundEnded:
 
+                    
+
                     ScoreLabelText = _game.Score.ToString();
                     ScoreLabelTextColor = Colors.White;
                     ScoreLabelBackgroundColor = Colors.Black;
@@ -295,8 +318,7 @@ namespace SecondsClient.ViewModels
                     GetReadyLabelText = string.Empty;
                     GetReadyLabelFontSize = 28;
                     GetReadyLabelIsVisible = false;
-                    PauseActivityIndicatorColor = AccuracyColor();
-                    PauseActivityIndicatorIsVisible = true;
+
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
 
@@ -317,8 +339,16 @@ namespace SecondsClient.ViewModels
                             break;
                     }
 
+                    PauseImageSource = PauseImageSourceForAccuracy();
+                    PauseImageIsVisible = true;
+                    _pauseImage.Rotation = 0;
+                    _pauseImage.RotateTo(360, 1500);
+
                     AccuracyLabelTextColor = AccuracyColor();
                     AccuracyLabelIsVisible = true;
+
+
+
                     GameOverLabelIsVisible = false;
                     PlayButtonIsEnabled = false;
                     PlayButtonIsVisible = false;
@@ -339,8 +369,8 @@ namespace SecondsClient.ViewModels
                     GetReadyLabelText = string.Empty;
                     GetReadyLabelFontSize = 28;
                     GetReadyLabelIsVisible = false;
-                    PauseActivityIndicatorColor = Colors.White;
-                    PauseActivityIndicatorIsVisible = false;
+                    //PauseImageSource = string.Empty;
+                    //PauseImageIsVisible = false;
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
                     AccuracyLabelText = string.Empty;
@@ -371,6 +401,21 @@ namespace SecondsClient.ViewModels
             };
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
+
+
+        private string PauseImageSourceForAccuracy()
+        {
+
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            return _game.Round.AccuracyLevel switch
+            {
+                Round.LevelsOfAccuracy.VeryClose => "activitycirlegreen",
+                Round.LevelsOfAccuracy.Close => "activitycircleamber",
+                _ => "activitycirclered"
+            }; 
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+        }
+
 
 
         private string TargetSecondsImage()

@@ -96,14 +96,14 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelIsVisible.Should().Be(false);
         }
         [Fact]
-        void Constructor_PauseActivityIndicatorIsVisible_False()
+        void Constructor_PauseImageIsVisible_False()
         {
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.PauseImageIsVisible.Should().Be(false);
         }
         [Fact]
-        void Constructor_PauseActivityIndicatorColor_White()
+        void Constructor_PauseImageColor_White()
         {
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
+            _vm.PauseImageColor.Should().Be(Colors.White);
         }
         [Fact]
         void Constructor_TargetSecondsImageSource_Empty()
@@ -196,8 +196,8 @@ namespace SecondsClient.Tests.Unit
             _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
             _vm.ReserveProgressProgressBar.Should().Be(1);
             _vm.StartPageLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(true);
+            _vm.PauseImageColor.Should().Be(Colors.White);
+            _vm.PauseImageIsVisible.Should().Be(true);
             _vm.TargetSecondsImageSource.Should().Be(string.Empty);
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
             _vm.AccuracyLabelText.Should().Be(string.Empty);
@@ -237,8 +237,8 @@ namespace SecondsClient.Tests.Unit
             _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
             _vm.ReserveProgressProgressBar.Should().Be(1);
             _vm.StartPageLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(true);
+            _vm.PauseImageColor.Should().Be(Colors.White);
+            _vm.PauseImageIsVisible.Should().Be(true);
             _vm.TargetSecondsImageSource.Should().Be(string.Empty);
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
             _vm.AccuracyLabelText.Should().Be(string.Empty);
@@ -280,8 +280,8 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().Be(string.Empty);
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.PauseImageColor.Should().Be(Colors.White);
+            _vm.PauseImageIsVisible.Should().Be(false);
             _vm.AccuracyLabelText.Should().Be(string.Empty);
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
@@ -324,8 +324,8 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().Be(string.Empty);
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.PauseImageColor.Should().Be(Colors.White);
+            _vm.PauseImageIsVisible.Should().Be(false);
             _vm.AccuracyLabelText.Should().Be(string.Empty);
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
@@ -365,8 +365,8 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().Be(string.Empty);
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Color.FromArgb("FE0000"));
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(true);
+            _vm.PauseImageColor.Should().Be(Color.FromArgb("FE0000"));
+            _vm.PauseImageIsVisible.Should().Be(true);
             _vm.TargetSecondsImageSource.Should().Be(string.Empty);
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
             _vm.AccuracyLabelText.Should().NotBeEmpty();
@@ -408,8 +408,8 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().BeEmpty();
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.PauseImageColor.Should().Be(Colors.White);
+            _vm.PauseImageIsVisible.Should().Be(false);
             _vm.TargetSecondsImageSource.Should().BeEmpty();
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
             _vm.AccuracyLabelText.Should().BeEmpty();
@@ -457,8 +457,8 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().BeEmpty();
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.PauseImageColor.Should().Be(Colors.White);
+            _vm.PauseImageIsVisible.Should().Be(false);
             _vm.TargetSecondsImageSource.Should().BeEmpty();
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
             _vm.AccuracyLabelText.Should().BeEmpty();
