@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SecondsClient.Models;
+using SkiaSharp.Extended.UI.Controls;
+using SkiaSharp.Extended.UI.Controls.Converters;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace SecondsClient.ViewModels
@@ -9,7 +12,7 @@ namespace SecondsClient.ViewModels
     {
         #region Observable Properties
 
-        
+
         //Score Grid
         [ObservableProperty]
         private string _scoreLabelText = "0";
@@ -23,13 +26,13 @@ namespace SecondsClient.ViewModels
         private Color _highScoreLabelTextColor = Colors.White;
         [ObservableProperty]
         private Color _highScoreLabelBackgroundColor = Colors.Black;
- 
+
         [ObservableProperty]
         private bool _easyModeSwitchIsToggled = false;
 
         //Reserve Bar
         [ObservableProperty]
-        private double _reserveProgressProgressBar  = 0;
+        private double _reserveProgressProgressBar = 0;
 
         //Start Page
         [ObservableProperty]
@@ -47,9 +50,9 @@ namespace SecondsClient.ViewModels
 
         //Pause Between Rounds Indicator
         [ObservableProperty]
-        private string _pauseImageSource = string.Empty;
+        private SKLottieImageSource _pauseAnimationSource;
         [ObservableProperty]
-        private bool _pauseImageIsVisible = false;
+        private bool _pauseAnimationIsVisible = false;
     
 
 
@@ -96,6 +99,7 @@ namespace SecondsClient.ViewModels
         private IGameHistory _gameHistory;
         private MainViewModelDelays _delays;
         private Image _pauseImage;
+        private SKLottieView _pauseAnimation;
 
         #endregion
 
@@ -112,17 +116,23 @@ namespace SecondsClient.ViewModels
 
         #region Constructor
 
-        public MainViewModel(IGameHistory gameHistory, MainViewModelDelays delays,Image pauseImage)
+        public MainViewModel(IGameHistory gameHistory, MainViewModelDelays delays)
         {
             _gameHistory = gameHistory;
             _delays = delays;
-            _pauseImage = pauseImage;
+          
 
 #if DEBUG
             _gameHistory.HighScore = 0;
 #endif
 
             _highScoreLabelText = _gameHistory.HighScore.ToString();
+          //  _pauseAnimation = pauseAnimation;
+
+  
+
+
+//Debug.WriteLine(_pauseAnimation.IsAnimationEnabled.ToString());          
           
         }
 
@@ -200,16 +210,23 @@ namespace SecondsClient.ViewModels
 
         private async Task GameStartSequence()
         {
-            PauseImageIsVisible = true;
-            PauseImageSource = "activitycirclewhite";
-            //_pauseImage.Aspect = Aspect.AspectFit;
-            //_pauseImage.Opacity = 1;
-            _pauseImage.Rotation = 0;
+            PauseAnimationIsVisible = true;
+            var file = "greenactivityanimation.json";
+            SKLottieImageSourceConverter _lottieConverter = new();
+
+            PauseAnimationSource = (SKLottieImageSource)_lottieConverter.ConvertFrom(file);
+
+
+            //PauseAnimationIsVisible = true;
+            ////PauseImageSource = "activitycirclewhite";
+            ////_pauseImage.Aspect = Aspect.AspectFit;
+            ////_pauseImage.Opacity = 1;
+            //_pauseImage.Rotation = 0;
          
           
-            _pauseImage.RotateTo(360, 1500);
-            //_pauseImage.FadeTo(0, 1500);
-            //_pauseImage.ScaleTo(0.4, 1500);
+            //_pauseImage.RotateTo(360, 1500);
+            ////_pauseImage.FadeTo(0, 1500);
+            ////_pauseImage.ScaleTo(0.4, 1500);
             
 
             GetReadyLabelFontSize = 28;
@@ -257,7 +274,7 @@ namespace SecondsClient.ViewModels
                     StartPageLabelIsVisible = false;
                     GetReadyLabelIsVisible = true;
                     //PauseImageSource = "activitycirclewhite";
-                    //PauseImageIsVisible = true;
+                    //PauseAnimationIsVisible = true;
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
                     AccuracyLabelText = string.Empty;
@@ -288,7 +305,7 @@ namespace SecondsClient.ViewModels
                     GetReadyLabelFontSize = 28;
                     GetReadyLabelIsVisible = false;
                     //PauseImageSource = "activitycirclegreen";
-                    PauseImageIsVisible = false;
+                    PauseAnimationIsVisible = false;
                     TargetSecondsImageSource = TargetSecondsImage();
                     TargetSecondsImageIsVisible = true;
                     AccuracyLabelText = string.Empty;
@@ -339,10 +356,15 @@ namespace SecondsClient.ViewModels
                             break;
                     }
 
-                    PauseImageSource = PauseImageSourceForAccuracy();
-                    PauseImageIsVisible = true;
-                    _pauseImage.Rotation = 0;
-                    _pauseImage.RotateTo(360, 1500);
+                    // PauseImageSource = PauseImageSourceForAccuracy();
+                    PauseAnimationIsVisible = true;
+                    var file = "greenactivityanimation.json";
+                    SKLottieImageSourceConverter _lottieConverter = new();
+
+                    PauseAnimationSource = (SKLottieImageSource)_lottieConverter.ConvertFrom(file);
+                    PauseAnimationIsVisible = true;
+                    //_pauseImage.Rotation = 0;
+                    //_pauseImage.RotateTo(360, 1500);
 
                     AccuracyLabelTextColor = AccuracyColor();
                     AccuracyLabelIsVisible = true;
@@ -370,7 +392,7 @@ namespace SecondsClient.ViewModels
                     GetReadyLabelFontSize = 28;
                     GetReadyLabelIsVisible = false;
                     //PauseImageSource = string.Empty;
-                    //PauseImageIsVisible = false;
+                    //PauseAnimationIsVisible = false;
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
                     AccuracyLabelText = string.Empty;

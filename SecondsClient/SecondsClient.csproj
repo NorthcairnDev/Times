@@ -96,6 +96,12 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="Resources\Raw\amberactivityanimation.json" />
+	  <None Remove="Resources\Raw\redactivityanimation.json" />
+	  <None Remove="Resources\Raw\whiteactivityanimation.json" />
+	</ItemGroup>
+
 
 	<ItemGroup>
 	  <MauiIcon Include="Resources\AppIcon\appicon.svg" />
@@ -115,6 +121,20 @@
 
 	<ItemGroup>
 	  <Folder Include="Properties\" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <MauiAsset Update="Resources\Raw\amberactivityanimation.json">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\redactivityanimation.json">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
+	  <MauiAsset Update="Resources\Raw\whiteactivityanimation.json">
+	    <LogicalName>%(RecursiveDir)%(Filename)%(Extension)</LogicalName>
+	  </MauiAsset>
 	</ItemGroup>
 
 </Project>
