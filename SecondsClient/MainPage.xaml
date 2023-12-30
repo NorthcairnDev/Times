@@ -10,16 +10,10 @@
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TopMarginRow" Height="0.25*"/>
             <RowDefinition x:Name="ScoreAndProgressGridRow" Height="2.5*"/>
-            <!--<RowDefinition x:Name="ProgressBarRow" Height="1.25*"/>-->
             <RowDefinition x:Name="TargetSecondsRow" Height="8*"/>
             <RowDefinition x:Name="StopButtonRow" Height="2.5*"/>
             <RowDefinition x:Name="AdRow" Height="65"/>
             <RowDefinition x:Name="BottomMarginRow" Height="0.25*"/>
-            <!--<RowDefinition x:Name="ScoreGridRow" Height="73"/>
-            <RowDefinition x:Name="ProgressBarRow" Height="90"/>
-            <RowDefinition x:Name="TargetSecondsRow" Height="*"/>
-            <RowDefinition x:Name="StopButtonRow" Height="150"/>
-            <RowDefinition x:Name="AdRow" Height="65"/>-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="LeftMarginCol" Width="1*"/>
@@ -54,15 +48,6 @@
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
                    FontFamily="Rubik-Regular.ttf"/>
-
-            <!--<Switch x:Name="EasyModeSwitch" Grid.Row="1" Grid.Column="0" 
-                    IsToggled = "{Binding EasyModeSwitchIsToggled}" 
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    ScaleX="1.1"
-                    ScaleY="1.1"
-                    BackgroundColor="Black"
-                    OnColor="White"/>-->
 
 
             <Switch x:Name="EasyModeSwitch" Grid.Row="1" Grid.Column="0" 
@@ -112,8 +97,6 @@
                     Length="250"/>
                 </ProgressBar.Behaviors>
             </ProgressBar>
-
-
         </Grid>
 
 
@@ -133,35 +116,6 @@
                 IsVisible="{Binding TargetSecondsImageIsVisible}">
             </Image>
             
-            <!--<ActivityIndicator x:Name="PauseActivityIndicator"   
-                IsRunning="True"
-                IsVisible="{Binding PauseActivityIndicatorIsVisible}"
-                Color="{Binding PauseActivityIndicatorColor}"/>-->
-
-
-            <!--<Image  x:Name="PauseImage" 
-                   Source="activitycirclegreen" 
-                   IsVisible="{Binding PauseAnimationIsVisible}">
-                <Image.Behaviors>
-                    <toolkit:AnimationBehavior AnimateCommand="{Binding TriggerPauseImageAnimationCommand}">
-                        <toolkit:AnimationBehavior.AnimationType>
-                            <toolkit:FadeAnimation />
-                        </toolkit:AnimationBehavior.AnimationType>
-                    </toolkit:AnimationBehavior>
-                </Image.Behaviors>
-            </Image>-->
-
-
-            <!--<Image  x:Name="PauseImage" 
-                    Source="{Binding PauseImageSource}"
-                    IsVisible="{Binding PauseAnimationIsVisible}"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    Aspect="AspectFit"
-                    ScaleX="0.5"
-                    ScaleY="0.495"
-                    Scale="2.5">
-            </Image>-->
 
             <!--<lottie:SKLottieView x:Name="PauseAnimation"
                                  Source="{Binding PauseAnimationSource}"
@@ -183,8 +137,6 @@
                                  VerticalOptions="Center"
                                  HorizontalOptions="Center"/>
 
-            <!--HeightRequest="200"
-                  WidthRequest="200"-->
             <Label x:Name="GetReadyLabel" 
                 Text="{Binding GetReadyLabelText}"
                 IsVisible="{Binding GetReadyLabelIsVisible}" 
@@ -214,11 +166,7 @@
                 HorizontalTextAlignment="Center"
                 BackgroundColor="Black"
                 TextColor="White"/>
-
         </Grid>
-
-
-
 
         <ImageButton x:Name="PlayButton" Grid.Row="3" Grid.Column="1"  
             SemanticProperties.Description="Play button"
@@ -239,9 +187,6 @@
             BackgroundColor="Black" />
 
         <!--<controls:MTAdView x:Name="myAds" AdsId="ca-app-pub-3940256099942544/6300978111" Grid.Row="4"/>-->
-
-
-
 
 
     </Grid>
