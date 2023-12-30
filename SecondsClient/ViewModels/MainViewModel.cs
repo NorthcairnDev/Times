@@ -49,7 +49,7 @@ namespace SecondsClient.ViewModels
 
         //Pause Between Rounds Indicator
         [ObservableProperty]
-        private SKLottieImageSource? _pauseAnimationSource;
+        private SKFileLottieImageSource? _pauseAnimationSource;
         [ObservableProperty]
         private bool _pauseAnimationIsVisible = false;
     
@@ -95,10 +95,10 @@ namespace SecondsClient.ViewModels
         private Game _game = new();
         private IGameHistory _gameHistory;
         private MainViewModelDelays _delays;
-        private readonly SKLottieImageSource _whiteactivityanimation;
-        private readonly SKLottieImageSource _greenactivityanimation;
-        private readonly SKLottieImageSource _amberactivityanimation;
-        private readonly SKLottieImageSource _redactivityanimation;
+        private readonly SKFileLottieImageSource _whiteactivityanimation;
+        private readonly SKFileLottieImageSource _greenactivityanimation;
+        private readonly SKFileLottieImageSource _amberactivityanimation;
+        private readonly SKFileLottieImageSource _redactivityanimation;
 
 
 
@@ -129,10 +129,10 @@ namespace SecondsClient.ViewModels
 
             _highScoreLabelText = _gameHistory.HighScore.ToString();
 
-            _whiteactivityanimation = (SKLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("whiteactivityanimation.json");
-            _greenactivityanimation = (SKLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("greenactivityanimation.json");
-            _amberactivityanimation = (SKLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("amberactivityanimation.json");
-            _redactivityanimation = (SKLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("redactivityanimation.json");
+            _whiteactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("whiteactivityanimation.json");
+            _greenactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("greenactivityanimation.json");
+            _amberactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("amberactivityanimation.json");
+            _redactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("redactivityanimation.json");
 
         }
 
@@ -301,9 +301,6 @@ namespace SecondsClient.ViewModels
                     break;
 
                 case GameState.RoundEnded:
-
-                    
-
                     ScoreLabelText = _game.Score.ToString();
                     ScoreLabelTextColor = Colors.White;
                     ScoreLabelBackgroundColor = Colors.Black;
@@ -315,7 +312,6 @@ namespace SecondsClient.ViewModels
                     GetReadyLabelText = string.Empty;
                     GetReadyLabelFontSize = 28;
                     GetReadyLabelIsVisible = false;
-
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
 
@@ -361,7 +357,7 @@ namespace SecondsClient.ViewModels
                     GetReadyLabelText = string.Empty;
                     GetReadyLabelFontSize = 28;
                     GetReadyLabelIsVisible = false;
-                    PauseAnimationSource = _whiteactivityanimation;
+                    PauseAnimationSource = null;
                     PauseAnimationIsVisible = false;
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
@@ -395,7 +391,7 @@ namespace SecondsClient.ViewModels
         }
 
 
-        private SKLottieImageSource PauseAnimationSourceForAccuracy()
+        private SKFileLottieImageSource PauseAnimationSourceForAccuracy()
         {
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.

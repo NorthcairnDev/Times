@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="LeftMarginCol" Width="1*"/>
-            <ColumnDefinition x:Name="CentreCol" Width="12*"/>
+            <ColumnDefinition x:Name="CenterCol" Width="12*"/>
             <ColumnDefinition x:Name="RightMarginCol" Width="1*"/>
         </Grid.ColumnDefinitions>
 
@@ -100,7 +100,6 @@
         </Grid>
 
 
-
         <Grid Grid.Row="2" Grid.Column="1">
             <Label x:Name="StartPageLabel" 
                 FormattedText="{Binding StartPageLabelFormattedText}"
@@ -115,19 +114,6 @@
                 Source="{Binding TargetSecondsImageSource}"
                 IsVisible="{Binding TargetSecondsImageIsVisible}">
             </Image>
-            
-
-            <!--<lottie:SKLottieView x:Name="PauseAnimation"
-                                 Source="{Binding PauseAnimationSource}"
-                                 IsVisible="{Binding PauseAnimationIsVisible}"
-                                 IsAnimationEnabled="True"
-                                 RepeatCount="-1"
-                                 VerticalOptions="Center"
-                                 HorizontalOptions="Center"
-                                 HeightRequest="200"
-                                 WidthRequest="200"
-                                 Scale="1"/>-->
-
 
             <lottie:SKLottieView x:Name="PauseAnimation"
                                  Source="{Binding PauseAnimationSource}"
