@@ -129,10 +129,10 @@ namespace SecondsClient.ViewModels
 
             _highScoreLabelText = _gameHistory.HighScore.ToString();
 
-            _whiteactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("whiteactivityanimation.json");
-            _greenactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("greenactivityanimation.json");
-            _amberactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("amberactivityanimation.json");
-            _redactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFrom("redactivityanimation.json");
+            _whiteactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFromString("whiteactivityanimation.json");
+            _greenactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFromString("greenactivityanimation.json");
+            _amberactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFromString("amberactivityanimation.json");
+            _redactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFromString("redactivityanimation.json");
 
         }
 
@@ -268,7 +268,7 @@ namespace SecondsClient.ViewModels
                     PlayButtonIsVisible = false;
                     StopButtonIsEnabled = false;
                     StopButtonIsVisible = true;
-                    StopButtonImageSource = "pausebutton.svg";
+                    StopButtonImageSource = "pausebutton.png";
 
                     break;
 
@@ -296,7 +296,7 @@ namespace SecondsClient.ViewModels
                     PlayButtonIsVisible = false;
                     StopButtonIsEnabled = true;
                     StopButtonIsVisible = true;
-                    StopButtonImageSource = "stopbutton.svg";
+                    StopButtonImageSource = "stopbutton.png";
 
                     break;
 
@@ -342,7 +342,7 @@ namespace SecondsClient.ViewModels
                     PlayButtonIsVisible = false;
                     StopButtonIsEnabled = false;
                     StopButtonIsVisible = true;
-                    StopButtonImageSource = "pausebutton.svg";
+                    StopButtonImageSource = "pausebutton.png";
                     break;
 
                 case GameState.GameOver:
@@ -415,11 +415,11 @@ namespace SecondsClient.ViewModels
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 return _game.Round.TargetInSeconds.Seconds switch
                 {
-                    1 => "onesecondfuschia.svg",
-                    2 => "twosecondfuschia.svg",
-                    3 => "threesecondfuschia.svg",
-                    4 => "foursecondfuschia.svg",
-                    5 => "fivesecondfuschia.svg",
+                    1 => "onesecondfuschia.png",
+                    2 => "twosecondfuschia.png",
+                    3 => "threesecondfuschia.png",
+                    4 => "foursecondfuschia.png",
+                    5 => "fivesecondfuschia.png",
                     _ => string.Empty,
                 };
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
@@ -428,11 +428,11 @@ namespace SecondsClient.ViewModels
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
             return _game.Round.TargetInSeconds.Seconds switch
             {
-                1 => "onemississippifuschia.svg",
-                2 => "twomississippifuschia.svg",
-                3 => "threemississippifuschia.svg",
-                4 => "fourmississippifuschia.svg",
-                5 => "fivemississippifuschia.svg",
+                1 => "onemississippifuschia.png",
+                2 => "twomississippifuschia.png",
+                3 => "threemississippifuschia.png",
+                4 => "fourmississippifuschia.png",
+                5 => "fivemississippifuschia.png",
                 _ => string.Empty,
             };
 #pragma warning restore CS8602 // Dereference of a possibly null reference.

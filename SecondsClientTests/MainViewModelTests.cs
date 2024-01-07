@@ -208,7 +208,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PlayButtonIsVisible.Should().Be(false);
             _vm.StopButtonIsEnabled.Should().Be(false);
             _vm.StopButtonIsVisible.Should().Be(true);
-            _vm.StopButtonImageSource.Should().Be("pausebutton.svg");
+            _vm.StopButtonImageSource.Should().Be("pausebutton.png");
 
 
         }
@@ -249,7 +249,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PlayButtonIsVisible.Should().Be(false);
             _vm.StopButtonIsEnabled.Should().Be(false);
             _vm.StopButtonIsVisible.Should().Be(true);
-            _vm.StopButtonImageSource.Should().Be("pausebutton.svg");
+            _vm.StopButtonImageSource.Should().Be("pausebutton.png");
         }
 
         [Fact]
