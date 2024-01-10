@@ -179,6 +179,16 @@ namespace SecondsClient.ViewModels
         #region Private Static Methods
         private static FormattedString GameOverFormattedText()
         {
+            if (DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
+            {
+                return GameOverFormattedTextTabletOrDesktop();
+            }
+
+            return GameOverFormattedTextDefault();
+        }
+
+        private static FormattedString GameOverFormattedTextDefault()
+        {
             FormattedString gameOverText = new();
 
             gameOverText.Spans.Add(new Span { Text = "Game", TextColor = Colors.White, FontFamily = "RubikMonoOneRegular", FontSize = 48 });
@@ -188,7 +198,47 @@ namespace SecondsClient.ViewModels
             return gameOverText;
         }
 
+        private static FormattedString GameOverFormattedTextTabletOrDesktop()
+        {
+            FormattedString gameOverText = new();
+
+            gameOverText.Spans.Add(new Span { Text = "Game", TextColor = Colors.White, FontFamily = "RubikMonoOneRegular", FontSize = 96 });
+            gameOverText.Spans.Add(new Span { Text = Environment.NewLine });
+            gameOverText.Spans.Add(new Span { Text = "Over", TextColor = Colors.White, FontFamily = "RubikMonoOneRegular", FontSize = 96 });
+
+            return gameOverText;
+        }
+
+
         private static FormattedString StartPageFormattedText()
+        {
+            if (DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
+            {
+                return StartPageFormattedTextTabletOrDesktop();
+            }
+
+            return StartPageFormattedTextDefault();
+        }
+
+        private static FormattedString StartPageFormattedTextTabletOrDesktop()
+        {
+            FormattedString startText = new();
+
+            startText.Spans.Add(new Span { Text = "On", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize =76 });
+            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 28 });
+            startText.Spans.Add(new Span { Text = "The", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 76 });
+            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 28 });
+            startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 76 });
+            startText.Spans.Add(new Span { Text = Environment.NewLine });
+            startText.Spans.Add(new Span { Text = Environment.NewLine });
+            startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "RubikRegular", FontSize = 56});
+
+            //FontAttributes = FontAttributes.Italic
+
+            return startText;
+        }
+
+        private static FormattedString StartPageFormattedTextDefault()
         {
             FormattedString startText = new();
 
@@ -199,24 +249,44 @@ namespace SecondsClient.ViewModels
             startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
             startText.Spans.Add(new Span { Text = Environment.NewLine });
             startText.Spans.Add(new Span { Text = Environment.NewLine });
-            startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "RubikRegular", FontSize = 28, });
+            startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "RubikRegular", FontSize = 28 });
 
             //FontAttributes = FontAttributes.Italic
 
             return startText;
         }
+
         #endregion
 
         #region Private Instance Methods
 
         private async Task GameStartSequence()
         {
+            
+            if(DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
+            {
+                GetReadyLabelFontSize = 56;
 
-            GetReadyLabelFontSize = 28;
+            }
+            else
+            {
+                GetReadyLabelFontSize = 28;
+            }
+            
             GetReadyLabelText = "Get" + Environment.NewLine + "Ready";
             TransitionTo(GameState.GameStarting);
             await Task.Delay(_delays.GetReadyVisisbleDurationMs);
-            GetReadyLabelFontSize = 48;
+
+
+            if (DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
+            {
+                GetReadyLabelFontSize = 96;
+
+            }
+            else
+            {
+                GetReadyLabelFontSize = 48;
+            }
             GetReadyLabelText = "GO!";
             await Task.Delay(_delays.GoVisisbleDurationMs);
             GetReadyLabelIsVisible = false;
