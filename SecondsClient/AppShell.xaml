@@ -5,10 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:SecondsClient"
     Shell.FlyoutBehavior="Disabled"
-    Title="On The Dot">
+    Title="Stop On The Dot">
 
     <ShellContent
-        Title="On The Dot"
+        Title="Stop On The Dot"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 </Shell>

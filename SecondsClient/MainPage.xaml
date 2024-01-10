@@ -23,68 +23,68 @@
         <Grid x:Name="ScoreGrid" Grid.Row="1" Grid.Column="1"  RowDefinitions="*,*,*" ColumnDefinitions="*,*,*">
             <Label x:Name="EasyModeTitleLabel" Grid.Row="0" Grid.Column="0"
                    Text="Easy Mode" 
-                   FontSize="20" 
+                   FontSize="{OnIdiom 20, Tablet=40,Desktop=40}" 
                    Padding="0"
                    Margin="0"
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
-                   FontFamily="Rubik-Regular.ttf"/>
+                   FontFamily="RubikRegular"/>
 
             <Label x:Name="ScoreTitleLabel" Grid.Row="0" Grid.Column="1" 
                    Text="Score"
-                   FontSize="20"
+                   FontSize="{OnIdiom 20, Tablet=40,Desktop=40}"
                    Padding="0"
                    Margin="0"
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
-                   FontFamily="Rubik-Regular.ttf"/>
+                   FontFamily="RubikRegular"/>
 
             <Label x:Name="HighScoreTitleLabel" Grid.Row="0" Grid.Column="2"
-                   FontSize="20"
+                   FontSize="{OnIdiom 20, Tablet=40,Desktop=40}"
                    Text="High"
                    Padding="0"
                    Margin="0"
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
-                   FontFamily="Rubik-Regular.ttf"/>
+                   FontFamily="RubikRegular"/>
 
 
             <Switch x:Name="EasyModeSwitch" Grid.Row="1" Grid.Column="0" 
                     IsToggled = "{Binding EasyModeSwitchIsToggled}" 
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
-                    Scale="1.2"
+                    Scale="{OnIdiom 1.2, Tablet=1.4,Desktop=1.4}"
                     BackgroundColor="Black"
                     OnColor="White"/>
 
             <Label x:Name="ScoreLabel" Grid.Row="1" Grid.Column="1"  
                     Text="{Binding ScoreLabelText}"
-                    FontSize="28" 
+                    FontSize="{OnIdiom 28, Tablet=56,Desktop=56}" 
                     Padding="0"
                     Margin="0"
                     VerticalTextAlignment="Center"
                     HorizontalTextAlignment="Center"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
-                    FontFamily="RubikMonoOne-Regular.ttf"
+                    FontFamily="RubikMonoOneRegular"
                     BackgroundColor="{Binding ScoreLabelBackgroundColor}"
                     TextColor="{Binding ScoreLabelTextColor}"/>
 
             <Label x:Name="HighScoreLabel" Grid.Row="1" Grid.Column="2"
                     Text="{Binding HighScoreLabelText}"
-                    FontSize="28" 
+                    FontSize="{OnIdiom 28, Tablet=56,Desktop=56}"
                     Padding="0" 
                     Margin="0"
                     VerticalTextAlignment="Center"
                     HorizontalTextAlignment="Center"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
-                    FontFamily="RubikMonoOne-Regular.ttf"
+                    FontFamily="RubikMonoOneRegular"
                     BackgroundColor="{Binding HighScoreLabelBackgroundColor}"
                     TextColor="{Binding HighScoreLabelTextColor}"/>
 
             <ProgressBar x:Name="ReserveProgressBar" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" 
-            ScaleY="8" 
+            ScaleY="{OnIdiom 8, Tablet=12,Desktop=12}"
            
             VerticalOptions="End"                  
             ProgressColor="#05C405"
@@ -109,7 +109,7 @@
                 TextColor="White"/>
 
             <Image x:Name="TargetSecondsImage" 
-                Margin="15"
+                Margin="{OnIdiom 15, Tablet=40,Desktop=40}"
                 Source="{Binding TargetSecondsImageSource}"
                 IsVisible="{Binding TargetSecondsImageIsVisible}">
             </Image>
@@ -127,7 +127,7 @@
             <Label x:Name="GetReadyLabel" 
                 Text="{Binding GetReadyLabelText}"
                 IsVisible="{Binding GetReadyLabelIsVisible}" 
-                FontFamily="RubikMonoOne-Regular.ttf"
+                FontFamily="RubikMonoOneRegular"
                 FontSize="{Binding GetReadyLabelFontSize}"
                 TextColor="White"
                 VerticalTextAlignment="Center"
@@ -138,7 +138,7 @@
             <Label x:Name="AccuracyLabel" 
                 Text="{Binding AccuracyLabelText}"
                 IsVisible="{Binding AccuracyLabelIsVisible}" 
-                FontFamily="RubikMonoOne-Regular.ttf"
+                FontFamily="RubikMonoOneRegular"
                 FontSize="28"
                 TextColor="{Binding AccuracyLabelTextColor}"
                 VerticalTextAlignment="Center"

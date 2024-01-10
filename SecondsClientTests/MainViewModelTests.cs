@@ -260,11 +260,11 @@ namespace SecondsClient.Tests.Unit
 
             _vm.StartRound();
 
-            _vm.TargetSecondsImageSource.Should().BeOneOf("onesecondfuschia.svg",
-                                                            "twosecondfuschia.svg",
-                                                            "threesecondfuschia.svg",
-                                                            "foursecondfuschia.svg",
-                                                            "fivesecondfuschia.svg");
+            _vm.TargetSecondsImageSource.Should().BeOneOf("onesecondfuschia.png",
+                                                            "twosecondfuschia.png",
+                                                            "threesecondfuschia.png",
+                                                            "foursecondfuschia.png",
+                                                            "fivesecondfuschia.png");
 
 
             _vm.TargetSecondsImageIsVisible.Should().Be(true);
@@ -290,7 +290,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PlayButtonIsVisible.Should().Be(false);
             _vm.StopButtonIsEnabled.Should().Be(true);
             _vm.StopButtonIsVisible.Should().Be(true);
-            _vm.StopButtonImageSource.Should().Be("stopbutton.svg");
+            _vm.StopButtonImageSource.Should().Be("stopbutton.png");
 
         }
 
@@ -304,11 +304,11 @@ namespace SecondsClient.Tests.Unit
             //act
             _vm.StartRound();
             //assert
-            _vm.TargetSecondsImageSource.Should().BeOneOf("onemississippifuschia.svg",
-                                                                "twomississippifuschia.svg",
-                                                                "threemississippifuschia.svg",
-                                                                "fourmississippifuschia.svg",
-                                                                "fivemississippifuschia.svg");
+            _vm.TargetSecondsImageSource.Should().BeOneOf("onemississippifuschia.png",
+                                                                "twomississippifuschia.png",
+                                                                "threemississippifuschia.png",
+                                                                "fourmississippifuschia.png",
+                                                                "fivemississippifuschia.png");
 
 
             _vm.TargetSecondsImageIsVisible.Should().Be(true);
@@ -334,7 +334,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PlayButtonIsVisible.Should().Be(false);
             _vm.StopButtonIsEnabled.Should().Be(true);
             _vm.StopButtonIsVisible.Should().Be(true);
-            _vm.StopButtonImageSource.Should().Be("stopbutton.svg");
+            _vm.StopButtonImageSource.Should().Be("stopbutton.png");
 
         }
 
@@ -377,7 +377,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PlayButtonIsVisible.Should().Be(false);
             _vm.StopButtonIsEnabled.Should().Be(false);
             _vm.StopButtonIsVisible.Should().Be(true);
-            _vm.StopButtonImageSource.Should().Be("pausebutton.svg");
+            _vm.StopButtonImageSource.Should().Be("pausebutton.png");
 
         }
 

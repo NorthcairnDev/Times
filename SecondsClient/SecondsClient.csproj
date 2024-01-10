@@ -25,7 +25,7 @@
 		<ApplicationTitle>OnTheDot</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.northcairn.onthedot</ApplicationId>
+		<ApplicationId>com.northcairn.stoponthedot</ApplicationId>
 
 		<!-- Versions (used for Android) - seemed to create failure whem I switcher to IOS -->
 		<!--<ApplicationDisplayVersion>2</ApplicationDisplayVersion> --><!--Must be an integer, don't know why, perhaps VS bug--><!-- 
