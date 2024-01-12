@@ -33,6 +33,7 @@ namespace SecondsClient.ViewModels
         [ObservableProperty]
         private double _reserveProgressProgressBar = 0;
 
+
         //Start Page
         [ObservableProperty]
         private bool _startPageLabelIsVisible = true;

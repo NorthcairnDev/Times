@@ -5,6 +5,12 @@
              xmlns:local="clr-namespace:SecondsClient"
              x:Class="SecondsClient.MainPage"
               xmlns:lottie="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI">
+
+    <ContentPage.Resources>
+        <local:Converters.ProgressToTimeConverter x:Key="ProgressToTimeConverter" />
+    </ContentPage.Resources>
+
+
     <Grid x:Name="MainGrid" Background="Black">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="TopMarginRow" Height="0.25*"/>
@@ -20,7 +26,7 @@
             <ColumnDefinition x:Name="RightMarginCol" Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="ScoreGrid" Grid.Row="1" Grid.Column="1"  RowDefinitions="*,*,*" ColumnDefinitions="*,*,*">
+        <Grid x:Name="ScoreGrid" Grid.Row="1" Grid.Column="1"  RowDefinitions="*,*,auto" ColumnDefinitions="*,*,*">
             <Label x:Name="EasyModeTitleLabel" Grid.Row="0" Grid.Column="0"
                    Text="Easy Mode" 
                    FontSize="{OnIdiom 20, Tablet=40,Desktop=40}" 
@@ -83,19 +89,33 @@
                     BackgroundColor="{Binding HighScoreLabelBackgroundColor}"
                     TextColor="{Binding HighScoreLabelTextColor}"/>
 
-            <ProgressBar x:Name="ReserveProgressBar" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" 
+            
+            <ProgressBar x:Name="ReserveProgressBar" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
             ScaleY="{OnIdiom 8, Tablet=12,Desktop=12}"
-           
-            VerticalOptions="End"                  
+                        
             ProgressColor="#05C405"
+           
             IsVisible="true">
                 <ProgressBar.Behaviors>
                     <toolkit:ProgressBarAnimationBehavior
                     x:Name="ProgressBarAnimationBehavior"
                     Progress="{Binding ReserveProgressProgressBar}" 
                     Length="250"/>
-                </ProgressBar.Behaviors>
-            </ProgressBar>
+                    </ProgressBar.Behaviors>
+   
+                </ProgressBar>
+
+
+            <Label x:Name="ReserveTimeLabel" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
+               VerticalOptions="End"
+                VerticalTextAlignment="End"
+                Text="{Binding Source={x:Reference ReserveProgressBar},
+                                    Path=Progress,
+                                    Converter={StaticResource ProgressToTimeConverter}}"
+                FontSize="{OnIdiom 12, Tablet=24,Desktop=24}"
+                FontFamily="RubikMonoOneRegular"
+                TextColor="White"/>
+
         </Grid>
 
 
