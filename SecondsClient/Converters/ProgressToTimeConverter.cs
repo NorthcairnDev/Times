@@ -11,7 +11,7 @@ namespace SecondsClient.Converters
             
            // var  progressRounded = Math.Round((decimal)progress,2);
             
-            return "Reserve: "+ progress.ToString("F", CultureInfo.InvariantCulture) + "sec";
+            return "Seconds: "+ progress.ToString("F", CultureInfo.InvariantCulture);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
