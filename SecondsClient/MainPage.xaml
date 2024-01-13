@@ -9,6 +9,9 @@
     <ContentPage.Resources>
         <local:Converters.ProgressToTimeConverter x:Key="ProgressToTimeConverter" />
     </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="Black"/>
+    </ContentPage.Behaviors>
 
 
     <Grid x:Name="MainGrid" Background="Black">
