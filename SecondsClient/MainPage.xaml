@@ -16,7 +16,8 @@
 
     <Grid x:Name="MainGrid" Background="Black">
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="TopMarginRow" Height="0.25*"/>
+            <!-- <RowDefinition x:Name="TopMarginRow" Height="0.25*"/> -->
+            <RowDefinition x:Name="TopMarginRow" Height="0"/>     
             <RowDefinition x:Name="ScoreAndProgressGridRow" Height="3*"/>
             <RowDefinition x:Name="TargetSecondsRow" Height="8*"/>
             <RowDefinition x:Name="StopButtonRow" Height="2.5*"/>
