@@ -225,9 +225,9 @@ namespace SecondsClient.ViewModels
         {
             FormattedString startText = new();
 
-            startText.Spans.Add(new Span { Text = "Hot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize =76 });
+            startText.Spans.Add(new Span { Text = "Hot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize =100 });
             startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 28 });
-            startText.Spans.Add(new Span { Text = "Second", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 76 });
+            startText.Spans.Add(new Span { Text = "Second", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
             // startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 28 });
             // startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 76 });
             // startText.Spans.Add(new Span { Text = Environment.NewLine });
@@ -243,9 +243,9 @@ namespace SecondsClient.ViewModels
         {
             FormattedString startText = new();
 
-            startText.Spans.Add(new Span { Text = "Hot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
+            startText.Spans.Add(new Span { Text = "Hot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
             startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 14 });
-            startText.Spans.Add(new Span { Text = "Second", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
+            startText.Spans.Add(new Span { Text = "Second", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
             // startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 14 });
             // startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
             // startText.Spans.Add(new Span { Text = Environment.NewLine });
