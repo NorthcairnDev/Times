@@ -76,7 +76,7 @@ namespace SecondsClient.Tests.Unit
         [Fact]
         void Constructor_StartPageLabelFormattedText_CountTheSeconds()
         {
-            _vm.StartPageLabelFormattedText.ToString().Should().Be("On The Dot" + Environment.NewLine + Environment.NewLine + "Feel the seconds");
+            _vm.StartPageLabelFormattedText.ToString().Should().Be("Hot Second");
         }
 
 
