@@ -176,7 +176,7 @@ namespace SecondsClient.Tests.Unit
             _gameHistory = Substitute.For<IGameHistory>();
             _gameHistory.HighScore.Returns(0);
 
-            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 100, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
+            MainViewModelDelays altDelays = new() { InstructionVisisbleDurationMs=0, GetReadyVisisbleDurationMs = 100, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
 
             this._vm = new(_gameHistory, altDelays);
 
@@ -217,7 +217,7 @@ namespace SecondsClient.Tests.Unit
         async void StartGameCommand_GetReadyLabelText_Go()
         {
 
-            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 100, PauseBetweenRoundsDurationMs = 100 };
+            MainViewModelDelays altDelays = new() { InstructionVisisbleDurationMs = 0, GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 100, PauseBetweenRoundsDurationMs = 100 };
 
             this._vm = new(_gameHistory, altDelays);
 
@@ -343,7 +343,7 @@ namespace SecondsClient.Tests.Unit
         {
 
             //Arrange
-            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 1000 };
+            MainViewModelDelays altDelays = new() { InstructionVisisbleDurationMs=0, GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 1000 };
             this._vm = new(_gameHistory, altDelays);
 
             await _vm.StartGameCommand.ExecuteAsync(null);
@@ -386,7 +386,7 @@ namespace SecondsClient.Tests.Unit
         {
 
             //Arrange
-            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 0 };
+            MainViewModelDelays altDelays = new() {  InstructionVisisbleDurationMs=0, GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 0 };
             this._vm = new(_gameHistory, altDelays);
 
             await _vm.StartGameCommand.ExecuteAsync(null);
@@ -429,7 +429,7 @@ namespace SecondsClient.Tests.Unit
         {
 
             //Arrange
-            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 0 };
+            MainViewModelDelays altDelays = new() { InstructionVisisbleDurationMs=0, GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 0 };
             this._vm = new(_gameHistory, altDelays);
 
             await _vm.StartGameCommand.ExecuteAsync(null);
