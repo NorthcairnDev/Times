@@ -82,8 +82,6 @@
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
 	  <ProvisioningType>manual</ProvisioningType>
-	  <CodesignKey>Apple Distribution: NORTHCAIRN LTD (UC89G7RH79)</CodesignKey>
-	  <CodesignProvision>Stop On The Dot PROD Provisioning 2</CodesignProvision>
 <!--	  <CodesignKey>Apple Distribution: NORTHCAIRN LTD (UC89G7RH79)</CodesignKey> -->
 <!--	  <CodesignProvision>Stop On The Dot PROD Provisioning 2</CodesignProvision> -->
 	</PropertyGroup>
