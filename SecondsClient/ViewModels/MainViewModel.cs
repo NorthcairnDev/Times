@@ -225,14 +225,14 @@ namespace SecondsClient.ViewModels
         {
             FormattedString startText = new();
 
-            startText.Spans.Add(new Span { Text = "On", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize =76 });
+            startText.Spans.Add(new Span { Text = "Hot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize =76 });
             startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 28 });
-            startText.Spans.Add(new Span { Text = "The", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 76 });
-            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 28 });
-            startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 76 });
-            startText.Spans.Add(new Span { Text = Environment.NewLine });
-            startText.Spans.Add(new Span { Text = Environment.NewLine });
-            startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "RubikRegular", FontSize = 56});
+            startText.Spans.Add(new Span { Text = "Second", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 76 });
+            // startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 28 });
+            // startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 76 });
+            // startText.Spans.Add(new Span { Text = Environment.NewLine });
+            // startText.Spans.Add(new Span { Text = Environment.NewLine });
+            // startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "RubikRegular", FontSize = 56});
 
             //FontAttributes = FontAttributes.Italic
 
@@ -243,14 +243,14 @@ namespace SecondsClient.ViewModels
         {
             FormattedString startText = new();
 
-            startText.Spans.Add(new Span { Text = "On", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
+            startText.Spans.Add(new Span { Text = "Hot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
             startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 14 });
-            startText.Spans.Add(new Span { Text = "The", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
-            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 14 });
-            startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
-            startText.Spans.Add(new Span { Text = Environment.NewLine });
-            startText.Spans.Add(new Span { Text = Environment.NewLine });
-            startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "RubikRegular", FontSize = 28 });
+            startText.Spans.Add(new Span { Text = "Second", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
+            // startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 14 });
+            // startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
+            // startText.Spans.Add(new Span { Text = Environment.NewLine });
+            // startText.Spans.Add(new Span { Text = Environment.NewLine });
+            // startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "RubikRegular", FontSize = 28 });
 
             //FontAttributes = FontAttributes.Italic
 
@@ -278,6 +278,7 @@ namespace SecondsClient.ViewModels
             TransitionTo(GameState.GameStarting);
             await Task.Delay(_delays.GetReadyVisisbleDurationMs);
 
+           
 
             if (DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
             {
@@ -288,6 +289,8 @@ namespace SecondsClient.ViewModels
             {
                 GetReadyLabelFontSize = 48;
             }
+
+
             GetReadyLabelText = "GO!";
             await Task.Delay(_delays.GoVisisbleDurationMs);
             GetReadyLabelIsVisible = false;
