@@ -274,11 +274,13 @@ namespace SecondsClient.ViewModels
                 GetReadyLabelFontSize = 28;
             }
             
-            GetReadyLabelText = "Get" + Environment.NewLine + "Ready";
+            GetReadyLabelText = "Count" + Environment.NewLine + "The" + Environment.NewLine + "Seconds";
             TransitionTo(GameState.GameStarting);
-            await Task.Delay(_delays.GetReadyVisisbleDurationMs);
+            await Task.Delay(_delays.InstructionVisisbleDurationMs);
 
-           
+            GetReadyLabelText = "Get" + Environment.NewLine + "Ready";
+
+            await Task.Delay(_delays.GetReadyVisisbleDurationMs);
 
             if (DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
             {

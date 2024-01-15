@@ -19,7 +19,7 @@ namespace SecondsClient.Tests.Unit
             _gameHistory = Substitute.For<IGameHistory>();
             _gameHistory.HighScore.Returns(0);
 
-            MainViewModelDelays standardDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
+            MainViewModelDelays standardDelays = new() { InstructionVisisbleDurationMs = 0, GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
 
             this._vm = new(_gameHistory, standardDelays);
 
