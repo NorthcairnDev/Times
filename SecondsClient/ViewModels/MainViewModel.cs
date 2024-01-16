@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Graphics.Text;
 using SecondsClient.Models;
 using SkiaSharp.Extended.UI.Controls;
 using SkiaSharp.Extended.UI.Controls.Converters;
@@ -63,7 +64,7 @@ namespace SecondsClient.ViewModels
 
         //Accuracy Result
         [ObservableProperty]
-        private string _accuracyLabelText = string.Empty;
+        private FormattedString? _accuracyLabelText = null;
         [ObservableProperty]
         private Color _accuracyLabelTextColor = Colors.White;
         [ObservableProperty]
@@ -225,9 +226,8 @@ namespace SecondsClient.ViewModels
         {
             FormattedString startText = new();
 
-            startText.Spans.Add(new Span { Text = "Hot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize =100 });
-            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 28 });
-            startText.Spans.Add(new Span { Text = "Second", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
+            startText.Spans.Add(new Span { Text = "HOT" + Environment.NewLine, TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
+            startText.Spans.Add(new Span { Text = "SECOND", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
 
             return startText;
         }
@@ -236,12 +236,52 @@ namespace SecondsClient.ViewModels
         {
             FormattedString startText = new();
 
-            startText.Spans.Add(new Span { Text = "Hot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
-            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 14 });
-            startText.Spans.Add(new Span { Text = "Second", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
+            startText.Spans.Add(new Span { Text = "HOT" + Environment.NewLine, TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
+            startText.Spans.Add(new Span { Text = "SECOND", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
 
             return startText;
         }
+
+
+        private static FormattedString AccuracyFormattedText(string accuracy, string overOrUnder, Color textColor)
+        {
+
+            if (DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
+            {
+                return AccuracyFormattedTextTabletOrDesktop(accuracy, overOrUnder, textColor);
+            }
+
+            return AccuracyFormattedTextDefault(accuracy,overOrUnder,textColor);
+
+        }
+
+
+        private static FormattedString AccuracyFormattedTextDefault(string accuracy, string overOrUnder, Color textColor)
+        {
+            FormattedString accuracyText = new();
+
+
+            accuracyText.Spans.Add(new Span { Text = overOrUnder + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 36 });
+            accuracyText.Spans.Add(new Span { Text = accuracy + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 36 });
+            accuracyText.Spans.Add(new Span { Text = "SECONDS" , TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 14 });
+
+            return accuracyText;
+        }
+
+
+        private static FormattedString AccuracyFormattedTextTabletOrDesktop(string accuracy, string overOrUnder, Color textColor)
+        {
+            FormattedString accuracyText = new();
+
+            accuracyText.Spans.Add(new Span { Text = overOrUnder + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 72});
+            accuracyText.Spans.Add(new Span { Text = accuracy + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 72 });
+            accuracyText.Spans.Add(new Span { Text = "SECONDS", TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 28 });
+
+            return accuracyText;
+        }
+
+
+
 
         #endregion
 
@@ -322,7 +362,7 @@ namespace SecondsClient.ViewModels
                     PauseAnimationIsVisible = true;
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
-                    AccuracyLabelText = string.Empty;
+                    AccuracyLabelText = null;
                     AccuracyLabelTextColor = Colors.White;
                     AccuracyLabelIsVisible = false;
                     GameOverLabelIsVisible = false;
@@ -350,7 +390,7 @@ namespace SecondsClient.ViewModels
                     PauseAnimationIsVisible = false;
                     TargetSecondsImageSource = TargetSecondsImage();
                     TargetSecondsImageIsVisible = true;
-                    AccuracyLabelText = string.Empty;
+                    AccuracyLabelText = null ;
                     AccuracyLabelTextColor = Colors.White;
                     AccuracyLabelIsVisible = false;
                     GameOverLabelIsVisible = false;
@@ -383,14 +423,14 @@ namespace SecondsClient.ViewModels
                     switch (accuracyRounded)
                     {
                         case > (decimal)0.00:
-                            AccuracyLabelText = accuracyRoundedUnsigned.ToString() + Environment.NewLine + "Over";
+                            AccuracyLabelText = AccuracyFormattedText(accuracyRoundedUnsigned.ToString(), "OVER", AccuracyColor());
                             break;
                         case < (decimal)0.00:
-                            AccuracyLabelText = accuracyRoundedUnsigned.ToString() + Environment.NewLine + "Under";
+                            AccuracyLabelText = AccuracyFormattedText(accuracyRoundedUnsigned.ToString(), "UNDER", AccuracyColor());
                             break;
 
                         case (decimal)0.00:
-                            AccuracyLabelText = accuracyRoundedUnsigned.ToString() + Environment.NewLine + "Perfect";
+                            AccuracyLabelText = AccuracyFormattedText(accuracyRoundedUnsigned.ToString(), "PERFECT!", AccuracyColor());
                             break;
                     }
 
@@ -423,7 +463,7 @@ namespace SecondsClient.ViewModels
                     PauseAnimationIsVisible = false;
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
-                    AccuracyLabelText = string.Empty;
+                    AccuracyLabelText = null;
                     AccuracyLabelTextColor = Colors.White;
                     AccuracyLabelIsVisible = false;
                     GameOverLabelIsVisible = true;

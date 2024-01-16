@@ -76,7 +76,7 @@ namespace SecondsClient.Tests.Unit
         [Fact]
         void Constructor_StartPageLabelFormattedText_CountTheSeconds()
         {
-            _vm.StartPageLabelFormattedText.ToString().Should().Be("Hot Second");
+            _vm.StartPageLabelFormattedText.ToString().Should().Be("HOT" + Environment.NewLine + "SECOND");
         }
 
 
@@ -118,7 +118,7 @@ namespace SecondsClient.Tests.Unit
         [Fact]
         void Constructor_AccuracyLabelText_Empty()
         {
-            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelText.Should().BeNull();
         }
         [Fact]
         void Constructor_AccuracyLabelTextColor_White()
@@ -200,7 +200,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PauseAnimationIsVisible.Should().Be(true);
             _vm.TargetSecondsImageSource.Should().Be(string.Empty);
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelText.Should().BeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(false);
@@ -241,7 +241,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PauseAnimationIsVisible.Should().Be(true);
             _vm.TargetSecondsImageSource.Should().Be(string.Empty);
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelText.Should().BeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(false);
@@ -282,7 +282,7 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelIsVisible.Should().Be(false);
             _vm.PauseAnimationSource.Should().BeNull();
             _vm.PauseAnimationIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelText.Should().BeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(false);
@@ -326,7 +326,7 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelIsVisible.Should().Be(false);
             _vm.PauseAnimationSource.Should().BeNull();
             _vm.PauseAnimationIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelText.Should().BeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(false);
@@ -369,7 +369,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PauseAnimationIsVisible.Should().Be(true);
             _vm.TargetSecondsImageSource.Should().Be(string.Empty);
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().NotBeEmpty();
+            _vm.AccuracyLabelText.Should().NotBeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Color.FromArgb("FE0000"));
             _vm.AccuracyLabelIsVisible.Should().Be(true);
             _vm.GameOverLabelIsVisible.Should().Be(false);
@@ -412,7 +412,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PauseAnimationIsVisible.Should().Be(false);
             _vm.TargetSecondsImageSource.Should().BeEmpty();
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().BeEmpty();
+            _vm.AccuracyLabelText.Should().BeNull(); ;
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(true);
@@ -461,7 +461,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PauseAnimationIsVisible.Should().Be(false);
             _vm.TargetSecondsImageSource.Should().BeEmpty();
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().BeEmpty();
+            _vm.AccuracyLabelText.Should().BeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(true);

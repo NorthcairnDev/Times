@@ -160,10 +160,8 @@
                 HorizontalOptions="Center"/>
 
             <Label x:Name="AccuracyLabel" 
-                Text="{Binding AccuracyLabelText}"
+                FormattedText="{Binding AccuracyLabelText}"
                 IsVisible="{Binding AccuracyLabelIsVisible}" 
-                FontFamily="RubikMonoOneRegular"
-                FontSize="{OnIdiom 28, Tablet=56,Desktop=56}"
                 TextColor="{Binding AccuracyLabelTextColor}"
                 VerticalTextAlignment="Center"
                 HorizontalTextAlignment="Center"
