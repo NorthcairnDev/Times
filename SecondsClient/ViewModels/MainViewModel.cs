@@ -228,13 +228,6 @@ namespace SecondsClient.ViewModels
             startText.Spans.Add(new Span { Text = "Hot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize =100 });
             startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 28 });
             startText.Spans.Add(new Span { Text = "Second", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
-            // startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 28 });
-            // startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 76 });
-            // startText.Spans.Add(new Span { Text = Environment.NewLine });
-            // startText.Spans.Add(new Span { Text = Environment.NewLine });
-            // startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "RubikRegular", FontSize = 56});
-
-            //FontAttributes = FontAttributes.Italic
 
             return startText;
         }
@@ -246,13 +239,6 @@ namespace SecondsClient.ViewModels
             startText.Spans.Add(new Span { Text = "Hot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
             startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 14 });
             startText.Spans.Add(new Span { Text = "Second", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
-            // startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 14 });
-            // startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 38 });
-            // startText.Spans.Add(new Span { Text = Environment.NewLine });
-            // startText.Spans.Add(new Span { Text = Environment.NewLine });
-            // startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "RubikRegular", FontSize = 28 });
-
-            //FontAttributes = FontAttributes.Italic
 
             return startText;
         }
@@ -456,30 +442,25 @@ namespace SecondsClient.ViewModels
         private Color AccuracyColor()
         {
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
             return _game.Round.AccuracyLevel switch
             {
                 Round.LevelsOfAccuracy.VeryClose => Color.FromArgb("05C405"),
                 Round.LevelsOfAccuracy.Close => Color.FromArgb("FF9900"),
                 _ => Color.FromArgb("FE0000"),
             };
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
 
 
         private SKFileLottieImageSource PauseAnimationSourceForAccuracy()
         {
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
             return _game.Round.AccuracyLevel switch
             {
                 Round.LevelsOfAccuracy.VeryClose => _greenactivityanimation,
                 Round.LevelsOfAccuracy.Close => _amberactivityanimation,
                 _ => _redactivityanimation
             }; 
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
-
 
 
         private string TargetSecondsImage()
@@ -488,7 +469,6 @@ namespace SecondsClient.ViewModels
             if (!EasyModeSwitchIsToggled)
             {
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 return _game.Round.TargetInSeconds.Seconds switch
                 {
                     1 => "onesecondfuschia.png",
@@ -498,10 +478,8 @@ namespace SecondsClient.ViewModels
                     5 => "fivesecondfuschia.png",
                     _ => string.Empty,
                 };
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
             return _game.Round.TargetInSeconds.Seconds switch
             {
                 1 => "onemississippifuschia.png",
@@ -511,7 +489,6 @@ namespace SecondsClient.ViewModels
                 5 => "fivemississippifuschia.png",
                 _ => string.Empty,
             };
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
 
         #endregion
