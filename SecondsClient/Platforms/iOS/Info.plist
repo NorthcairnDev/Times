@@ -27,7 +27,7 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>CFBundleDisplayName</key>
-	<string>Stop On The Dot</string>
+	<string>Hot Second</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>CFBundleIdentifier</key>
