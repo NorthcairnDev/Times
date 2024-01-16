@@ -263,7 +263,7 @@ namespace SecondsClient.ViewModels
 
             accuracyText.Spans.Add(new Span { Text = overOrUnder + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 36 });
             accuracyText.Spans.Add(new Span { Text = accuracy + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 36 });
-            accuracyText.Spans.Add(new Span { Text = "SECONDS" , TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 14 });
+            accuracyText.Spans.Add(new Span { Text = "SECONDS" , TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 20 });
 
             return accuracyText;
         }
@@ -275,7 +275,7 @@ namespace SecondsClient.ViewModels
 
             accuracyText.Spans.Add(new Span { Text = overOrUnder + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 72});
             accuracyText.Spans.Add(new Span { Text = accuracy + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 72 });
-            accuracyText.Spans.Add(new Span { Text = "SECONDS", TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 28 });
+            accuracyText.Spans.Add(new Span { Text = "SECONDS", TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 40 });
 
             return accuracyText;
         }
