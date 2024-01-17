@@ -116,7 +116,7 @@
                 Text="{Binding Source={x:Reference ReserveProgressBar},
                                     Path=Progress,
                                     Converter={StaticResource ProgressToTimeConverter}}"
-                FontSize="{OnIdiom 12, Tablet=24,Desktop=24}"
+                FontSize="{OnIdiom 14, Tablet=28,Desktop=28}"
                 FontFamily="RubikMonoOneRegular"
                 TextColor="White"/>
 
