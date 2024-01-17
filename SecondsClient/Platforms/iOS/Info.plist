@@ -32,7 +32,5 @@
 	<false/>
 	<key>CFBundleIdentifier</key>
 	<string></string>
-	<key>CFBundleVersion</key>
-	<string>3</string>
 </dict>
 </plist>
