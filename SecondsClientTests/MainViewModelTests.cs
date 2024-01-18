@@ -19,7 +19,7 @@ namespace SecondsClient.Tests.Unit
             _gameHistory = Substitute.For<IGameHistory>();
             _gameHistory.HighScore.Returns(0);
 
-            MainViewModelDelays standardDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
+            MainViewModelDelays standardDelays = new() { InstructionVisisbleDurationMs = 0, GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
 
             this._vm = new(_gameHistory, standardDelays);
 
@@ -76,7 +76,7 @@ namespace SecondsClient.Tests.Unit
         [Fact]
         void Constructor_StartPageLabelFormattedText_CountTheSeconds()
         {
-            _vm.StartPageLabelFormattedText.ToString().Should().Be("On The Dot" + Environment.NewLine + Environment.NewLine + "Feel the seconds");
+            _vm.StartPageLabelFormattedText.ToString().Should().Be("HOT" + Environment.NewLine + "SECOND");
         }
 
 
@@ -96,18 +96,18 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelIsVisible.Should().Be(false);
         }
         [Fact]
-        void Constructor_PauseActivityIndicatorIsVisible_False()
+        void Constructor_PauseAnimationIsVisible_False()
         {
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.PauseAnimationIsVisible.Should().Be(false);
         }
         [Fact]
-        void Constructor_PauseActivityIndicatorColor_White()
+        void Constructor_PauseAnimationSource_IsNull()
         {
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
+            _vm.PauseAnimationSource.Should().BeNull();
         }
         [Fact]
         void Constructor_TargetSecondsImageSource_Empty()
-        {
+            {
             _vm.TargetSecondsImageSource.Should().Be(string.Empty);
         }
         [Fact]
@@ -118,7 +118,7 @@ namespace SecondsClient.Tests.Unit
         [Fact]
         void Constructor_AccuracyLabelText_Empty()
         {
-            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelText.Should().BeNull();
         }
         [Fact]
         void Constructor_AccuracyLabelTextColor_White()
@@ -176,7 +176,7 @@ namespace SecondsClient.Tests.Unit
             _gameHistory = Substitute.For<IGameHistory>();
             _gameHistory.HighScore.Returns(0);
 
-            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 100, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
+            MainViewModelDelays altDelays = new() { InstructionVisisbleDurationMs=0, GetReadyVisisbleDurationMs = 100, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 100 };
 
             this._vm = new(_gameHistory, altDelays);
 
@@ -196,11 +196,11 @@ namespace SecondsClient.Tests.Unit
             _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
             _vm.ReserveProgressProgressBar.Should().Be(1);
             _vm.StartPageLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(true);
+            _vm.PauseAnimationSource.File.Should().Be("whiteactivityanimation.json");
+            _vm.PauseAnimationIsVisible.Should().Be(true);
             _vm.TargetSecondsImageSource.Should().Be(string.Empty);
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelText.Should().BeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(false);
@@ -208,7 +208,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PlayButtonIsVisible.Should().Be(false);
             _vm.StopButtonIsEnabled.Should().Be(false);
             _vm.StopButtonIsVisible.Should().Be(true);
-            _vm.StopButtonImageSource.Should().Be("pausebutton.svg");
+            _vm.StopButtonImageSource.Should().Be("pausebutton.png");
 
 
         }
@@ -217,7 +217,7 @@ namespace SecondsClient.Tests.Unit
         async void StartGameCommand_GetReadyLabelText_Go()
         {
 
-            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 100, PauseBetweenRoundsDurationMs = 100 };
+            MainViewModelDelays altDelays = new() { InstructionVisisbleDurationMs = 0, GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 100, PauseBetweenRoundsDurationMs = 100 };
 
             this._vm = new(_gameHistory, altDelays);
 
@@ -237,11 +237,11 @@ namespace SecondsClient.Tests.Unit
             _vm.HighScoreLabelBackgroundColor.Should().Be(Colors.Black);
             _vm.ReserveProgressProgressBar.Should().Be(1);
             _vm.StartPageLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(true);
+            _vm.PauseAnimationSource.File.Should().Be("whiteactivityanimation.json");
+            _vm.PauseAnimationIsVisible.Should().Be(true);
             _vm.TargetSecondsImageSource.Should().Be(string.Empty);
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.AccuracyLabelText.Should().BeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(false);
@@ -249,7 +249,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PlayButtonIsVisible.Should().Be(false);
             _vm.StopButtonIsEnabled.Should().Be(false);
             _vm.StopButtonIsVisible.Should().Be(true);
-            _vm.StopButtonImageSource.Should().Be("pausebutton.svg");
+            _vm.StopButtonImageSource.Should().Be("pausebutton.png");
         }
 
         [Fact]
@@ -260,11 +260,11 @@ namespace SecondsClient.Tests.Unit
 
             _vm.StartRound();
 
-            _vm.TargetSecondsImageSource.Should().BeOneOf("onesecondfuschia.svg",
-                                                            "twosecondfuschia.svg",
-                                                            "threesecondfuschia.svg",
-                                                            "foursecondfuschia.svg",
-                                                            "fivesecondfuschia.svg");
+            _vm.TargetSecondsImageSource.Should().BeOneOf("onesecondfuschia.png",
+                                                            "twosecondfuschia.png",
+                                                            "threesecondfuschia.png",
+                                                            "foursecondfuschia.png",
+                                                            "fivesecondfuschia.png");
 
 
             _vm.TargetSecondsImageIsVisible.Should().Be(true);
@@ -280,9 +280,9 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().Be(string.Empty);
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.PauseAnimationSource.Should().BeNull();
+            _vm.PauseAnimationIsVisible.Should().Be(false);
+            _vm.AccuracyLabelText.Should().BeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(false);
@@ -290,7 +290,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PlayButtonIsVisible.Should().Be(false);
             _vm.StopButtonIsEnabled.Should().Be(true);
             _vm.StopButtonIsVisible.Should().Be(true);
-            _vm.StopButtonImageSource.Should().Be("stopbutton.svg");
+            _vm.StopButtonImageSource.Should().Be("stopbutton.png");
 
         }
 
@@ -304,11 +304,11 @@ namespace SecondsClient.Tests.Unit
             //act
             _vm.StartRound();
             //assert
-            _vm.TargetSecondsImageSource.Should().BeOneOf("onemississippifuschia.svg",
-                                                                "twomississippifuschia.svg",
-                                                                "threemississippifuschia.svg",
-                                                                "fourmississippifuschia.svg",
-                                                                "fivemississippifuschia.svg");
+            _vm.TargetSecondsImageSource.Should().BeOneOf("onemississippifuschia.png",
+                                                                "twomississippifuschia.png",
+                                                                "threemississippifuschia.png",
+                                                                "fourmississippifuschia.png",
+                                                                "fivemississippifuschia.png");
 
 
             _vm.TargetSecondsImageIsVisible.Should().Be(true);
@@ -324,9 +324,9 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().Be(string.Empty);
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().Be(string.Empty);
+            _vm.PauseAnimationSource.Should().BeNull();
+            _vm.PauseAnimationIsVisible.Should().Be(false);
+            _vm.AccuracyLabelText.Should().BeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(false);
@@ -334,7 +334,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PlayButtonIsVisible.Should().Be(false);
             _vm.StopButtonIsEnabled.Should().Be(true);
             _vm.StopButtonIsVisible.Should().Be(true);
-            _vm.StopButtonImageSource.Should().Be("stopbutton.svg");
+            _vm.StopButtonImageSource.Should().Be("stopbutton.png");
 
         }
 
@@ -343,7 +343,7 @@ namespace SecondsClient.Tests.Unit
         {
 
             //Arrange
-            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 1000 };
+            MainViewModelDelays altDelays = new() { InstructionVisisbleDurationMs=0, GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 1000 };
             this._vm = new(_gameHistory, altDelays);
 
             await _vm.StartGameCommand.ExecuteAsync(null);
@@ -365,11 +365,11 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().Be(string.Empty);
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Color.FromArgb("FE0000"));
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(true);
+            _vm.PauseAnimationSource.File.Should().Be("redactivityanimation.json");
+            _vm.PauseAnimationIsVisible.Should().Be(true);
             _vm.TargetSecondsImageSource.Should().Be(string.Empty);
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().NotBeEmpty();
+            _vm.AccuracyLabelText.Should().NotBeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Color.FromArgb("FE0000"));
             _vm.AccuracyLabelIsVisible.Should().Be(true);
             _vm.GameOverLabelIsVisible.Should().Be(false);
@@ -377,7 +377,7 @@ namespace SecondsClient.Tests.Unit
             _vm.PlayButtonIsVisible.Should().Be(false);
             _vm.StopButtonIsEnabled.Should().Be(false);
             _vm.StopButtonIsVisible.Should().Be(true);
-            _vm.StopButtonImageSource.Should().Be("pausebutton.svg");
+            _vm.StopButtonImageSource.Should().Be("pausebutton.png");
 
         }
 
@@ -386,7 +386,7 @@ namespace SecondsClient.Tests.Unit
         {
 
             //Arrange
-            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 0 };
+            MainViewModelDelays altDelays = new() {  InstructionVisisbleDurationMs=0, GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 0 };
             this._vm = new(_gameHistory, altDelays);
 
             await _vm.StartGameCommand.ExecuteAsync(null);
@@ -408,11 +408,11 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().BeEmpty();
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.PauseAnimationSource.Should().BeNull();
+            _vm.PauseAnimationIsVisible.Should().Be(false);
             _vm.TargetSecondsImageSource.Should().BeEmpty();
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().BeEmpty();
+            _vm.AccuracyLabelText.Should().BeNull(); ;
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(true);
@@ -429,7 +429,7 @@ namespace SecondsClient.Tests.Unit
         {
 
             //Arrange
-            MainViewModelDelays altDelays = new() { GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 0 };
+            MainViewModelDelays altDelays = new() { InstructionVisisbleDurationMs=0, GetReadyVisisbleDurationMs = 0, GoVisisbleDurationMs = 0, PauseBetweenRoundsDurationMs = 0 };
             this._vm = new(_gameHistory, altDelays);
 
             await _vm.StartGameCommand.ExecuteAsync(null);
@@ -457,11 +457,11 @@ namespace SecondsClient.Tests.Unit
             _vm.GetReadyLabelText.ToString().Should().BeEmpty();
             _vm.GetReadyLabelFontSize.Should().Be(28);
             _vm.GetReadyLabelIsVisible.Should().Be(false);
-            _vm.PauseActivityIndicatorColor.Should().Be(Colors.White);
-            _vm.PauseActivityIndicatorIsVisible.Should().Be(false);
+            _vm.PauseAnimationSource.Should().BeNull();
+            _vm.PauseAnimationIsVisible.Should().Be(false);
             _vm.TargetSecondsImageSource.Should().BeEmpty();
             _vm.TargetSecondsImageIsVisible.Should().Be(false);
-            _vm.AccuracyLabelText.Should().BeEmpty();
+            _vm.AccuracyLabelText.Should().BeNull();
             _vm.AccuracyLabelTextColor.Should().Be(Colors.White);
             _vm.AccuracyLabelIsVisible.Should().Be(false);
             _vm.GameOverLabelIsVisible.Should().Be(true);

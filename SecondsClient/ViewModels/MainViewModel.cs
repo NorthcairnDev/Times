@@ -1,6 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Graphics.Text;
 using SecondsClient.Models;
+using SkiaSharp.Extended.UI.Controls;
+using SkiaSharp.Extended.UI.Controls.Converters;
+
 
 namespace SecondsClient.ViewModels
 {
@@ -8,7 +12,7 @@ namespace SecondsClient.ViewModels
     {
         #region Observable Properties
 
-        
+
         //Score Grid
         [ObservableProperty]
         private string _scoreLabelText = "0";
@@ -22,13 +26,14 @@ namespace SecondsClient.ViewModels
         private Color _highScoreLabelTextColor = Colors.White;
         [ObservableProperty]
         private Color _highScoreLabelBackgroundColor = Colors.Black;
- 
+
         [ObservableProperty]
         private bool _easyModeSwitchIsToggled = false;
 
         //Reserve Bar
         [ObservableProperty]
-        private double _reserveProgressProgressBar  = 0;
+        private double _reserveProgressProgressBar = 0;
+
 
         //Start Page
         [ObservableProperty]
@@ -46,9 +51,10 @@ namespace SecondsClient.ViewModels
 
         //Pause Between Rounds Indicator
         [ObservableProperty]
-        private bool _pauseActivityIndicatorIsVisible = false;
+        private SKFileLottieImageSource? _pauseAnimationSource;
         [ObservableProperty]
-        private Color _pauseActivityIndicatorColor = Colors.White;
+        private bool _pauseAnimationIsVisible = false;
+    
 
         //Target Seconds
         [ObservableProperty]
@@ -58,7 +64,7 @@ namespace SecondsClient.ViewModels
 
         //Accuracy Result
         [ObservableProperty]
-        private string _accuracyLabelText = string.Empty;
+        private FormattedString? _accuracyLabelText = null;
         [ObservableProperty]
         private Color _accuracyLabelTextColor = Colors.White;
         [ObservableProperty]
@@ -91,6 +97,12 @@ namespace SecondsClient.ViewModels
         private Game _game = new();
         private IGameHistory _gameHistory;
         private MainViewModelDelays _delays;
+        private readonly SKFileLottieImageSource _whiteactivityanimation;
+        private readonly SKFileLottieImageSource _greenactivityanimation;
+        private readonly SKFileLottieImageSource _amberactivityanimation;
+        private readonly SKFileLottieImageSource _redactivityanimation;
+
+
 
         #endregion
 
@@ -112,13 +124,20 @@ namespace SecondsClient.ViewModels
             _gameHistory = gameHistory;
             _delays = delays;
 
+
 #if DEBUG
             _gameHistory.HighScore = 0;
 #endif
 
             _highScoreLabelText = _gameHistory.HighScore.ToString();
-          
+
+            _whiteactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFromString("whiteactivityanimation.json");
+            _greenactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFromString("greenactivityanimation.json");
+            _amberactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFromString("amberactivityanimation.json");
+            _redactivityanimation = (SKFileLottieImageSource)new SKLottieImageSourceConverter().ConvertFromString("redactivityanimation.json");
+
         }
+
 
         #endregion
 
@@ -162,43 +181,144 @@ namespace SecondsClient.ViewModels
         #region Private Static Methods
         private static FormattedString GameOverFormattedText()
         {
+            if (DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
+            {
+                return GameOverFormattedTextTabletOrDesktop();
+            }
+
+            return GameOverFormattedTextDefault();
+        }
+
+        private static FormattedString GameOverFormattedTextDefault()
+        {
             FormattedString gameOverText = new();
 
-            gameOverText.Spans.Add(new Span { Text = "Game", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 48 });
+            gameOverText.Spans.Add(new Span { Text = "Game", TextColor = Colors.White, FontFamily = "RubikMonoOneRegular", FontSize = 48 });
             gameOverText.Spans.Add(new Span { Text = Environment.NewLine });
-            gameOverText.Spans.Add(new Span { Text = "Over", TextColor = Colors.White, FontFamily = "RubikMonoOne-Regular", FontSize = 48 });
+            gameOverText.Spans.Add(new Span { Text = "Over", TextColor = Colors.White, FontFamily = "RubikMonoOneRegular", FontSize = 48 });
 
             return gameOverText;
         }
 
+        private static FormattedString GameOverFormattedTextTabletOrDesktop()
+        {
+            FormattedString gameOverText = new();
+
+            gameOverText.Spans.Add(new Span { Text = "Game", TextColor = Colors.White, FontFamily = "RubikMonoOneRegular", FontSize = 96 });
+            gameOverText.Spans.Add(new Span { Text = Environment.NewLine });
+            gameOverText.Spans.Add(new Span { Text = "Over", TextColor = Colors.White, FontFamily = "RubikMonoOneRegular", FontSize = 96 });
+
+            return gameOverText;
+        }
+
+
         private static FormattedString StartPageFormattedText()
+        {
+            if (DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
+            {
+                return StartPageFormattedTextTabletOrDesktop();
+            }
+
+            return StartPageFormattedTextDefault();
+        }
+
+        private static FormattedString StartPageFormattedTextTabletOrDesktop()
         {
             FormattedString startText = new();
 
-            startText.Spans.Add(new Span { Text = "On", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 38 });
-            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 14 });
-            startText.Spans.Add(new Span { Text = "The", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 38 });
-            startText.Spans.Add(new Span { Text = " ", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 14 });
-            startText.Spans.Add(new Span { Text = "Dot", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOne-Regular", FontSize = 38 });
-            startText.Spans.Add(new Span { Text = Environment.NewLine });
-            startText.Spans.Add(new Span { Text = Environment.NewLine });
-            startText.Spans.Add(new Span { Text = "Feel the seconds", TextColor = Colors.White, FontFamily = "Rubik-Regular", FontSize = 28, });
-
-            //FontAttributes = FontAttributes.Italic
+            startText.Spans.Add(new Span { Text = "HOT" + Environment.NewLine, TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
+            startText.Spans.Add(new Span { Text = "SECOND", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
 
             return startText;
         }
+
+        private static FormattedString StartPageFormattedTextDefault()
+        {
+            FormattedString startText = new();
+
+            startText.Spans.Add(new Span { Text = "HOT" + Environment.NewLine, TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
+            startText.Spans.Add(new Span { Text = "SECOND", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
+
+            return startText;
+        }
+
+
+        private static FormattedString AccuracyFormattedText(string accuracy, string overOrUnder, Color textColor)
+        {
+
+            if (DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
+            {
+                return AccuracyFormattedTextTabletOrDesktop(accuracy, overOrUnder, textColor);
+            }
+
+            return AccuracyFormattedTextDefault(accuracy,overOrUnder,textColor);
+
+        }
+
+
+        private static FormattedString AccuracyFormattedTextDefault(string accuracy, string overOrUnder, Color textColor)
+        {
+            FormattedString accuracyText = new();
+
+
+            accuracyText.Spans.Add(new Span { Text = overOrUnder + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 36 });
+            accuracyText.Spans.Add(new Span { Text = accuracy + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 36 });
+            accuracyText.Spans.Add(new Span { Text = "SECONDS" , TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 20 });
+
+            return accuracyText;
+        }
+
+
+        private static FormattedString AccuracyFormattedTextTabletOrDesktop(string accuracy, string overOrUnder, Color textColor)
+        {
+            FormattedString accuracyText = new();
+
+            accuracyText.Spans.Add(new Span { Text = overOrUnder + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 72});
+            accuracyText.Spans.Add(new Span { Text = accuracy + Environment.NewLine, TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 72 });
+            accuracyText.Spans.Add(new Span { Text = "SECONDS", TextColor = textColor, FontFamily = "RubikMonoOneRegular", FontSize = 40 });
+
+            return accuracyText;
+        }
+
+
+
+
         #endregion
 
         #region Private Instance Methods
 
         private async Task GameStartSequence()
         {
-            GetReadyLabelFontSize = 28;
-            GetReadyLabelText = "Get" + Environment.NewLine + "Ready";
+            
+            if(DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
+            {
+                GetReadyLabelFontSize = 56;
+
+            }
+            else
+            {
+                GetReadyLabelFontSize = 28;
+            }
+            
+            GetReadyLabelText = "Count" + Environment.NewLine + "The" + Environment.NewLine + "Seconds";
             TransitionTo(GameState.GameStarting);
+            await Task.Delay(_delays.InstructionVisisbleDurationMs);
+
+            GetReadyLabelText = "Get" + Environment.NewLine + "Ready";
+
             await Task.Delay(_delays.GetReadyVisisbleDurationMs);
-            GetReadyLabelFontSize = 48;
+
+            if (DeviceInfo.Idiom == DeviceIdiom.Tablet || DeviceInfo.Idiom == DeviceIdiom.Desktop)
+            {
+                GetReadyLabelFontSize = 96;
+
+            }
+            else
+            {
+                GetReadyLabelFontSize = 48;
+            }
+
+
             GetReadyLabelText = "GO!";
             await Task.Delay(_delays.GoVisisbleDurationMs);
             GetReadyLabelIsVisible = false;
@@ -228,7 +348,7 @@ namespace SecondsClient.ViewModels
             switch (gameState)
             {
                 case GameState.GameStarting:
-
+                    
                     ScoreLabelText = "0";
                     ScoreLabelTextColor = Colors.White;
                     ScoreLabelBackgroundColor = Colors.Black;
@@ -238,11 +358,11 @@ namespace SecondsClient.ViewModels
                     ReserveProgressProgressBar = 1;
                     StartPageLabelIsVisible = false;
                     GetReadyLabelIsVisible = true;
-                    PauseActivityIndicatorColor = Colors.White;
-                    PauseActivityIndicatorIsVisible = true;
+                    PauseAnimationSource = _whiteactivityanimation;
+                    PauseAnimationIsVisible = true;
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
-                    AccuracyLabelText = string.Empty;
+                    AccuracyLabelText = null;
                     AccuracyLabelTextColor = Colors.White;
                     AccuracyLabelIsVisible = false;
                     GameOverLabelIsVisible = false;
@@ -250,7 +370,7 @@ namespace SecondsClient.ViewModels
                     PlayButtonIsVisible = false;
                     StopButtonIsEnabled = false;
                     StopButtonIsVisible = true;
-                    StopButtonImageSource = "pausebutton.svg";
+                    StopButtonImageSource = "pausebutton.png";
 
                     break;
 
@@ -266,11 +386,11 @@ namespace SecondsClient.ViewModels
                     GetReadyLabelText = string.Empty;
                     GetReadyLabelFontSize = 28;
                     GetReadyLabelIsVisible = false;
-                    PauseActivityIndicatorColor = Colors.White;
-                    PauseActivityIndicatorIsVisible = false;
+                    PauseAnimationSource = null;
+                    PauseAnimationIsVisible = false;
                     TargetSecondsImageSource = TargetSecondsImage();
                     TargetSecondsImageIsVisible = true;
-                    AccuracyLabelText = string.Empty;
+                    AccuracyLabelText = null ;
                     AccuracyLabelTextColor = Colors.White;
                     AccuracyLabelIsVisible = false;
                     GameOverLabelIsVisible = false;
@@ -278,12 +398,11 @@ namespace SecondsClient.ViewModels
                     PlayButtonIsVisible = false;
                     StopButtonIsEnabled = true;
                     StopButtonIsVisible = true;
-                    StopButtonImageSource = "stopbutton.svg";
+                    StopButtonImageSource = "stopbutton.png";
 
                     break;
 
                 case GameState.RoundEnded:
-
                     ScoreLabelText = _game.Score.ToString();
                     ScoreLabelTextColor = Colors.White;
                     ScoreLabelBackgroundColor = Colors.Black;
@@ -295,8 +414,6 @@ namespace SecondsClient.ViewModels
                     GetReadyLabelText = string.Empty;
                     GetReadyLabelFontSize = 28;
                     GetReadyLabelIsVisible = false;
-                    PauseActivityIndicatorColor = AccuracyColor();
-                    PauseActivityIndicatorIsVisible = true;
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
 
@@ -306,25 +423,28 @@ namespace SecondsClient.ViewModels
                     switch (accuracyRounded)
                     {
                         case > (decimal)0.00:
-                            AccuracyLabelText = accuracyRoundedUnsigned.ToString() + Environment.NewLine + "Over";
+                            AccuracyLabelText = AccuracyFormattedText(accuracyRoundedUnsigned.ToString(), "OVER", AccuracyColor());
                             break;
                         case < (decimal)0.00:
-                            AccuracyLabelText = accuracyRoundedUnsigned.ToString() + Environment.NewLine + "Under";
+                            AccuracyLabelText = AccuracyFormattedText(accuracyRoundedUnsigned.ToString(), "UNDER", AccuracyColor());
                             break;
 
                         case (decimal)0.00:
-                            AccuracyLabelText = accuracyRoundedUnsigned.ToString() + Environment.NewLine + "Perfect";
+                            AccuracyLabelText = AccuracyFormattedText(accuracyRoundedUnsigned.ToString(), "PERFECT!", AccuracyColor());
                             break;
                     }
 
+                    PauseAnimationSource = PauseAnimationSourceForAccuracy();
+                    PauseAnimationIsVisible = true;
                     AccuracyLabelTextColor = AccuracyColor();
                     AccuracyLabelIsVisible = true;
+
                     GameOverLabelIsVisible = false;
                     PlayButtonIsEnabled = false;
                     PlayButtonIsVisible = false;
                     StopButtonIsEnabled = false;
                     StopButtonIsVisible = true;
-                    StopButtonImageSource = "pausebutton.svg";
+                    StopButtonImageSource = "pausebutton.png";
                     break;
 
                 case GameState.GameOver:
@@ -339,11 +459,11 @@ namespace SecondsClient.ViewModels
                     GetReadyLabelText = string.Empty;
                     GetReadyLabelFontSize = 28;
                     GetReadyLabelIsVisible = false;
-                    PauseActivityIndicatorColor = Colors.White;
-                    PauseActivityIndicatorIsVisible = false;
+                    PauseAnimationSource = null;
+                    PauseAnimationIsVisible = false;
                     TargetSecondsImageSource = string.Empty;
                     TargetSecondsImageIsVisible = false;
-                    AccuracyLabelText = string.Empty;
+                    AccuracyLabelText = null;
                     AccuracyLabelTextColor = Colors.White;
                     AccuracyLabelIsVisible = false;
                     GameOverLabelIsVisible = true;
@@ -362,14 +482,24 @@ namespace SecondsClient.ViewModels
         private Color AccuracyColor()
         {
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
             return _game.Round.AccuracyLevel switch
             {
                 Round.LevelsOfAccuracy.VeryClose => Color.FromArgb("05C405"),
                 Round.LevelsOfAccuracy.Close => Color.FromArgb("FF9900"),
                 _ => Color.FromArgb("FE0000"),
             };
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+        }
+
+
+        private SKFileLottieImageSource PauseAnimationSourceForAccuracy()
+        {
+
+            return _game.Round.AccuracyLevel switch
+            {
+                Round.LevelsOfAccuracy.VeryClose => _greenactivityanimation,
+                Round.LevelsOfAccuracy.Close => _amberactivityanimation,
+                _ => _redactivityanimation
+            }; 
         }
 
 
@@ -379,30 +509,26 @@ namespace SecondsClient.ViewModels
             if (!EasyModeSwitchIsToggled)
             {
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 return _game.Round.TargetInSeconds.Seconds switch
                 {
-                    1 => "onesecondfuschia.svg",
-                    2 => "twosecondfuschia.svg",
-                    3 => "threesecondfuschia.svg",
-                    4 => "foursecondfuschia.svg",
-                    5 => "fivesecondfuschia.svg",
+                    1 => "onesecondfuschia.png",
+                    2 => "twosecondfuschia.png",
+                    3 => "threesecondfuschia.png",
+                    4 => "foursecondfuschia.png",
+                    5 => "fivesecondfuschia.png",
                     _ => string.Empty,
                 };
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
             }
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
             return _game.Round.TargetInSeconds.Seconds switch
             {
-                1 => "onemississippifuschia.svg",
-                2 => "twomississippifuschia.svg",
-                3 => "threemississippifuschia.svg",
-                4 => "fourmississippifuschia.svg",
-                5 => "fivemississippifuschia.svg",
+                1 => "onemississippifuschia.png",
+                2 => "twomississippifuschia.png",
+                3 => "threemississippifuschia.png",
+                4 => "fourmississippifuschia.png",
+                5 => "fivemississippifuschia.png",
                 _ => string.Empty,
             };
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
 
         #endregion
