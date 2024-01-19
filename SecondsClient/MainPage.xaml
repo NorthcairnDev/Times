@@ -123,58 +123,111 @@
         </Grid>
 
 
-        <Grid Grid.Row="2" Grid.Column="1">
-            <Label x:Name="StartPageLabel" 
-                FormattedText="{Binding StartPageLabelFormattedText}"
-                IsVisible="{Binding StartPageLabelIsVisible}" 
-                VerticalTextAlignment="Center"
-                HorizontalTextAlignment="Center"
-                BackgroundColor="Black"
-                TextColor="White"/>
-
-            <Image x:Name="TargetSecondsImage" 
-                Margin="{OnIdiom 15, Tablet=40,Desktop=40}"
-                Source="{Binding TargetSecondsImageSource}"
-                IsVisible="{Binding TargetSecondsImageIsVisible}">
-            </Image>
-
-            <lottie:SKLottieView x:Name="PauseAnimation"
-                                 Source="{Binding PauseAnimationSource}"
-                                 IsVisible="{Binding PauseAnimationIsVisible}"
-                                 IsAnimationEnabled="True"
-                                 RepeatCount="-1"
-                                 VerticalOptions="Fill"
-                                 HorizontalOptions="Fill"
-                                 Scale="1"/>
+        <Grid Grid.Row="2" Grid.Column="1" >
+			<Grid Grid.Row ="2" Grid.Column="1" RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*">
 
 
-            <Label x:Name="GetReadyLabel" 
-                Text="{Binding GetReadyLabelText}"
-                IsVisible="{Binding GetReadyLabelIsVisible}" 
-                FontFamily="RubikMonoOneRegular"
-                FontSize="{Binding GetReadyLabelFontSize}"
-                TextColor="White"
-                VerticalTextAlignment="Center"
-                HorizontalTextAlignment="Center"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"/>
 
-            <Label x:Name="AccuracyLabel" 
-                FormattedText="{Binding AccuracyLabelText}"
-                IsVisible="{Binding AccuracyLabelIsVisible}" 
-                TextColor="{Binding AccuracyLabelTextColor}"
-                VerticalTextAlignment="Center"
-                HorizontalTextAlignment="Center"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"/>
+				<ImageButton Grid.Row="0" Grid.Column="0" x:Name="TimesOne"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
 
-            <Label x:Name="GameOverLabel"  
-                FormattedText="{Binding GameOverLabelFormattedText}"
-                IsVisible="{Binding GameOverLabelIsVisible}" 
-                VerticalTextAlignment="Center"
-                HorizontalTextAlignment="Center"
-                BackgroundColor="Black"
-                TextColor="White"/>
+	              IsVisible="True"/>
+
+                <ImageButton Grid.Row="0" Grid.Column="1" x:Name="TimesTwo"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+                <ImageButton Grid.Row="0" Grid.Column="2" x:Name="TimesThree"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+                <ImageButton Grid.Row="1" Grid.Column="0" x:Name="TimesFour"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+                <ImageButton Grid.Row="1" Grid.Column="1" x:Name="TimesFive"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+                <ImageButton Grid.Row="1" Grid.Column="2" x:Name="TimesSix"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+                <ImageButton Grid.Row="2" Grid.Column="0" x:Name="TimesSeven"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+                <ImageButton Grid.Row="2" Grid.Column="1" x:Name="TimesEight"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+                <ImageButton Grid.Row="2" Grid.Column="2" x:Name="TimesNine"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+
+                <ImageButton Grid.Row="3" Grid.Column="0" x:Name="TimesTen"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+                <ImageButton Grid.Row="3" Grid.Column="1" x:Name="TimesEleven"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+                <ImageButton Grid.Row="3" Grid.Column="2" x:Name="TimesTwelve"
+	              SemanticProperties.Description="Play button"
+	              BackgroundColor="Black"
+	              Source="playbutton.png"
+
+	              IsVisible="True"/>
+
+
+            </Grid>
+
+
+
+
+
+			<Image x:Name="TargetSumImage"
+				Margin="{OnIdiom 15, Tablet=40,Desktop=40}"
+				Source="{Binding TargetSecondsImageSource}"
+				IsVisible="{Binding TargetSecondsImageIsVisible}">
+			</Image>
+
+
+
         </Grid>
 
         <ImageButton x:Name="PlayButton" Grid.Row="3" Grid.Column="1"  

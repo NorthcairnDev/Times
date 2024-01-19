@@ -22,10 +22,10 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>Tick Stop</ApplicationTitle>
+		<ApplicationTitle>Hot Times</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.northcairn.tickstop</ApplicationId>
+		<ApplicationId>com.northcairn.hottimes</ApplicationId>
 
 		<!-- Versions (used for Android) - seemed to create failure whem I switcher to IOS -->
 		<!--<ApplicationDisplayVersion>2</ApplicationDisplayVersion> --><!--Must be an integer, don't know why, perhaps VS bug--><!-- 
@@ -82,9 +82,9 @@
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net8.0-ios'">
 	  <ProvisioningType>manual</ProvisioningType>
-	  <CodesignProvision>Hot Second PROD PP</CodesignProvision>
+	  <!--<CodesignProvision>Hot Second PROD PP</CodesignProvision>
 	  <CodesignKey>Apple Distribution: NORTHCAIRN LTD (UC89G7RH79)</CodesignKey>
-<!--	  <CodesignKey>Apple Distribution: NORTHCAIRN LTD (UC89G7RH79)</CodesignKey> -->
+--><!--	  <CodesignKey>Apple Distribution: NORTHCAIRN LTD (UC89G7RH79)</CodesignKey> -->
 <!--	  <CodesignProvision>Stop On The Dot PROD Provisioning 2</CodesignProvision> -->
 	</PropertyGroup>
 
