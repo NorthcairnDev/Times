@@ -22,10 +22,10 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>Hot Second</ApplicationTitle>
+		<ApplicationTitle>Tick Stop</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.northcairn.hotsecond</ApplicationId>
+		<ApplicationId>com.northcairn.tickstop</ApplicationId>
 
 		<!-- Versions (used for Android) - seemed to create failure whem I switcher to IOS -->
 		<!--<ApplicationDisplayVersion>2</ApplicationDisplayVersion> --><!--Must be an integer, don't know why, perhaps VS bug--><!-- 
@@ -45,25 +45,25 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
-	  <ApplicationTitle>Hot Second</ApplicationTitle>
+	  <ApplicationTitle>Tick Stop</ApplicationTitle>
 	  <ApplicationDisplayVersion />
 	  <ApplicationVersion>1</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
-	  <ApplicationTitle>Hot Second</ApplicationTitle>
+	  <ApplicationTitle>Tick Stop</ApplicationTitle>
 	  <ApplicationDisplayVersion />
 	  <ApplicationVersion>1</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
-	  <ApplicationTitle>Hot Second</ApplicationTitle>
+	  <ApplicationTitle>Tick Stop</ApplicationTitle>
 	  <ApplicationDisplayVersion />
 	  <ApplicationVersion>1</ApplicationVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
-	  <ApplicationTitle>Hot Second</ApplicationTitle>
+	  <ApplicationTitle>Tick Stop</ApplicationTitle>
 	  <ApplicationDisplayVersion />
 	  <ApplicationVersion>1</ApplicationVersion>
 	</PropertyGroup>

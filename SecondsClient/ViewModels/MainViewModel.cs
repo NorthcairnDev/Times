@@ -226,8 +226,8 @@ namespace SecondsClient.ViewModels
         {
             FormattedString startText = new();
 
-            startText.Spans.Add(new Span { Text = "HOT" + Environment.NewLine, TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
-            startText.Spans.Add(new Span { Text = "SECOND", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
+            startText.Spans.Add(new Span { Text = "TICK" + Environment.NewLine, TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
+            startText.Spans.Add(new Span { Text = "STOP", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 100 });
 
             return startText;
         }
@@ -236,8 +236,8 @@ namespace SecondsClient.ViewModels
         {
             FormattedString startText = new();
 
-            startText.Spans.Add(new Span { Text = "HOT" + Environment.NewLine, TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
-            startText.Spans.Add(new Span { Text = "SECOND", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
+            startText.Spans.Add(new Span { Text = "TICK" + Environment.NewLine, TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
+            startText.Spans.Add(new Span { Text = "STOP", TextColor = Color.FromArgb("FF00FF"), FontFamily = "RubikMonoOneRegular", FontSize = 50 });
 
             return startText;
         }
