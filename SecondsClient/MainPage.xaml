@@ -127,126 +127,149 @@
 			<Grid Grid.Row ="2" Grid.Column="1" RowDefinitions="*,*,*,*" ColumnDefinitions="*,*,*">
 
 
+				<Button Grid.Row="0" Grid.Column="0" x:Name="TimesOne"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text= "1 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
-				<ImageButton Grid.Row="0" Grid.Column="0" x:Name="TimesOne"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
+                <Button Grid.Row="0" Grid.Column="1" x:Name="TimesTwo"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="2 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
-	              IsVisible="True"/>
+                <Button Grid.Row="0" Grid.Column="2" x:Name="TimesThree"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="3 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
-                <ImageButton Grid.Row="0" Grid.Column="1" x:Name="TimesTwo"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
+                <Button Grid.Row="1" Grid.Column="0" x:Name="TimesFour"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="4 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
-	              IsVisible="True"/>
+                <Button Grid.Row="1" Grid.Column="1" x:Name="TimesFive"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="5 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
-                <ImageButton Grid.Row="0" Grid.Column="2" x:Name="TimesThree"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
+                <Button Grid.Row="1" Grid.Column="2" x:Name="TimesSix"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="6 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
-	              IsVisible="True"/>
+                <Button Grid.Row="2" Grid.Column="0" x:Name="TimesSeven"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="7 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
+                  
+                <Button Grid.Row="2" Grid.Column="1" x:Name="TimesEight"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="8 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
-                <ImageButton Grid.Row="1" Grid.Column="0" x:Name="TimesFour"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
-
-	              IsVisible="True"/>
-
-                <ImageButton Grid.Row="1" Grid.Column="1" x:Name="TimesFive"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
-
-	              IsVisible="True"/>
-
-                <ImageButton Grid.Row="1" Grid.Column="2" x:Name="TimesSix"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
-
-	              IsVisible="True"/>
-
-                <ImageButton Grid.Row="2" Grid.Column="0" x:Name="TimesSeven"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
-
-	              IsVisible="True"/>
-
-                <ImageButton Grid.Row="2" Grid.Column="1" x:Name="TimesEight"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
-
-	              IsVisible="True"/>
-
-                <ImageButton Grid.Row="2" Grid.Column="2" x:Name="TimesNine"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
-
-	              IsVisible="True"/>
+                <Button Grid.Row="2" Grid.Column="2" x:Name="TimesNine"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="9 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
 
-                <ImageButton Grid.Row="3" Grid.Column="0" x:Name="TimesTen"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
+                <Button Grid.Row="3" Grid.Column="0" x:Name="TimesTen"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="10 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
-	              IsVisible="True"/>
+                <Button Grid.Row="3" Grid.Column="1" x:Name="TimesEleven"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="11 x"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
-                <ImageButton Grid.Row="3" Grid.Column="1" x:Name="TimesEleven"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
-
-	              IsVisible="True"/>
-
-                <ImageButton Grid.Row="3" Grid.Column="2" x:Name="TimesTwelve"
-	              SemanticProperties.Description="Play button"
-	              BackgroundColor="Black"
-	              Source="playbutton.png"
-
-	              IsVisible="True"/>
+                <Button Grid.Row="3" Grid.Column="2" x:Name="TimesTwelve"
+	              SemanticProperties.Description="Times  button"
+	              BackgroundColor="Green"
+	              Text="12 x"
+                  Command="{Binding StartGameCommand}"
+	              IsEnabled="{Binding TimesButtonIsEnabled}"
+                  IsVisible="{Binding TimesButtonIsVisible}"/>
 
 
             </Grid>
 
 
+            <Label x:Name="SumLabel" Grid.Row ="2" Grid.Column="1"
+                    Text="12 x 12 ="
+                    FontSize="{OnIdiom 28, Tablet=56,Desktop=56}" 
+                    Padding="0"
+                    Margin="0"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    FontFamily="RubikMonoOneRegular"
+                    BackgroundColor="Black"
+                    TextColor="White"
+                    IsEnabled="{Binding SumLabelIsEnabled}"
+                    IsVisible="{Binding SumLabelIsVisible}"/>
 
 
-
-			<Image x:Name="TargetSumImage"
+<!--			<Image x:Name="TargetSumImage"
 				Margin="{OnIdiom 15, Tablet=40,Desktop=40}"
 				Source="{Binding TargetSecondsImageSource}"
 				IsVisible="{Binding TargetSecondsImageIsVisible}">
-			</Image>
+			</Image> -->
 
 
 
         </Grid>
 
-        <ImageButton x:Name="PlayButton" Grid.Row="3" Grid.Column="1"  
-            SemanticProperties.Description="Play button"
-            BackgroundColor="Black" 
-            Source="playbutton.png"
-            Command="{Binding StartGameCommand}" 
-            IsEnabled="{Binding PlayButtonIsEnabled}"
-            IsVisible="{Binding PlayButtonIsVisible}"/>
+        <Grid Grid.Row="3" Grid.Column="1" RowDefinitions="*" ColumnDefinitions="*,*,*">
 
+        
+                <Button Grid.Row="0" Grid.Column="0" x:Name="AnswerButton1"
+	              SemanticProperties.Description="Answer  button"
+	              BackgroundColor="Blue"
+	              Text="120"
+                  Command="{Binding AnswerCommand}"
+	              IsEnabled="{Binding AnswerButtonIsEnabled}"
+                  IsVisible="{Binding AnswerButtonIsVisible}"/>
 
-        <ImageButton x:Name="StopButton" Grid.Row="3" Grid.Column="1"
-            SemanticProperties.Description="Stop button" 
-            
-            Source="{Binding StopButtonImageSource}"
-            Command="{Binding StopCommand}" 
-            IsEnabled="{Binding StopButtonIsEnabled}"
-            IsVisible="{Binding StopButtonIsVisible}"
-            BackgroundColor="Black" />
+       <Button Grid.Row="0" Grid.Column="1" x:Name="AnswerButton2"
+	              SemanticProperties.Description="Answer  button"
+	              BackgroundColor="Blue"
+	              Text="132"
+                  Command="{Binding AnswerCommand}"
+	              IsEnabled="{Binding AnswerButtonIsEnabled}"
+                  IsVisible="{Binding AnswerButtonIsVisible}"/>
+       <Button Grid.Row="0" Grid.Column="2" x:Name="AnswerButton3"
+	              SemanticProperties.Description="Answer  button"
+	              BackgroundColor="Blue"
+	              Text="144"
+                  Command="{Binding AnswerCommand}"
+	              IsEnabled="{Binding AnswerButtonIsEnabled}"
+                  IsVisible="{Binding AnswerButtonIsVisible}"/>
+
+        </Grid>
 
         <!--<controls:MTAdView x:Name="myAds" AdsId="ca-app-pub-3940256099942544/6300978111" Grid.Row="4"/>-->
 

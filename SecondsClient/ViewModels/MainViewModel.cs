@@ -76,6 +76,28 @@ namespace SecondsClient.ViewModels
         [ObservableProperty]
         private bool _gameOverLabelIsVisible = false;
 
+        //Time Button
+        [ObservableProperty]
+        private bool _timesButtonIsEnabled = true;
+        [ObservableProperty]
+        private bool _timesButtonIsVisible = true;
+
+
+        //Time Button
+        [ObservableProperty]
+        private bool _sumLabelIsEnabled = false;
+        [ObservableProperty]
+        private bool _sumLabelIsVisible = false;
+
+        //Time Button
+        [ObservableProperty]
+        private bool _answerButtonIsEnabled = false;
+        [ObservableProperty]
+        private bool _answerButtonIsVisible = false;
+
+
+
+
 
         //Play Button
         [ObservableProperty]
@@ -142,15 +164,28 @@ namespace SecondsClient.ViewModels
         #endregion
 
         #region RelayCommands
-        [RelayCommand]
-        private async Task StartGameAsync()
+
+       [RelayCommand]
+        private  void StartGame()
         {
-            _game = new();
 
-            await GameStartSequence();
+            TimesButtonIsEnabled = false;
+            TimesButtonIsVisible = false;           
 
-            StartRound();
+            SumLabelIsEnabled = true;
+            SumLabelIsVisible = true; 
+
+            AnswerButtonIsEnabled =true;
+            AnswerButtonIsVisible = true;
+
+
         }
+
+
+
+
+
+
 
 
         [RelayCommand]
